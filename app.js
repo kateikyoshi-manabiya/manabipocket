@@ -1654,6 +1654,23 @@ function loadStats() {
         answered: Number.isSafeInteger(entry.answered) && entry.answered >= 0 && entry.answered <= entry.total
           ? entry.answered
           : entry.total,
+        mistakes: Array.isArray(entry.mistakes) ? entry.mistakes.filter((mistake) =>
+          mistake && typeof mistake.prompt === "string"
+        ).map((mistake) => ({
+          prompt: mistake.prompt,
+          explanation: typeof mistake.explanation === "string" ? mistake.explanation : "",
+          selectedAnswer: typeof mistake.selectedAnswer === "string" ? mistake.selectedAnswer : "",
+          correctAnswer: typeof mistake.correctAnswer === "string" ? mistake.correctAnswer : "",
+          context: typeof mistake.context === "string" ? mistake.context : "",
+          response: typeof mistake.response === "string" ? mistake.response : "",
+          modelAnswer: typeof mistake.modelAnswer === "string" ? mistake.modelAnswer : "",
+          criteria: Array.isArray(mistake.criteria) ? mistake.criteria.filter((criterion) =>
+            criterion && typeof criterion.text === "string"
+          ).map((criterion) => ({
+            text: criterion.text,
+            checked: criterion.checked === true,
+          })) : [],
+        })).slice(-100) : [],
       })).slice(0, 50) : [],
     };
   } catch {
@@ -1731,6 +1748,73 @@ function renderHistory() {
       ? `${entry.correct}問正解`
       : `${entry.correct} / ${entry.total}問 正解`;
     item.append(main, date, score);
+    if (entry.mistakes.length > 0) {
+      const reviewToggle = document.createElement("button");
+      reviewToggle.type = "button";
+      reviewToggle.className = "history-review-toggle";
+      reviewToggle.textContent = `間違えた問題を復習（${entry.mistakes.length}問）`;
+      reviewToggle.setAttribute("aria-expanded", "false");
+      const reviewList = document.createElement("div");
+      reviewList.className = "history-review-list";
+      reviewList.hidden = true;
+      reviewList.replaceChildren(...entry.mistakes.map((mistake, index) => {
+        const reviewItem = document.createElement("article");
+        reviewItem.className = "history-review-item";
+        const heading = document.createElement("h3");
+        heading.textContent = `復習 ${index + 1}`;
+        const prompt = document.createElement("p");
+        prompt.className = "history-review-prompt";
+        prompt.textContent = mistake.prompt;
+        reviewItem.append(heading, prompt);
+        if (mistake.context) {
+          const context = document.createElement("p");
+          context.className = "history-review-context";
+          context.textContent = mistake.context;
+          reviewItem.append(context);
+        }
+        if (mistake.selectedAnswer || mistake.correctAnswer) {
+          const answer = document.createElement("p");
+          answer.className = "history-review-answer";
+          answer.textContent = `あなたの答え：${mistake.selectedAnswer || "（未記入）"}　正しい答え：${mistake.correctAnswer || "模範例を確認"}`;
+          reviewItem.append(answer);
+        }
+        if (mistake.response) {
+          const response = document.createElement("p");
+          response.className = "history-review-response";
+          response.textContent = `記述した答え：${mistake.response}`;
+          reviewItem.append(response);
+        }
+        if (mistake.explanation) {
+          const explanation = document.createElement("p");
+          explanation.className = "history-review-explanation";
+          explanation.textContent = `解説：${mistake.explanation}`;
+          reviewItem.append(explanation);
+        }
+        if (mistake.modelAnswer) {
+          const modelAnswer = document.createElement("p");
+          modelAnswer.className = "history-review-model";
+          modelAnswer.textContent = `模範例：${mistake.modelAnswer}`;
+          reviewItem.append(modelAnswer);
+        }
+        if (mistake.criteria.length > 0) {
+          const criteria = document.createElement("ul");
+          criteria.className = "history-review-criteria";
+          mistake.criteria.forEach((criterion) => {
+            const item = document.createElement("li");
+            item.textContent = `${criterion.checked ? "✓" : "□"} ${criterion.text}`;
+            criteria.append(item);
+          });
+          reviewItem.append(criteria);
+        }
+        return reviewItem;
+      }));
+      reviewToggle.addEventListener("click", () => {
+        reviewList.hidden = !reviewList.hidden;
+        reviewToggle.setAttribute("aria-expanded", String(!reviewList.hidden));
+        reviewToggle.textContent = `${reviewList.hidden ? "間違えた問題を復習" : "復習を閉じる"}（${entry.mistakes.length}問）`;
+      });
+      item.append(reviewToggle, reviewList);
+    }
     return item;
   }));
 }
@@ -2126,17 +2210,23 @@ function renderWrittenResponse(question) {
       }
       finish.disabled = true;
       checks.forEach((checkbox) => { checkbox.disabled = true; });
-      completeWrittenAnswer(checks.every((checkbox) => checkbox.checked));
+      completeWrittenAnswer(
+        checks.every((checkbox) => checkbox.checked),
+        true,
+        textarea.value.trim(),
+        checks.map((checkbox) => ({ text: checkbox.value, checked: checkbox.checked })),
+      );
     });
     sample.scrollIntoView({ block: "nearest", behavior: "smooth" });
   });
 }
 
-function completeWrittenAnswer(isSelfChecked) {
+function completeWrittenAnswer(isSelfChecked, shouldReview = true, response = "", criteria = []) {
   if (answered) return;
   answered = true;
   if (isSelfChecked) correctAnswers += 1;
-  recordAnswer(isSelfChecked);
+  const question = activeQuestions[questionIndex];
+  recordAnswer(isSelfChecked, shouldReview ? { question, response, criteria } : null);
   quizFeedback.textContent = isSelfChecked
     ? "自己チェック完了。模範例の観点を自分の答えで確認できました。"
     : "振り返り完了。チェックできなかった観点を、模範例を参考に書き直してみましょう。";
@@ -2151,7 +2241,11 @@ function chooseAnswer(selectedIndex) {
   const question = activeQuestions[questionIndex];
   const isCorrect = selectedIndex === question.answer;
   if (isCorrect) correctAnswers += 1;
-  recordAnswer(isCorrect);
+  recordAnswer(isCorrect, isCorrect ? null : {
+    question,
+    selectedAnswer: question.options[selectedIndex],
+    correctAnswer: question.options[question.answer],
+  });
   quizOptions.querySelectorAll(".quiz-option").forEach((button, index) => {
     button.disabled = true;
     if (index === question.answer) button.classList.add("correct");
@@ -2163,7 +2257,7 @@ function chooseAnswer(selectedIndex) {
   quizNext.textContent = questionIndex === activeQuestions.length - 1 ? "結果をみる" : "次の問題へ";
 }
 
-function recordAnswer(isCorrect) {
+function recordAnswer(isCorrect, mistake = null) {
   const now = new Date();
   if (!activeHistoryEntry) {
     activeHistoryEntry = {
@@ -2176,6 +2270,7 @@ function recordAnswer(isCorrect) {
       correct: 0,
       answered: 0,
       total: activeQuestions.length,
+      mistakes: [],
     };
     stats.sessions += 1;
     stats.history.unshift(activeHistoryEntry);
@@ -2186,6 +2281,25 @@ function recordAnswer(isCorrect) {
   if (isCorrect) {
     activeHistoryEntry.correct += 1;
     stats.correct += 1;
+  } else if (mistake) {
+    const { question } = mistake;
+    const context = (question.materials || []).map((material) => {
+      if (material.text) return `${material.title}：${material.text}`;
+      if (material.chart) {
+        return `${material.title}：${material.chart.map(({ label, value }) => `${label} ${value}`).join("、")}`;
+      }
+      return `${material.title}：${material.rows.map((row) => row.join("、")).join("／")}`;
+    }).join("\n");
+    activeHistoryEntry.mistakes.push({
+      prompt: question.prompt,
+      explanation: question.explanation || "",
+      selectedAnswer: mistake.selectedAnswer || "",
+      correctAnswer: mistake.correctAnswer || "",
+      context,
+      response: mistake.response || "",
+      modelAnswer: question.writtenResponse ? question.modelAnswer : "",
+      criteria: mistake.criteria || [],
+    });
   }
 
   const dateParts = new Intl.DateTimeFormat("en-CA", {
@@ -2197,6 +2311,12 @@ function recordAnswer(isCorrect) {
   const todayKey = `${dateParts.year}-${dateParts.month}-${dateParts.day}`;
   if (!stats.studyDates.includes(todayKey)) stats.studyDates.push(todayKey);
   stats.history = stats.history.slice(0, 50);
+  const storedMistakes = [...stats.history].reverse().flatMap((entry) =>
+    (entry.mistakes || []).map((entryMistake) => ({ entry, entryMistake }))
+  );
+  storedMistakes.slice(0, Math.max(0, storedMistakes.length - 100)).forEach(({ entry, entryMistake }) => {
+    entry.mistakes.splice(entry.mistakes.indexOf(entryMistake), 1);
+  });
   saveStats();
   updateStats();
 }
@@ -2308,7 +2428,7 @@ quizNext.addEventListener("click", () => {
   if (!answered) {
     const question = activeQuestions[questionIndex];
     if (!question.writtenResponse) return;
-    completeWrittenAnswer(false);
+    completeWrittenAnswer(false, false);
   }
   if (questionIndex < activeQuestions.length - 1) {
     questionIndex += 1;

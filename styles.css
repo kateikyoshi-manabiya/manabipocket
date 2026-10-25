@@ -177,6 +177,18 @@ a { color: inherit; text-decoration: none; }
 .history-item-main span { margin-top: 3px; color: #9a9fb2; font-size: 9px; }
 .history-item-date { color: #9298ae; font-size: 10px; }
 .history-score { color: #7064df; font-size: 11px; font-weight: 800; white-space: nowrap; }
+.history-review-toggle { grid-column: 1 / -1; justify-self: start; min-height: 36px; padding: 0 12px; border: 1px solid #e5e1ff; border-radius: 8px; background: #f6f5ff; color: var(--purple-dark); font-size: 12px; font-weight: 800; }
+.history-review-toggle:hover { background: #efedff; }
+.history-review-toggle:focus-visible { outline: 3px solid #9389ef; outline-offset: 2px; }
+.history-review-list { grid-column: 1 / -1; display: grid; gap: 10px; }
+.history-review-list[hidden] { display: none; }
+.history-review-item { padding: 13px; border: 1px solid #f0d8d5; border-radius: 10px; background: #fff9f8; color: #4c526a; }
+.history-review-item h3 { margin: 0 0 8px; color: #a54f46; font-size: 13px; }
+.history-review-prompt, .history-review-context, .history-review-answer, .history-review-response, .history-review-explanation, .history-review-model { margin: 7px 0 0; font-size: 13px; line-height: 1.75; white-space: pre-line; overflow-wrap: anywhere; }
+.history-review-context { padding: 10px; border-radius: 7px; background: #fff; color: #626980; }
+.history-review-answer { color: #a54f46; font-weight: 700; }
+.history-review-explanation, .history-review-model { color: #393f59; }
+.history-review-criteria { display: grid; gap: 5px; margin: 8px 0 0; padding-left: 22px; font-size: 12px; line-height: 1.6; }
 .history-empty { padding: 35px 18px; text-align: center; }
 .history-empty-icon { font-size: 32px; }
 .history-empty p { margin: 9px 0 15px; color: #8f95aa; font-size: 11px; }
