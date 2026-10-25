@@ -4,6 +4,8 @@ const sixthGradeMathLevelField = document.querySelector("#sixth-grade-math-level
 const sixthGradeMathLevelSelect = document.querySelector("#sixth-grade-math-level");
 let renderedSixthGradeMathLevel = sixthGradeMathLevelSelect.value;
 const yamaguchiPrepNote = document.querySelector("#yamaguchi-prep-note");
+const middleThirdEnglishLevelField = document.querySelector("#middle-third-english-level-field");
+const middleThirdEnglishLevelSelect = document.querySelector("#middle-third-english-level");
 const unitOptions = document.querySelector("#unit-options");
 const unitFieldLegend = document.querySelector("#unit-field-legend");
 const unitSelectAllButton = document.querySelector("#unit-select-all");
@@ -233,6 +235,516 @@ const gradeQuestions = {
     science: gradeQuestion("化学・酸化還元", "電子を失う変化を何という？", ["酸化", "還元", "中和", "電離"], 0, "電子を失う変化を酸化、受け取る変化を還元というよ。"),
   },
 };
+
+const middleThirdEnglishBanks = {
+  standard: [
+    gradeQuestion("現在形・過去形", "My brother (　) soccer after school every day.", ["play", "plays", "played", "playing"], 1, "主語が三人称単数で、every dayがある現在の習慣なのでplaysを使うよ。"),
+    gradeQuestion("現在形・過去形", "We (　) our grandparents last Sunday.", ["visit", "visits", "visited", "visiting"], 2, "last Sundayは過去を表すので、visitの過去形visitedを使うよ。"),
+    gradeQuestion("進行形・未来表現", "Look! The children (　) a snowman in the park.", ["make", "makes", "are making", "made"], 2, "Look!から今していることを表す現在進行形are makingが適切だよ。"),
+    gradeQuestion("助動詞", "You (　) wear a helmet when you ride this bike. It is a rule.", ["must", "may", "would", "could"], 0, "規則として「〜しなければならない」を表すmustが適切だよ。"),
+    gradeQuestion("不定詞・動名詞", "Riku went to the library (　) a book about space.", ["borrow", "borrowing", "to borrow", "borrowed"], 2, "図書館へ行った目的を表すto不定詞to borrowを使うよ。"),
+    gradeQuestion("比較", "This is (　) picture of the three.", ["beautiful", "more beautiful", "the most beautiful", "most beautifully"], 2, "三つの中で最も美しいという最上級なのでthe most beautifulだよ。"),
+    gradeQuestion("受け身・分詞", "These cookies (　) by my mother yesterday.", ["made", "were made", "are making", "make"], 1, "クッキーは「作られた」ので受け身。yesterdayに合わせwere madeだよ。"),
+    gradeQuestion("関係代名詞", "The boy (　) is talking with Ms. Sato is my cousin.", ["which", "where", "who", "when"], 2, "先行詞が人で、後ろで主語の働きをする関係代名詞whoを使うよ。"),
+    gradeQuestion("現在完了", "I have known Emi (　) we were in elementary school.", ["for", "since", "during", "at"], 1, "we were in elementary schoolは始まった時点なのでsinceを使うよ。"),
+    gradeQuestion("接続詞・節", "I stayed home (　) it was raining heavily.", ["but", "because", "or", "if"], 1, "雨が激しかったことが家にいた理由なのでbecauseが適切だよ。"),
+    gradeQuestion("文型・間接疑問文", "Do you know (　) the post office is?", ["where", "where is", "what", "what is"], 0, "間接疑問文は疑問詞の後ろを主語＋動詞の語順にするのでwhere the post office isだよ。"),
+    gradeQuestion("語彙・表現", "A: I have a headache. B: You should (　) some rest.", ["take", "make", "do", "give"], 0, "take a restで「ひと休みする」という表現だよ。"),
+    gradeQuestion("語彙・表現", "The train leaves at 8:15. We should get to the (　) before then.", ["station", "kitchen", "library", "hospital"], 0, "電車に乗るため、出発時刻までにstation（駅）へ行く必要があるよ。"),
+    gradeQuestion("読解・情報検索", "次の案内を読んで答えなさい。\\nThe town library is open from 9:00 a.m. to 6:00 p.m. on weekdays. On Saturday, it closes at 4:00 p.m. It is closed every Sunday.\\n土曜日の閉館時刻は？", ["9:00 a.m.", "4:00 p.m.", "6:00 p.m.", "Sunday"], 1, "案内にOn Saturday, it closes at 4:00 p.m.とあるよ。"),
+    gradeQuestion("読解・要旨", "次の英文を読んで答えなさい。\\nMaki wanted to get to school earlier. She prepared her bag at night and checked the bus time before going to bed. In the morning, she did not have to look for her books. She arrived at school ten minutes earlier than before.\\nMakiが早く登校できるようになった理由は？", ["She moved to a new town.", "She prepared for the morning the night before.", "She took a different class.", "She stopped riding the bus."], 1, "前の晩にかばんとバスの時刻を準備したことが、朝の時間短縮につながったよ。"),
+  ],
+  application: [
+    gradeQuestion("時制・文脈", "次の会話の空欄に入る語を選びなさい。\\nA: Why are you carrying an umbrella?\\nB: The weather report says it (　) rain this afternoon.", ["will", "was", "has", "does"], 0, "天気予報が午後のことを伝えているので、未来を表すwillが適切だよ。"),
+    gradeQuestion("現在完了", "Mina started learning French three years ago and still studies it. Which sentence is correct?", ["Mina studied French for three years.", "Mina has studied French for three years.", "Mina is studying French since three years.", "Mina studies French three years ago."], 1, "3年前に始まり今も続いているので、現在完了形has studiedを使うよ。"),
+    gradeQuestion("不定詞・動名詞", "次の文の意味に合う語を選びなさい。\\nTaro enjoys (　) photos of birds, so he goes to the park every weekend.", ["take", "to take", "taking", "took"], 2, "enjoyの後ろには動名詞を置くのでtakingが正しいよ。"),
+    gradeQuestion("比較", "Three students ran the race. Yumi was faster than Ken, and Ken was faster than Aya. Who was the fastest?", ["Aya", "Ken", "Yumi", "We cannot tell."], 2, "YumiはKenより速く、KenはAyaより速いので、最も速いのはYumiだよ。"),
+    gradeQuestion("受け身・分詞", "The signs (　) near the entrance are written in three languages.", ["put", "putting", "were put", "are putting"], 0, "signsを後ろから説明する過去分詞put（置かれた）が適切だよ。"),
+    gradeQuestion("関係代名詞", "次の二文を一文にしたものを選びなさい。\\nI have a friend. She can speak Korean.", ["I have a friend which can speak Korean.", "I have a friend who can speak Korean.", "I have a friend where can speak Korean.", "I have a friend when can speak Korean."], 1, "人を先行詞として主語の働きをする関係代名詞whoでつなぐよ。"),
+    gradeQuestion("仮定法", "「もし私が鳥なら、あなたと一緒に空を飛ぶのに」に合う英文は？", ["If I am a bird, I will fly with you.", "If I were a bird, I would fly with you.", "If I was a bird, I fly with you.", "If I will be a bird, I would fly with you."], 1, "現在の事実に反する仮定はIf＋過去形, would＋動詞の原形で表すよ。"),
+    gradeQuestion("接続詞・節", "A: I think this plan will work. B: (　), we need more time to prepare.", ["For example", "However", "Because", "First"], 1, "前の賛成意見に対して別の問題点を述べるのでHoweverが適切だよ。"),
+    gradeQuestion("語彙・場面", "A: Excuse me. How can I get to the city museum? B: (　) at the next corner, and you will see it on your left.", ["Turn left", "Take off", "Put away", "Look after"], 0, "道案内で「次の角を左に曲がって」はTurn leftだよ。"),
+    gradeQuestion("会話・意図", "A: I have too many things to carry. B: (　) A: Yes, please. Thank you.", ["Would you like me to help you?", "Why did you buy them?", "How long have you had them?", "Can you carry me?"], 0, "荷物が多い相手への申し出に、Would you like me to help you?が自然だよ。"),
+    gradeQuestion("読解・理由", "次の英文を読んで答えなさい。\\nA school gardening club planted flowers near the entrance. At first, the students watered them every morning. After a week of rain, some leaves turned yellow. Their teacher asked them to check the soil before watering. The leaves improved when the students watered the plants only when the soil was dry.\\n教師の助言の後、葉の状態がよくなった理由は？", ["The students moved all the flowers indoors.", "They checked the soil and avoided watering it when it was already wet.", "They stopped observing the plants.", "The teacher replaced the flowers with new ones."], 1, "土がぬれているときに水をやりすぎないよう、状態を見て水やりを調整したからだよ。"),
+    gradeQuestion("読解・会話", "次の会話を読んで答えなさい。\\nA: We can make a poster or give a short presentation about saving water.\\nB: Some people may not stop to read a poster.\\nC: A presentation lets us explain our ideas, but we need something people can take home.\\nA: Let's give a short talk and hand out a small checklist.\\nB: Good idea. People can listen first and use the checklist later.\\n二人が選んだ方法は？", ["A poster only.", "A talk with a checklist to take home.", "A long video without any explanation.", "Canceling the activity."], 1, "発表で説明し、後から使えるチェックリストを渡す方法を選んだよ。"),
+    gradeQuestion("語彙・文脈", "次の英文の空欄に入る語を選びなさい。\\nThe outdoor concert was canceled because of the storm. The organizers will (　) the ticket money to everyone.", ["return", "borrow", "spend", "hide"], 0, "公演中止後にチケット代を返す文脈なのでreturnが適切だよ。"),
+    gradeQuestion("読解・情報照合", "次の案内を読んで答えなさい。\\nThe science museum opens at 10:00. The planetarium show starts at 11:30 and lasts 40 minutes. Visitors must get a numbered ticket at the entrance before the show.\\n10時に入館した人が、上映を見るために先にしなければならないことは？", ["Buy lunch in the museum.", "Get a numbered ticket at the entrance.", "Leave the museum at 11:30.", "Wait until the show ends."], 1, "上映前に入口で整理券を受け取る必要があると書かれているよ。"),
+  ],
+  entrance: [
+    gradeQuestion("受験文法・時制", "文脈に合うよう、空欄に入る語を選びなさい。\\nWhen I arrived at the gym, the other students (　) for the tournament. They had started before I came.", ["prepare", "were preparing", "have prepared", "will prepare"], 1, "到着した時点で準備中だった過去の動作なのでwere preparingが適切だよ。"),
+    gradeQuestion("受験文法・現在完了", "次の会話の空欄に入る語を選びなさい。\\nA: Have you ever visited Nara?\\nB: Yes. I (　) there twice, and I want to go again.", ["went", "have been", "was going", "will be"], 1, "経験を表す現在完了形have beenが会話に合うよ。"),
+    gradeQuestion("受験文法・接続詞", "文の流れに合う接続詞を選びなさい。\\nThe first plan was inexpensive, (　) it did not meet the needs of older visitors. The group chose a more accessible plan.", ["so", "but", "because", "or"], 1, "安価である一方で課題があったという逆接なのでbutが適切だよ。"),
+    gradeQuestion("受験文法・関係代名詞", "次の英文の意味に合う語を選びなさい。\\nThe book (　) our teacher recommended helped me understand the problem.", ["who", "where", "which", "when"], 2, "先行詞が物のThe bookなので、目的格のwhichが適切だよ。"),
+    gradeQuestion("受験文法・仮定法", "空欄に入る語の組み合わせを選びなさい。\\nIf our town (　) a larger library, more students (　) there after school.", ["has / study", "had / would study", "will have / studied", "having / would studied"], 1, "現在の事実に反する仮定なのでIf＋過去形, would＋動詞の原形を使うよ。"),
+    gradeQuestion("受験語彙・表現", "次の会話で、相手の提案を受け入れる返答として最も自然なものは？\\nA: Why don't we ask local people before making the map?\\nB: (　)", ["That sounds like a good idea.", "I have never made a map yesterday.", "The map is under the table.", "No, I didn't ask you."], 0, "提案に賛成する自然な返答はThat sounds like a good idea.だよ。"),
+    gradeQuestion("受験読解・複数情報", "次の英文を読んで答えなさい。\\nA student group wanted to make the route to school safer. They asked students to mark places where they felt unsafe. Many marks were near a crossing hidden by parked cars. The group also watched the crossing for three mornings and saw that drivers often stopped after reaching the line. They proposed moving the parking space away from the corner and repainting the crossing lines.\\n提案の根拠として英文に示されている情報の組み合わせは？", ["Students' reports and the group's observations of drivers.", "A map from another town and a weather report.", "The number of buses and the cost of school lunches.", "Teachers' opinions only."], 0, "生徒の危険箇所の報告と、グループが実際に見た車の停止位置が根拠だよ。"),
+    gradeQuestion("受験読解・要旨", "次の英文を読んで、内容に最も合うものを選びなさい。\\nFor a long time, our class measured the temperature outside at noon. We thought the school garden was too hot for some plants. Then we measured the temperature near the ground in the morning and afternoon. We found that the ground was cooler in the morning, even on warm days. We changed the time of watering and learned that one measurement does not always show the whole situation.\\nこの英文の要点は？", ["A single measurement may not give enough information to understand a situation.", "Plants grow only when the temperature is high at noon.", "The class stopped taking care of the garden.", "Watering plants in the afternoon is always best."], 0, "測る時間や場所を変えて調べた結果、一度の測定だけでは全体を理解できないと学んだよ。"),
+    gradeQuestion("受験読解・会話", "次の会話を読んで答えなさい。\\nA: We need to choose a topic for our presentation about local culture.\\nB: The summer festival is popular, but many groups have already introduced it.\\nC: We could talk to people who make traditional paper. Their work is less familiar to students.\\nA: We should also explain how the paper is used today, not only how it was made in the past.\\nB: Then our presentation can connect the history with people's lives now.\\n発表の題材と説明の方針として最も適切なものは？", ["The summer festival, focusing only on its schedule.", "Traditional paper, connecting its history with its present use.", "Modern sports, without interviewing anyone.", "School rules, comparing different classes."], 1, "伝統紙を取り上げ、歴史と現在の暮らしでの使われ方を結びつけて説明するよ。"),
+    gradeQuestion("受験読解・情報検索", "次の案内を読んで答えなさい。\\nThe community center will hold a workshop on Sunday. Registration starts at 1:00 p.m. The first activity begins at 1:30. Participants should bring a notebook. The building is a five-minute walk from Midori Station.\\n1時20分に駅に着いた参加者が、活動に間に合うためにすることは？", ["Walk to the center and bring a notebook.", "Wait at the station until 1:30.", "Register after the workshop ends.", "Take a bus for five minutes from the center."], 0, "駅から徒歩5分で、活動前の受付に間に合うよう会場へ向かい、ノートを持参するよ。"),
+    gradeQuestion("受験読解・推論", "次の英文を読んで答えなさい。\\nA shop gave customers a small discount if they brought a reusable bag. The number of customers using reusable bags increased. However, the amount of plastic packaging did not change. The shop owner asked the staff to watch how products were packed and learned that many items were still placed in separate plastic bags.\\n次に見直すべきこととして最も適切なものは？", ["How staff package items and whether extra plastic bags are needed.", "Whether customers should stop bringing reusable bags.", "How to make the discount smaller.", "Whether the shop should sell fewer products."], 0, "マイバッグ利用は増えても包装プラスチックが減らないため、商品ごとの包装方法を見直す必要があるよ。"),
+    gradeQuestion("受験読解・理由", "次の英文を読んで答えなさい。\\nA school announced that students could borrow tablets for a project. Some students said they could not use them at home because their internet connections were slow. The teacher changed the plan: students could download the materials at school and work offline. More students completed the project on time.\\n計画を変更したことで提出できた生徒が増えた理由は？", ["Students could work with downloaded materials without relying on a fast home connection.", "The project was canceled for students without tablets.", "The teacher gave every student a new internet connection.", "Students no longer needed to finish the project."], 0, "学校で資料をダウンロードし、家庭の速い通信環境に頼らず作業できたからだよ。"),
+    gradeQuestion("受験文法・語法", "空欄に入る語を選びなさい。\\nThe guide showed us (　) to reach the old temple from the station.", ["what", "how", "whose", "which"], 1, "how to reachで「どのように寺へ行くか」を表すよ。"),
+  ],
+};
+
+const middleEnglishGrammarUnits = [
+  ["基本文型・疑問文・否定文", 10],
+  ["現在形・過去形", 10],
+  ["進行形・未来表現", 9],
+  ["現在完了・現在完了進行形", 12],
+  ["助動詞", 10],
+  ["不定詞", 10],
+  ["動名詞", 8],
+  ["比較", 8],
+  ["受け身", 8],
+  ["現在分詞・過去分詞", 8],
+  ["関係代名詞", 10],
+  ["代名詞", 8],
+  ["前置詞", 8],
+  ["接続詞・節", 10],
+  ["文型・間接疑問文・that節", 10],
+  ["仮定法", 11],
+];
+
+function englishQuestion(unit, prompt, answer, distractors, explanation) {
+  return {
+    unit,
+    prompt,
+    options: [answer, ...distractors],
+    answer: 0,
+    explanation,
+  };
+}
+
+function makeEnglishGrammarQuestions(level) {
+  const pastVerbs = [
+    ["Mika", "go", "went", "goes", "going", "to the museum"], ["Ken", "see", "saw", "sees", "seeing", "a rainbow"],
+    ["Yui", "buy", "bought", "buys", "buying", "a new notebook"], ["Ryo", "write", "wrote", "writes", "writing", "a letter"],
+    ["Emma", "take", "took", "takes", "taking", "some pictures"], ["Daichi", "find", "found", "finds", "finding", "his keys"],
+    ["Hana", "make", "made", "makes", "making", "a birthday card"], ["Leo", "come", "came", "comes", "coming", "to school early"],
+    ["Aoi", "eat", "ate", "eats", "eating", "lunch with her friends"], ["Tom", "give", "gave", "gives", "giving", "his seat to an old man"],
+  ];
+  const presentProgressive = [
+    ["Mika", "is", "reading a map"], ["Ken", "is", "practicing the piano"],
+    ["The students", "are", "cleaning the classroom"], ["Yui", "is", "writing a report"],
+    ["The children", "are", "waiting for the bus"], ["Ryo", "is", "taking pictures"],
+    ["Emma", "is", "cooking dinner"], ["My friends", "are", "looking for a book"],
+    ["Daichi", "is", "talking with a teacher"],
+  ];
+  const futurePlans = [
+    ["Mika", "is going to", "visit the art museum"],
+    ["Daichi and his friends", "are going to", "play in the final game"],
+    ["Hana", "is going to", "make a cake for her mother"],
+  ];
+  const perfectCues = [
+    ["I (　) Kyoto three times.", "have visited", ["visited", "visit", "will visit"]],
+    ["She (　) here since 2020.", "has lived", ["lived", "lives", "will live"]],
+    ["They (　) the project already.", "have already finished", ["already finished", "finish already", "will finish"]],
+    ["He (　) that movie yet.", "has not seen", ["did not see", "has not saw", "will not see"]],
+    ["We (　) our coach for five years.", "have known", ["knew", "know", "will know"]],
+    ["Mina (　) her room.", "has just cleaned", ["just cleaned", "has just clean", "will clean"]],
+    ["Have you ever (　) sushi?", "tried", ["try", "ate", "been"]],
+    ["The rain (　) since this morning.", "has been falling", ["fell", "is falling", "will fall"]],
+    ["The boys (　) for two hours.", "have been practicing", ["practiced", "are practicing", "will practice"]],
+    ["I (　) the news yet.", "have not heard", ["did not hear", "do not hear", "will not hear"]],
+    ["Our team (　) the game twice.", "has won", ["won", "wins", "will win"]],
+    ["Riku (　) English since he was ten.", "has studied", ["studied", "studies", "will study"]],
+  ];
+  const modalRows = [
+    ["It is a school rule. You (　) wear indoor shoes in the building.", "must", ["may", "would", "could"], "規則なので義務を表すmustが適切だよ。"],
+    ["The sign says this area is for staff only. Visitors (　) enter here.", "must not", ["do not have to", "may", "should"], "立ち入り禁止なのでmust not（〜してはいけない）だよ。"],
+    ["A: I cannot reach the top shelf. B: (　) I get that box for you?", "Shall", ["Must", "Did", "Have"], "相手への申し出はShall I ...?で表せるよ。"],
+    ["You look tired. You (　) go to bed earlier tonight.", "should", ["may not", "would not", "cannot"], "助言を表すshouldが適切だよ。"],
+    ["(　) I use your dictionary for a minute? I will return it soon.", "May", ["Must", "Would", "Should"], "許可を求めるMay I ...?が使えるよ。"],
+    ["When my grandfather was young, he (　) run five kilometers easily.", "could", ["must", "may", "should"], "過去の能力はcouldで表せるよ。"],
+    ["We (　) bring lunch tomorrow because the school will provide it.", "do not have to", ["must not", "cannot", "should not"], "必要がないことはdo not have toで表すよ。"],
+    ["A: The door is heavy. B: (　) you help me open it?", "Could", ["Must", "Shall", "Need"], "丁寧に依頼するCould you ...?が自然だよ。"],
+    ["You (　) see a doctor if the pain continues.", "should", ["may", "would", "must not"], "状態が続く場合の助言なのでshouldが適切だよ。"],
+    ["It is possible that the meeting (　) start a little late.", "may", ["must not", "has to", "should not"], "可能性を表すmayが文脈に合うよ。"],
+  ];
+  const infinitiveRows = [
+    ["I went to the station (　) my friend.", "to meet", ["meeting", "met", "meets"], "駅へ行った目的はto＋動詞の原形で表すよ。"],
+    ["We have many things (　) before the school festival.", "to do", ["doing", "did", "does"], "thingsを後ろから説明する形容詞的用法のto doだよ。"],
+    ["It is important (　) enough water in summer.", "to drink", ["drinking", "drank", "drinks"], "It is＋形容詞＋to doで「〜することは…だ」と表すよ。"],
+    ["Aya was glad (　) her old friend again.", "to see", ["seeing", "saw", "sees"], "感情の理由はto不定詞で表せるよ。"],
+    ["My brother wants (　) a science teacher in the future.", "to become", ["becoming", "became", "becomes"], "wantの後ろにはto不定詞を置くよ。"],
+    ["I do not know how (　) this computer.", "to use", ["using", "used", "uses"], "how to＋動詞の原形で「使い方」を表すよ。"],
+    ["She saved money (　) a new bicycle.", "to buy", ["buying", "bought", "buys"], "お金をためた目的を表すto buyが適切だよ。"],
+    ["He needs a chair (　) on.", "to sit", ["sitting", "sat", "sits"], "a chairを説明するto sit onの形だよ。"],
+    ["I have something important (　) you.", "to tell", ["telling", "told", "tells"], "somethingを説明するto tellが適切だよ。"],
+    ["The children went outside (　) the stars.", "to see", ["seeing", "saw", "seen"], "外へ出た目的を表すto seeが適切だよ。"],
+  ];
+  const gerundRows = [
+    ["We enjoyed (　) the traditional dance at the festival.", "watching", ["to watch", "watch", "watched"], "enjoyの後ろには動名詞を置くよ。"],
+    ["(　) every day helps me remember new words.", "Reading", ["Read", "To reading", "Reads"], "文の主語になる動名詞Readingが適切だよ。"],
+    ["My sister finished (　) her science report before dinner.", "writing", ["to write", "write", "wrote"], "finishの後ろには動名詞を置くよ。"],
+    ["He is interested in (　) old buildings.", "visiting", ["visit", "to visit", "visited"], "前置詞inの後ろは動名詞visitingだよ。"],
+    ["They stopped (　) when the teacher entered the room.", "talking", ["to talk", "talk", "talked"], "会話をやめたのでstopの後ろに動名詞を置くよ。"],
+    ["My father is good at (　) delicious bread.", "making", ["make", "to make", "made"], "前置詞atの後ろは動名詞makingだよ。"],
+    ["Would you mind (　) the window? It is a little cold.", "closing", ["close", "to close", "closed"], "mindの後ろには動名詞を置くよ。"],
+    ["(　) in a quiet place is helpful when I study.", "Working", ["Work", "To working", "Works"], "文の主語には動名詞Workingを使えるよ。"],
+  ];
+  const comparisonRows = [
+    ["This road is (　) than the one near the station.", "wider", ["widest", "more wide", "wide"], "thanがあるので比較級widerを使うよ。"],
+    ["Of the four bags, this one is (　).", "the lightest", ["lighter", "light", "most light"], "四つの中で最も軽いので最上級the lightestだよ。"],
+    ["My new desk is as (　) as my old one.", "large", ["larger", "largest", "more large"], "as ... asの間には形容詞の原級を置くよ。"],
+    ["This question is (　) difficult than the last one.", "less", ["least", "little", "the less"], "「前の問題ほど難しくない」はless difficult thanで表せるよ。"],
+    ["A train is usually (　) than a bus.", "faster", ["fastest", "fast", "more fast"], "thanを使って速さを比べるので比較級fasterだよ。"],
+    ["Who speaks English (　) in your group?", "the most clearly", ["more clearly", "most clear", "the clearest"], "グループ内で最も明瞭に話す人をたずねる副詞の最上級だよ。"],
+    ["This book is (　) interesting than that one.", "more", ["most", "much", "many"], "interestingの比較級はmore interestingだよ。"],
+    ["My bag is twice as (　) as yours.", "heavy", ["heavier", "heaviest", "more heavy"], "twice as ... asの形では形容詞の原級を使うよ。"],
+  ];
+  const passiveRows = [
+    ["This bridge (　) in 1985.", "was built", ["built", "is building", "has build"], "橋は建てられた側なので受け身の過去形was builtだよ。"],
+    ["English (　) in many countries.", "is spoken", ["speaks", "spoke", "is speaking"], "Englishを主語にした現在の受け身is spokenだよ。"],
+    ["The classroom (　) every afternoon by the students.", "is cleaned", ["cleans", "cleaned", "is cleaning"], "教室は掃除されるので現在の受け身is cleanedだよ。"],
+    ["A new library (　) near the station next year.", "will be built", ["will build", "built", "is building"], "未来の受け身はwill be＋過去分詞だよ。"],
+    ["These pictures (　) by my aunt last month.", "were taken", ["took", "are taking", "was taken"], "picturesは複数で、先月撮られたのでwere takenだよ。"],
+    ["This song is (　) by people around the world.", "loved", ["love", "loving", "loves"], "isの後ろに過去分詞lovedを置いて受け身を作るよ。"],
+    ["The old building (　) carefully by the workers now.", "is being repaired", ["repairs", "repaired", "has repair"], "今修理されている最中なので現在進行形の受け身だよ。"],
+    ["The letters (　) yesterday, so they will arrive soon.", "were sent", ["sent", "are sending", "was sent"], "lettersは複数で、昨日送られたのでwere sentだよ。"],
+  ];
+  const participleRows = [
+    ["The girl (　) the guitar is my sister.", "playing", ["played", "plays", "to play"], "女の子がギターを弾いているので現在分詞playingで説明するよ。"],
+    ["This is a cake (　) by my grandmother.", "made", ["making", "makes", "to make"], "ケーキは作られたものなので過去分詞madeで説明するよ。"],
+    ["Look at the bird (　) over the sea.", "flying", ["flown", "flies", "to fly"], "鳥が飛んでいるので現在分詞flyingを使うよ。"],
+    ["The language (　) in this area is different from ours.", "spoken", ["speaking", "speaks", "to speak"], "その地域で話される言語なので過去分詞spokenだよ。"],
+    ["The man (　) near the window is our new coach.", "standing", ["stood", "stands", "to stand"], "窓の近くに立っている人なので現在分詞standingだよ。"],
+    ["I found a wallet (　) on the train.", "left", ["leaving", "leaves", "to leave"], "電車に置き忘れられた財布なので過去分詞leftだよ。"],
+    ["The students (　) in the library are preparing for a test.", "studying", ["studied", "study", "to study"], "図書館で勉強している生徒なので現在分詞studyingだよ。"],
+    ["We visited a temple (　) more than 500 years ago.", "built", ["building", "builds", "to build"], "500年以上前に建てられた寺なので過去分詞builtだよ。"],
+  ];
+  const relativeRows = [
+    ["The woman (　) teaches us science is from Canada.", "who", ["which", "where", "when"], "人を説明する主格の関係代名詞whoだよ。"],
+    ["This is the camera (　) my brother bought yesterday.", "which", ["who", "where", "when"], "物を説明する目的格の関係代名詞whichだよ。"],
+    ["I know a boy (　) can speak three languages.", "who", ["which", "where", "whose"], "人を説明し、後ろで主語になるwhoが適切だよ。"],
+    ["The park (　) we played soccer is near the river.", "where", ["who", "which", "when"], "場所を説明する関係副詞whereが適切だよ。"],
+    ["Do you remember the day (　) we first met?", "when", ["where", "who", "which"], "時を表すthe dayを説明するwhenを使うよ。"],
+    ["The book (　) is on the desk belongs to Mai.", "which", ["who", "where", "whose"], "物を説明して後ろで主語になるwhichだよ。"],
+    ["This is the restaurant (　) serves delicious curry.", "that", ["who", "where", "when"], "物・場所を先行詞とする主格のthatが使えるよ。"],
+    ["The song (　) we heard at the concert was beautiful.", "which", ["who", "where", "whose"], "songは物なので目的格whichが適切だよ。"],
+    ["She has a friend (　) father is a doctor.", "whose", ["who", "which", "where"], "「その友達の父親」という所有を表すwhoseだよ。"],
+    ["The house (　) stands on the hill is very old.", "that", ["where", "when", "whose"], "houseを説明する主格の関係代名詞thatが使えるよ。"],
+  ];
+  const pronounRows = [
+    ["This notebook is (　). I wrote my name on it.", "mine", ["my", "me", "I"], "名詞を伴わず「私のもの」と言うのでmineだよ。"],
+    ["The teacher gave (　) some advice before the speech.", "us", ["we", "our", "ours"], "動詞gaveの目的語になる人称代名詞usだよ。"],
+    ["These seats are (　), not ours.", "theirs", ["their", "them", "they"], "「彼らのもの」は所有代名詞theirsだよ。"],
+    ["(　) of the two answers is correct? Choose one.", "Which", ["Who", "Where", "When"], "二つの選択肢のうちどちらかをたずねるWhichだよ。"],
+    ["There is (　) water in the bottle, so we can share it.", "some", ["any", "few", "many"], "肯定文で量のある水を表すsomeが適切だよ。"],
+    ["Only a (　) students knew the answer, so the teacher explained it again.", "few", ["little", "much", "every"], "studentsは数えられる複数名詞なのでfewを使うよ。"],
+    ["This is not my umbrella. Is it (　)?", "yours", ["your", "you", "yourself"], "名詞を省略して「あなたのもの」と言うyoursだよ。"],
+    ["I have two pens. You can use (　) of them.", "either", ["every", "much", "another"], "二つのうちどちらでも、という意味のeitherだよ。"],
+  ];
+  const prepositionRows = [
+    ["Our English class starts (　) nine fifteen.", "at", ["in", "on", "to"], "具体的な時刻の前にはatを使うよ。"],
+    ["The school festival is (　) October.", "in", ["at", "on", "by"], "月の前にはinを使うよ。"],
+    ["We have a meeting (　) Monday afternoon.", "on", ["in", "at", "for"], "曜日を含む日付表現の前にはonを使うよ。"],
+    ["The cat is hiding (　) the table.", "under", ["during", "since", "between"], "「テーブルの下」はunder the tableだよ。"],
+    ["She has studied English (　) three years.", "for", ["since", "during", "at"], "期間を表すthree yearsの前はforだよ。"],
+    ["The museum is (　) the bank and the post office.", "between", ["among", "during", "through"], "二つのものの間はbetweenで表すよ。"],
+    ["Please walk (　) the bridge to reach the park.", "across", ["since", "during", "until"], "橋を渡って向こう側へ行くのでacrossだよ。"],
+    ["The train arrived (　) the station just before noon.", "at", ["on", "in", "from"], "駅という地点への到着にはarrive atを使うよ。"],
+  ];
+  const conjunctionRows = [
+    ["I took a coat (　) it was cold outside.", "because", ["but", "or", "although"], "寒かったことがコートを着た理由なのでbecauseだよ。"],
+    ["We wanted to walk to school, (　) it started to rain.", "but", ["because", "so", "if"], "歩きたかったが雨が降ったという逆接なのでbutだよ。"],
+    ["Call me (　) you need help with the computer.", "if", ["because", "than", "although"], "助けが必要な場合という条件を表すifだよ。"],
+    ["Please wash your hands (　) you eat lunch.", "before", ["because", "but", "than"], "昼食を食べる前に、という順序なのでbeforeだよ。"],
+    ["I will wait here (　) the bus comes.", "until", ["because", "or", "than"], "バスが来るまで待つのでuntilだよ。"],
+    ["He was tired, (　) he finished the report.", "but", ["because", "if", "when"], "疲れていたが終えたという逆接なのでbutだよ。"],
+    ["She said (　) she would join us after school.", "that", ["which", "where", "who"], "saidの内容を表すthat節を導くよ。"],
+    ["I will call you (　) I arrive at the hotel.", "when", ["because", "but", "than"], "ホテルに着いた時を表すwhenが適切だよ。"],
+    ["You can choose tea (　) juice with your lunch.", "or", ["because", "but", "so"], "二つの選択肢を示すorが適切だよ。"],
+    ["The town is small, (　) many visitors come in spring.", "but", ["because", "if", "when"], "町は小さいが訪問者が多いという対比なのでbutだよ。"],
+  ];
+  const clauseRows = [
+    ["Do you know (　) the next bus leaves?", "when", ["when does", "what", "what does"], "間接疑問文では疑問詞の後ろを主語＋動詞の語順にするよ。"],
+    ["I do not know (　) this word means.", "what", ["what does", "where does", "which is"], "meansの目的語をたずねるwhatで、語順はwhat this word meansだよ。"],
+    ["Could you tell me (　) the library is?", "where", ["where is", "what", "where does"], "間接疑問文の語順はwhere the library isだよ。"],
+    ["I think (　) this plan will help many people.", "that", ["what", "where", "who"], "thinkの内容を表すthat節を続けるよ。"],
+    ["Do you remember (　) we have to submit the form?", "when", ["when do", "what", "where does"], "疑問詞の後ろは主語we＋動詞have toの語順だよ。"],
+    ["She asked me (　) I wanted to join the club.", "if", ["what", "which", "whose"], "「参加したいかどうか」を表すifを使うよ。"],
+    ["I am sure (　) you can finish the work today.", "that", ["who", "where", "which"], "sureの内容をthat節で表すよ。"],
+    ["Please tell us (　) you chose this topic.", "why", ["why did", "what does", "which is"], "理由をたずねる間接疑問文はwhy＋主語＋動詞の語順だよ。"],
+    ["Do you know (　) bag is on the chair?", "whose", ["whose is", "who", "where"], "「誰のかばんか」をたずねるwhoseを使うよ。"],
+    ["He asked me (　) I had seen his keys.", "whether", ["what", "where", "which"], "「鍵を見たかどうか」を表すwhetherが適切だよ。"],
+  ];
+  const subjunctiveRows = [
+    ["If I (　) more free time, I would learn the guitar.", "had", ["have", "will have", "am having"], "現在の事実に反する仮定なのでIf節は過去形hadだよ。"],
+    ["If she were here, she (　) us what to do.", "would tell", ["will tell", "tells", "would told"], "仮定法の主節はwould＋動詞の原形だよ。"],
+    ["If I (　) you, I would talk to the teacher.", "were", ["am", "will be", "have been"], "「もし私があなたなら」はIf I were youと表すよ。"],
+    ["If our school had a pool, we (　) swim after class.", "could", ["can", "will", "must"], "仮定の状況で可能性を表すcouldが適切だよ。"],
+    ["I wish I (　) speak Spanish fluently.", "could", ["can", "will", "am"], "今できないことへの願いはI wish＋過去形で表すよ。"],
+    ["If he studied harder, he (　) better results.", "would get", ["gets", "will get", "would got"], "仮定法の主節はwould getだよ。"],
+    ["If we (　) a map, we would not be lost now.", "had", ["have", "will have", "are having"], "現在の事実に反する仮定を過去形hadで表すよ。"],
+    ["I wish it (　) raining now so we could play outside.", "were not", ["is not", "will not be", "has not been"], "今の状況への願いなのでwishの後ろに過去形を使うよ。"],
+    ["If Tom knew the answer, he (　) us.", "would tell", ["will tell", "tells", "would told"], "仮定法の主節はwould＋動詞の原形だよ。"],
+    ["If I had a million yen, I (　) some of it to charity.", "would give", ["will give", "gave", "would gave"], "現在の仮定を表すwould giveが適切だよ。"],
+    ["I wish I (　) the answer to this question.", "knew", ["know", "will know", "have known"], "今知らないことへの願いはwish＋過去形knewで表すよ。"],
+  ];
+  const grammarRows = [
+    ["基本文型・疑問文・否定文", [
+      ["(　) your sister a member of the tennis club?", "Is", ["Are", "Do", "Does"], "主語が三人称単数でbe動詞の疑問文なのでIsだよ。"],
+      ["The students (　) not understand the announcement yesterday.", "did", ["do", "does", "were"], "一般動詞の過去の否定文はdid not＋原形だよ。"],
+      ["(　) Ken and Yuta play the same instrument?", "Do", ["Does", "Are", "Is"], "複数主語の一般動詞の疑問文はDoで始めるよ。"],
+      ["My mother (　) a nurse, but my father is a teacher.", "is", ["are", "does", "has"], "主語がMy motherなのでbe動詞isを使うよ。"],
+      ["There (　) two messages for you on the desk.", "are", ["is", "be", "does"], "two messagesは複数なのでThere areだよ。"],
+      ["She (　) not eat meat because she is a vegetarian.", "does", ["do", "is", "has"], "三人称単数の一般動詞の否定文はdoes not＋原形だよ。"],
+      ["What time (　) the shop close on Sundays?", "does", ["do", "is", "are"], "主語がthe shopなので疑問文ではdoesを使うよ。"],
+      ["The students (　) excited about the school trip.", "were", ["was", "did", "has"], "複数主語の過去のbe動詞はwereだよ。"],
+      ["(　) there a post office near this station?", "Is", ["Are", "Do", "Have"], "a post officeは単数なのでIs there ...?だよ。"],
+      ["I (　) not have enough time to finish the book yesterday.", "did", ["do", "am", "was"], "一般動詞haveの過去の否定文はdid not haveだよ。"],
+    ]],
+    ["現在形・過去形", pastVerbs.map(([name, base, past, third, ing, phrase]) => [
+      `${name} (　) ${phrase} last Friday.`,
+      past,
+      [base, third, ing],
+      `last Fridayは過去を表すので${base}の過去形${past}を使うよ。`,
+    ])],
+    ["進行形・未来表現", [
+      ...presentProgressive.map(([subject, be, activity]) => [
+        `Look! ${subject} (　) ${activity} now.`,
+        be,
+        [be === "is" ? "are" : "is", be === "is" ? "was" : "were", "will be"],
+        "nowとLook!があるので、現在進行形を使うよ。",
+      ]),
+      ...futurePlans.map(([subject, form, plan]) => [
+        `${subject} (　) ${plan} next weekend.`,
+        form,
+        ["will", subject.includes(" and ") ? "is going to" : "are going to", "was going to"],
+        "next weekendにする予定を表すbe going toの形が適切だよ。",
+      ]),
+    ]],
+    ["現在完了・現在完了進行形", perfectCues.map(([prompt, answer, distractors]) => [
+      prompt,
+      answer,
+      distractors,
+      "過去から現在までの経験・継続・完了を表す現在完了形が適切だよ。",
+    ])],
+    ["助動詞", modalRows],
+    ["不定詞", infinitiveRows],
+    ["動名詞", gerundRows],
+    ["比較", comparisonRows],
+    ["受け身", passiveRows],
+    ["現在分詞・過去分詞", participleRows],
+    ["関係代名詞", relativeRows],
+    ["代名詞", pronounRows],
+    ["前置詞", prepositionRows],
+    ["接続詞・節", conjunctionRows],
+    ["文型・間接疑問文・that節", clauseRows],
+    ["仮定法", subjunctiveRows],
+  ];
+  const questions = [];
+  grammarRows.forEach(([unit, rows]) => {
+    const targetCount = middleEnglishGrammarUnits.find(([name]) => name === unit)[1];
+    for (let index = 0; index < targetCount; index += 1) {
+      const [prompt, answer, distractors, explanation] = rows[index % rows.length];
+      const levelPrompt = level === "standard"
+        ? prompt
+        : level === "application"
+          ? `文脈に合うよう、空欄に入る語句を選びなさい。\\n${prompt}`
+          : `受験対策：英文の意味と文法に合うように、空欄に入る語句を選びなさい。\\n${prompt}`;
+      questions.push(englishQuestion(unit, levelPrompt, answer, distractors, explanation));
+    }
+  });
+  return questions;
+}
+
+const middleEnglishVocabulary = [
+  ["自己紹介・家族", [
+    ["relative", "親せき", ["隣人", "医者", "店員"]], ["childhood", "子ども時代", ["将来", "休暇", "約束"]],
+    ["twin", "双子の一人", ["祖父", "いとこ", "赤ちゃん"]], ["introduce", "紹介する", ["招待する", "説明を終える", "質問する"]],
+    ["similar", "よく似た", ["安全な", "必要な", "異なる"]], ["personality", "性格", ["景色", "習慣", "意見"]],
+    ["marry", "結婚する", ["引っ越す", "生まれる", "育てる"]], ["memory", "思い出", ["材料", "予定", "理由"]],
+  ]],
+  ["学校生活", [
+    ["assignment", "課題", ["休み時間", "教室", "校庭"]], ["audience", "聴衆", ["発表者", "委員会", "練習"]],
+    ["borrow", "借りる", ["貸す", "返す", "選ぶ"]], ["graduate", "卒業する", ["入学する", "参加する", "練習する"]],
+    ["subject", "教科", ["成績", "質問", "宿題"]], ["practice", "練習する", ["忘れる", "運ぶ", "選ぶ"]],
+    ["report", "報告・レポート", ["図書館", "休暇", "行事"]], ["uniform", "制服", ["楽器", "道具", "校則"]],
+  ]],
+  ["町・道案内・交通", [
+    ["intersection", "交差点", ["駅", "橋", "歩道"]], ["passenger", "乗客", ["運転手", "旅行者", "店員"]],
+    ["entrance", "入口", ["出口", "角", "住所"]], ["traffic", "交通・交通量", ["旅行", "信号", "道路標識"]],
+    ["straight", "まっすぐに", ["左に", "向こう側へ", "ゆっくり"]], ["neighborhood", "近所・地域", ["首都", "建物", "景色"]],
+    ["convenient", "便利な", ["混雑した", "遠い", "危険な"]], ["platform", "ホーム", ["切符", "線路", "駅員"]],
+  ]],
+  ["食事・買い物", [
+    ["ingredient", "材料", ["値段", "料理人", "食器"]], ["receipt", "レシート", ["割引", "財布", "値札"]],
+    ["local", "地元の", ["新鮮な", "高価な", "外国の"]], ["delicious", "おいしい", ["苦い", "空腹の", "甘い"]],
+    ["customer", "客", ["店主", "品物", "店員"]], ["discount", "割引", ["注文", "支払い", "交換"]],
+    ["recipe", "調理法・レシピ", ["食事", "皿", "買い物"]], ["price", "値段", ["量", "重さ", "味"]],
+  ]],
+  ["健康・安全", [
+    ["injury", "けが", ["病院", "薬", "運動"]], ["recover", "回復する", ["休む", "予防する", "運ぶ"]],
+    ["dangerous", "危険な", ["健康な", "便利な", "静かな"]], ["emergency", "緊急事態", ["予定", "案内", "診察"]],
+    ["temperature", "温度・体温", ["天気", "薬", "季節"]], ["protect", "守る", ["避ける", "変える", "招く"]],
+    ["symptom", "症状", ["運動", "治療費", "習慣"]], ["careful", "注意深い", ["親切な", "心配な", "珍しい"]],
+  ]],
+  ["自然・環境", [
+    ["recycle", "再利用する", ["節約する", "汚染する", "集める"]], ["wildlife", "野生生物", ["植物", "天候", "農業"]],
+    ["pollution", "汚染", ["資源", "節約", "景色"]], ["reduce", "減らす", ["増やす", "守る", "分ける"]],
+    ["environment", "環境", ["経験", "発明", "社会"]], ["resource", "資源", ["ごみ", "気候", "生物"]],
+    ["available", "利用できる", ["危険な", "高価な", "有名な"]], ["weather", "天気", ["季節", "自然", "温度"]],
+  ]],
+  ["文化・行事", [
+    ["tradition", "伝統", ["文化祭", "歴史", "衣装"]], ["performance", "公演・演技", ["練習", "観客", "舞台"]],
+    ["celebrate", "祝う", ["開催する", "踊る", "準備する"]], ["festival", "祭り", ["休暇", "展示", "集会"]],
+    ["custom", "習慣・慣習", ["行事", "地域", "景色"]], ["instrument", "楽器", ["道具", "舞台", "音楽家"]],
+    ["visitor", "訪問者", ["案内人", "参加者", "近所の人"]], ["historic", "歴史的な", ["伝統的な", "現代の", "有名な"]],
+  ]],
+  ["情報・技術", [
+    ["device", "装置・機器", ["発明", "情報", "材料"]], ["connect", "接続する", ["発見する", "共有する", "選ぶ"]],
+    ["website", "ウェブサイト", ["手紙", "新聞", "掲示板"]], ["information", "情報", ["意見", "経験", "指示"]],
+    ["search", "探す・検索する", ["伝える", "保存する", "借りる"]], ["technology", "技術", ["自然", "社会", "伝統"]],
+    ["message", "伝言・メッセージ", ["約束", "質問", "発表"]], ["online", "オンラインの", ["便利な", "個人的な", "世界的な"]],
+  ]],
+  ["地域・仕事", [
+    ["volunteer", "ボランティア", ["旅行者", "職業", "観客"]], ["community", "地域社会", ["会社", "家族", "学校"]],
+    ["career", "職業・経歴", ["地域", "計画", "経験"]], ["industry", "産業", ["農業", "工場", "技術"]],
+    ["support", "支援する", ["参加する", "発表する", "準備する"]], ["organize", "企画・運営する", ["参加する", "説明する", "比較する"]],
+    ["employee", "従業員", ["雇い主", "客", "訪問者"]], ["service", "サービス", ["仕事", "地域", "制度"]],
+  ]],
+  ["気持ち・計画・意見", [
+    ["opinion", "意見", ["理由", "結果", "提案"]], ["decision", "決定", ["相談", "選択肢", "計画"]],
+    ["improve", "改善する", ["説明する", "想像する", "比べる"]], ["possible", "可能な", ["必要な", "正確な", "十分な"]],
+    ["disagree", "意見が合わない", ["賛成する", "説明する", "選ぶ"]], ["suggest", "提案する", ["同意する", "決定する", "招待する"]],
+    ["confident", "自信のある", ["心配な", "退屈な", "驚いた"]], ["purpose", "目的", ["方法", "理由", "結果"]],
+  ]],
+];
+
+function makeEnglishVocabularyQuestions(level) {
+  return middleEnglishVocabulary.flatMap(([unit, words]) => words.map(([word, meaning, meanings], index) => {
+    const englishDistractors = [1, 2, 3]
+      .map((offset) => words[(index + offset) % words.length][0]);
+    const prompt = level === "standard"
+      ? `「${meaning}」を表す英単語はどれ？`
+      : level === "application"
+        ? `語彙問題：英単語 "${word}" の意味として正しいものを選びなさい。`
+        : `受験語彙：次の語の意味として最も適切なものは？ ${word}`;
+    return englishQuestion(
+      unit,
+      prompt,
+      level === "standard" ? word : meaning,
+      level === "standard" ? englishDistractors : meanings,
+      `${word}は「${meaning}」という意味だよ。`,
+    );
+  }));
+}
+
+const middleEnglishConversationRows = [
+  ["A: I forgot my notebook at home. B: (　) A: Thank you. I will return it tomorrow.", "You can use mine.", ["I do not like notebooks.", "It was raining yesterday.", "How old is your notebook?"], "ノートを忘れた相手に自分のノートを貸す申し出が自然だよ。"],
+  ["A: Shall we take the earlier train? B: (　) We can avoid the rush hour.", "That is a good idea.", ["I have taken it yesterday.", "The train is made of paper.", "I do not know his name."], "混雑を避けられるという理由に賛成する返答が合うよ。"],
+  ["A: Could you tell me how to get to the gym? B: (　)", "Go straight and turn right at the second corner.", ["I went there last year.", "The gym is very exciting.", "I can play tennis well."], "行き方をたずねているので道順を説明する返答が適切だよ。"],
+  ["A: I am nervous about the speech contest. B: (　) You have practiced a lot.", "I am sure you will do well.", ["You should forget your speech.", "The contest is next month.", "I have never seen that book."], "不安な相手を励ます表現が会話に合うよ。"],
+  ["A: Would you like some tea? B: (　)", "Yes, please. That would be nice.", ["I drank it tomorrow.", "No, I am a student.", "It is on the second floor."], "飲み物の申し出を受ける自然な返答だよ。"],
+  ["A: Why was the meeting changed? B: (　)", "Because several members could not come on Friday.", ["It is a useful meeting.", "We are meeting at the station.", "I have two notebooks."], "理由をたずねているのでBecauseで説明する返答が適切だよ。"],
+  ["A: I think we should make the poster easier to read. B: (　)", "I agree. Some letters are too small.", ["I made it last week.", "Where is the station?", "I cannot read yesterday."], "提案に賛成し、その理由も伝えているよ。"],
+  ["A: I cannot find my phone. B: (　) A: I last used it in the library.", "When did you last use it?", ["How much is your phone?", "Who is using the library?", "Can you find my homework?"], "最後に使った時をたずねる疑問文が自然につながるよ。"],
+  ["A: Thank you for helping me clean the room. B: (　)", "You are welcome. I was glad to help.", ["I clean it tomorrow.", "It is not my room.", "How many rooms do you have?"], "感謝に対する返事としてYou are welcomeが適切だよ。"],
+  ["A: The bus is late, and the interview starts in ten minutes. B: (　)", "Let's call the office and explain the situation.", ["We interviewed the bus yesterday.", "You should buy a new bus.", "The office is closed every day."], "遅刻しそうな状況への具体的な提案になっているよ。"],
+];
+
+function makeEnglishConversationQuestions(level) {
+  return middleEnglishConversationRows.map(([prompt, answer, distractors, explanation]) =>
+    englishQuestion(
+      "会話表現（依頼・提案・意見・応答）",
+      level === "standard" ? prompt : `${level === "application" ? "会話の流れに合う" : "受験対策：前後の発言から意図を読み取った上で"}返答を選びなさい。\\n${prompt}`,
+      answer,
+      distractors,
+      explanation,
+    )
+  );
+}
+
+const middleEnglishReadingRows = [
+  ["読解：必要な情報を探す", [
+    ["The school library opens at 8:30 on weekdays and at 9:00 on Saturday. Students can borrow up to three books for two weeks. The library is closed on Sundays.", "土曜日の開館時刻は？", "9:00", ["8:30", "2:00", "日曜日"], "土曜日は9時に開館すると書かれているよ。"],
+    ["The art club meets every Wednesday after school. This month, the members are preparing a display for the open school day on June 18. They will put their pictures in the gym.", "美術部が作品を展示する日は？", "June 18", ["Every Wednesday", "June 8", "The first day of school"], "公開授業の日である6月18日に展示するよ。"],
+    ["A bus leaves Green Station at 10:15 and arrives at the museum at 10:40. The museum ticket includes a short film, which starts at 11:00. Visitors should keep their tickets until they leave.", "博物館で短編映画が始まる時刻は？", "11:00", ["10:15", "10:40", "11:40"], "映画の開始時刻は11時と案内されているよ。"],
+    ["The sports center is open until 8:00 p.m. from Monday to Friday. On Saturdays, it closes at 5:00 p.m. The swimming pool is not available on the first Monday of each month.", "土曜日のスポーツセンターの閉館時刻は？", "5:00 p.m.", ["8:00 p.m.", "5:00 a.m.", "6:00 p.m."], "土曜日は午後5時に閉館するよ。"],
+    ["For the cooking class, bring an apron and a clean towel. The instructor will provide all ingredients. Please arrive ten minutes before the class begins at 2:30.", "参加者が持参するものは？", "An apron and a clean towel.", ["All the ingredients.", "A cooking book and a ticket.", "A plate and a clock."], "エプロンと清潔なタオルを持参するよう書かれているよ。"],
+    ["The town clean-up starts at the east gate of the park at 9:00 on Sunday. Gloves and bags will be given to volunteers. If it rains heavily, the activity will move to the following Sunday.", "大雨の場合、清掃活動はどうなる？", "It will move to the following Sunday.", ["It will start at the west gate.", "It will be held indoors that day.", "It will begin earlier."], "大雨なら翌週の日曜日に延期すると書かれているよ。"],
+    ["Mika's train leaves at 7:42. She needs about eight minutes to walk from her house to the station. She plans to arrive at the station ten minutes before the train leaves.", "Mikaは何時までに駅に着く予定？", "7:32", ["7:34", "7:42", "7:50"], "出発の10分前なので7時32分に着く予定だよ。"],
+    ["The science room is open for visitors from 1:00 to 4:00. A student demonstration begins at 2:15 and lasts twenty minutes. Visitors may ask questions after the demonstration.", "実演後にできることは？", "Ask questions.", ["Borrow science books.", "Join the class before 1:00.", "Use the room until 5:00."], "実演の後に質問できると案内されているよ。"],
+  ]],
+  ["読解：理由と因果関係", [
+    ["Taku used to miss the first ten minutes of practice because he could not find his sports clothes in the morning. He began putting them beside his school bag before going to bed. He has arrived on time every day this week.", "今週Takuが時間どおり練習に着けている理由は？", "He prepares his sports clothes the night before.", ["He practices at a different place.", "He stopped bringing his school bag.", "The practice starts later now."], "前夜に服を準備することで、朝に探す時間がなくなったからだよ。"],
+    ["The class planted flowers in small pots. At first, they watered every pot each morning. Some leaves became yellow, so they checked the soil and found that several pots were still wet. After that, they watered only dry pots, and the flowers grew better.", "水やりの方法を変えた後、花がよく育ったのはなぜ？", "They checked the soil and avoided watering wet pots.", ["They moved every pot into a dark room.", "They used more water every morning.", "They stopped checking the flowers."], "土の状態を確認し、すでにぬれている鉢には水をやらなくなったからだよ。"],
+    ["A town opened a small book exchange near the bus stop. At first, few people used it. The organizers added a sign explaining that anyone could take a book and leave another one. More people began using it because they had not known the books were free to borrow.", "利用者が増えた主な理由は？", "The sign explained how the book exchange worked.", ["The bus stop was moved closer.", "The books became more expensive.", "People had to join a club."], "誰でも本を借りたり置いたりできると看板で知らせたからだよ。"],
+    ["Yuna wanted to interview an older neighbor about the town's history. She first planned to visit without calling, but her brother said the neighbor might be busy. Yuna called and made an appointment, so the neighbor had time to prepare old photographs.", "Yunaが先に電話をしたことで、何ができた？", "The neighbor could prepare photographs for the interview.", ["She avoided asking about the town.", "Her brother interviewed the neighbor instead.", "The interview was canceled."], "約束をしたので、近所の人は写真を準備する時間を持てたよ。"],
+    ["The school reduced the time students could use the gym during lunch. Some students complained. The teacher explained that two classes had to share the gym because another room was being repaired. The schedule changed again when the repair was finished.", "昼休みに体育館を使える時間が短くなったのはなぜ？", "Two classes needed to share it during repairs.", ["Students had damaged the gym.", "The school wanted to stop sports.", "The gym was moved to another town."], "別の部屋の修理中、二つのクラスで体育館を使う必要があったからだよ。"],
+    ["A family put a table near the entrance for reusable shopping bags. They still used many plastic bags because they often forgot to take their own bags. They began keeping folded bags in the car and by the front door. The number of plastic bags they used went down.", "家族がプラスチック袋を減らせた工夫は？", "They kept reusable bags where they would remember them.", ["They stopped buying food.", "They put the bags in a locked box.", "They used larger plastic bags."], "車や玄関に置き、買い物のとき忘れないようにしたよ。"],
+    ["The school garden had few butterflies. Students planted flowers, but they also found that the garden was often noisy during lunch. They made a quiet corner with more plants. A few weeks later, butterflies began visiting the area.", "生徒たちは蝶を呼ぶために何をした？", "They made a quiet corner with more plants.", ["They removed all the flowers.", "They played music in the garden.", "They moved the garden indoors."], "植物を増やした静かな場所を作ったことが蝶の訪問につながったよ。"],
+    ["A group planned a walk along the river. The weather report warned of strong winds, so the leader checked a second route through the town. The group used that route and arrived safely, although it took a little longer.", "グループが町中の道を使った理由は？", "Strong winds made the river route less safe.", ["The river path was shorter.", "They wanted to visit a shop.", "The leader had lost the map."], "強風の予報があったため、川沿いを避けて安全な道を選んだよ。"],
+  ]],
+  ["読解：要点・主題をつかむ", [
+    ["Our class used to throw away paper after writing on only one side. We put a box beside the printer for paper that still had a clean side. Students used it for notes and practice. By the end of the month, we had used much less new paper.", "この英文の要点は？", "Using clean sides of used paper can reduce waste.", ["Students should stop writing notes.", "Printers use less electricity in winter.", "The class bought more paper."], "使える面を再利用することで、新しい紙の使用量を減らした話だよ。"],
+    ["When our school invited a musician, some students thought classical music was difficult to understand. The musician played short parts and explained what to listen for. Students then noticed different instruments and said the music was more interesting than they expected.", "この英文の主題として最も適切なものは？", "An explanation can help people enjoy unfamiliar music.", ["Students should learn to play every instrument.", "Classical music is always difficult.", "The school canceled the concert."], "聴きどころの説明によって、初めての音楽を楽しめたという内容だよ。"],
+    ["A small store started selling vegetables grown by nearby farmers. Customers liked knowing where the food came from. The store owner also found that the vegetables traveled a shorter distance before reaching the shop. The project helped both local farmers and shoppers.", "この英文の要点は？", "Selling nearby farms' vegetables benefited farmers and customers.", ["The store stopped selling vegetables.", "Customers wanted food from far away.", "Farmers opened a school."], "地元の野菜を売ることが農家と買い物客の双方に役立ったよ。"],
+    ["My grandfather keeps a notebook about birds he sees near his house. He writes the date, place, and weather each time. After several years, he noticed that some birds arrived earlier in spring. His records helped him see a change that he might otherwise have forgotten.", "ノートを続けたことで祖父ができたことは？", "He noticed a change in when some birds arrived.", ["He taught the birds to sing.", "He found a new house for the birds.", "He stopped watching the weather."], "記録を続けたことで、鳥が春に来る時期の変化に気づけたよ。"],
+    ["A new student did not speak much during group work. Her classmates invited her to share a drawing instead of asking her to give a long speech. She explained her idea with a few words, and the group used it in their project.", "グループが新入生の考えを知るためにしたことは？", "They invited her to share a drawing.", ["They asked her to leave the group.", "They finished the project without her.", "They gave her a long speech to read."], "絵を見せてもらう方法で、話しやすくして考えを聞いたよ。"],
+    ["Our town has an old clock tower. Many people passed it without noticing its history. Students made a short audio guide that visitors can hear on their phones. Now visitors can learn why the tower was built and how it was used.", "生徒が作った音声ガイドの目的は？", "To help visitors learn about the clock tower's history.", ["To teach visitors how to repair phones.", "To replace the clock tower.", "To give directions to a school."], "時計台の歴史を訪問者に知ってもらうためだよ。"],
+    ["Some students wanted to help at an animal shelter, but they could not visit every week. The shelter asked them to collect clean towels and make simple toys from safe materials. The students found a way to support the animals even when they could not be there.", "この英文の要点は？", "People can support a cause in different practical ways.", ["Only weekly visits can help animals.", "The shelter stopped accepting towels.", "Students should avoid making toys."], "現地に毎週行けなくても、タオル集めなど別の方法で支援できるという話だよ。"],
+    ["A class compared two ways to get to school. The train was faster on sunny days, but it was sometimes delayed during heavy snow. The bicycle took longer, yet students could choose a different road when one was blocked. The class learned to consider both speed and reliability.", "生徒たちが学んだことは？", "A useful comparison includes more than just speed.", ["The train is always the best choice.", "Bicycles cannot use other roads.", "Snow makes every trip impossible."], "速さだけでなく、安定して使えるかも比べる必要があると学んだよ。"],
+  ]],
+  ["読解：会話の流れと意見", [
+    ["A: We need an idea for our class display. B: Let's show photos of the school garden. C: Photos are good, but visitors may want to know how we chose the plants. A: We can add short notes about each choice. B: Then the display will show both the garden and our thinking.", "二人が考えた展示の内容は？", "Garden photos with notes explaining the plant choices.", ["Only a list of school rules.", "A display without pictures or notes.", "Photos of a different school."], "写真に植物選びの理由を添えて、庭と考えた過程を示すよ。"],
+    ["A: The walk to the museum is free. B: But it may take too long before the tour. C: The bus costs a little, but it takes only ten minutes. A: We have enough time if we leave now. B: Then let's take the bus and arrive before the tour starts.", "二人が選んだ移動方法と理由は？", "The bus, because it will get them there before the tour.", ["Walking, because it is more expensive.", "A taxi, because the museum is closed.", "They decided not to visit."], "歩くより時間を短縮し、見学開始に間に合うようバスに乗るよ。"],
+    ["A: We could collect money for the library. B: Some people may not know what the money is for. C: Let's make a list of books students want and share it with families. A: Good. They can see how the books will be used. B: We should also report what we bought.", "募金活動で二人が大切だと考えていることは？", "Explaining the purpose and reporting how the money was used.", ["Keeping the book list secret.", "Buying books before asking anyone.", "Collecting money without a goal."], "使い道を示し、購入後に報告することを提案しているよ。"],
+    ["A: The bus stop is crowded after school. B: We could ask the bus company for another bus. C: First, let's count how many students use it at different times. A: That will give us information to share. B: Then we can make a clear request.", "二人は要望を出す前に何をする？", "Count how many students use the stop at different times.", ["Move the bus stop by themselves.", "Ask students to stop taking the bus.", "Write a request without checking anything."], "時間帯ごとの利用人数を調べ、要望の根拠を集めるよ。"],
+    ["A: I want to use bright colors on the safety poster. B: They will get attention, but the words must be easy to read. C: We can use dark letters on a light background. A: Let's test it from across the hall. B: Then we will know if people can read it.", "ポスターを完成させるために二人がすることは？", "Use readable colors and test the poster from a distance.", ["Use as many colors as possible.", "Make the words smaller.", "Put the poster inside a desk."], "色を工夫した上で、離れた場所から読めるか確認するよ。"],
+    ["A: We have one afternoon to clean the beach. B: We should pick up litter near the entrance first. C: Visitors also leave litter near the benches. A: Let's divide into two teams. B: Good. Each team can cover one area safely.", "二人はどのように清掃する？", "They will split into two teams and clean different areas.", ["One person will clean the whole beach alone.", "They will clean only after dark.", "They will move the benches."], "二つの班に分かれ、それぞれ別の場所を担当するよ。"],
+    ["A: The school newspaper has space for one interview. B: The new coach has an interesting story. C: The lunch staff also know how the menu is planned. A: Let's ask students which topic they want to read about. B: Then we can choose based on readers' interest.", "記事の題材を決めるために二人がすることは？", "Ask students which interview topic interests them.", ["Choose a topic without asking readers.", "Interview both people in the same article.", "Cancel the newspaper."], "読者である生徒に希望を聞いてから題材を選ぶよ。"],
+    ["A: Our presentation is twelve minutes long. B: We have too many details for that. C: Let's choose three important points and keep one example for each. A: We can put the extra facts on a handout. B: That should make the talk easier to follow.", "二人が発表を分かりやすくする方法は？", "Focus on three main points and put extra facts in a handout.", ["Read every detail as quickly as possible.", "Remove all examples and handouts.", "Make the presentation longer."], "要点を三つに絞り、補足情報は配布資料に分けるよ。"],
+  ]],
+  ["読解：複数の情報を結び付ける", [
+    ["The school plans to reduce electricity use. The computer room uses most power after classes, while the hallway lights stay on until 7:00. Students checked the room and found that some computers were left on after club activities. The school will remind clubs to shut them down and turn off hallway lights at 6:00.", "学校が決めた対策の組み合わせは？", "Remind clubs to turn off computers and switch off hallway lights earlier.", ["Buy more computers and keep lights on longer.", "Close the computer room before classes.", "Ask students to use the hallway more."], "使われていないコンピューターと、長時間ついている照明の両方を見直すよ。"],
+    ["A community garden has twelve small plots. Eight are used by families, and four are kept for school activities. The garden has only one water tap. Families usually visit in the morning, while students come after 3:30. The manager plans to set a watering schedule so both groups can use the tap.", "水やりの予定を作る主な理由は？", "Different groups use the garden at different times and share one tap.", ["The garden has too many water taps.", "Students visit in the morning every day.", "Families do not grow anything."], "一つの水道を、時間帯の異なる家族と生徒が共用するからだよ。"],
+    ["A museum survey found that many visitors enjoyed the exhibits but could not find the exit easily. The map showed the exit, but it was printed in small letters. Visitors also said the signs near the stairs pointed only toward the next room. The museum plans to make the map larger and add exit signs by the stairs.", "出口を見つけやすくするための改善は？", "Enlarge the map and add signs near the stairs.", ["Remove the map and close the stairs.", "Make all signs smaller.", "Move the exhibits outside."], "地図の文字を大きくし、階段の近くにも出口表示を加えるよ。"],
+    ["A class wants to raise money for a shelter. A bake sale may earn more, but the school kitchen is not available that week. A used-book sale needs fewer supplies, and many students have books to donate. The class chose the book sale and will ask for books in good condition.", "クラスが古本市を選んだ理由は？", "It needs fewer supplies and students can donate books.", ["The kitchen was available for baking.", "The shelter asked for cakes only.", "Students had no books to donate."], "調理室が使えない一方、古本市は準備が少なく本を集めやすいからだよ。"],
+    ["Two routes lead to the station. Route A takes twelve minutes and has a busy crossing. Route B takes fifteen minutes but has a traffic light and a wide sidewalk. A student with a younger brother chooses the second route when they walk together.", "その学生が弟と歩くときにBを選ぶ理由は？", "It is a little longer but has safer walking conditions.", ["It is the shortest route.", "It has no sidewalk or traffic light.", "It leads to a different station."], "少し時間がかかっても、信号と広い歩道があり安全だからだよ。"],
+    ["The school has thirty tablets for a project. Class A has twenty-eight students and Class B has thirty-two. Each student needs one tablet for a ten-minute activity. The teacher plans to let the larger class use the tablets in two groups while the other class works together.", "タブレットを二つのグループに分けて使うのはどのクラス？", "Class B.", ["Class A.", "Both classes have exactly thirty students.", "Neither class."], "32人のClass Bは端末30台より人数が多いので、二班に分けるよ。"],
+    ["A town survey says that older residents want more benches near the market. The town has space for two benches, but the sidewalk must stay wide enough for wheelchairs. Students measured three possible places. Two locations leave enough space, while the third blocks part of the path.", "ベンチを置く場所を選ぶときに必要な条件は？", "It must meet residents' needs and leave a wide path for wheelchairs.", ["It must be the most crowded location.", "It must block the sidewalk.", "It must be far from the market."], "住民の希望に応えつつ、車いすが通れる幅を確保する必要があるよ。"],
+    ["A club will visit a farm. The bus arrives at 9:20, and the farm tour begins at 9:45. The walk from the bus stop takes ten minutes. The guide asks visitors to check in at the office before the tour. The club leader says they should walk there together as soon as the bus arrives.", "バスが着いた後、クラブがすぐにすることは？", "Walk to the farm office and check in before the tour.", ["Wait at the bus stop until 9:45.", "Start the tour without the guide.", "Return to school to get a ticket."], "徒歩10分の農場へ向かい、見学開始前に事務所で受付をするよ。"],
+  ]],
+  ["読解：推論・次の行動を考える", [
+    ["A school started a program to lend umbrellas. The number of umbrellas returned was lower than expected. The teacher noticed that students were unsure where to leave them. The school put a marked return box beside the entrance and added a note to each umbrella.", "返却数を増やすために次に有効なことは？", "Make the return place clear and remind borrowers where to leave umbrellas.", ["Stop lending umbrellas to students.", "Move the box to a locked room.", "Ask students to keep the umbrellas."], "返す場所が分かりにくかったので、箱と案内を目立たせるのが有効だよ。"],
+    ["The school lunch team tried a new vegetable dish. Many students left it unfinished. In a short survey, students said they liked the taste but found the pieces too large. The cooks plan to cut the vegetables smaller next time and ask students what they think.", "調理チームが次にすることとして最も適切なのは？", "Cut the vegetables smaller and collect students' feedback.", ["Remove all vegetables from lunch.", "Make the pieces larger.", "Ignore the survey results."], "味は好評なので、食べにくさを改善して再度意見を聞くよ。"],
+    ["A group planted trees beside a road. The young trees grew slowly, even though they received enough water. Students measured the ground and found that it was hard and packed down. They want to check whether loosening the soil helps the roots grow.", "生徒が確かめようとしていることは？", "Whether loosening the packed soil helps the roots grow.", ["Whether the road can be moved.", "Whether the trees need less sunlight.", "Whether the ground should be covered with plastic."], "水が足りているため、固い土をほぐすことが成長を助けるか調べるよ。"],
+    ["A library's evening reading group has fewer members than its afternoon group. A survey shows that several students have sports practice in the evening. The librarian wants more students to join but can only hold one meeting each week.", "参加者を増やすために試せる方法は？", "Ask students about a time that does not conflict with practice.", ["Add a second weekly meeting immediately.", "Make the meeting longer in the evening.", "Stop asking students about their schedules."], "練習と重なる人がいるので、都合のよい時間を調べるのがよいよ。"],
+    ["A town put a recycling box near the station. People used it often, but many bottles still contained liquid. The signs showed what could be recycled but did not explain how to prepare the bottles. The town plans to add simple pictures showing the steps.", "新しい案内に加えるべき情報は？", "How to empty and prepare bottles before recycling them.", ["Where to buy new bottles.", "Why the station is crowded.", "How to put liquid into bottles."], "分別できる物だけでなく、ボトルの準備方法を示す必要があるよ。"],
+    ["A student made a study plan with one hour of English every night. After three days, she stopped following it because she was too tired after club activities. She still wants to study regularly. Her teacher suggested shorter sessions on busy days.", "計画を続けるために最もよい調整は？", "Make study sessions shorter on busy days.", ["Stop all club activities.", "Study for two hours every night.", "Wait until the exam day."], "忙しい日は短時間にして、無理なく続けられる計画にするよ。"],
+    ["A park's pond became cloudy after a large number of visitors came during a holiday. The park staff found food scraps near the water and more ducks than usual. They plan to post signs asking visitors not to feed the ducks and to use the trash bins.", "公園のスタッフが看板で伝える内容は？", "Do not feed the ducks and put trash in bins.", ["Bring more food for the ducks.", "Swim in the pond.", "Leave food near the water."], "食べ物の残りとカモの増加が見られたので、餌やりを控えごみを捨てるよう伝えるよ。"],
+    ["A class's online presentation was difficult to hear. The students had used a quiet room, but they placed the microphone far from the speaker. They will record again with the microphone closer and check the sound before sharing the video.", "録音をやり直すときに改善することは？", "Move the microphone closer and check the sound.", ["Record in a noisier room.", "Speak farther from the microphone.", "Share the video without listening."], "音が小さい原因はマイクとの距離なので、近づけて確認するよ。"],
+  ]],
+];
+
+function makeEnglishReadingQuestions(level) {
+  return middleEnglishReadingRows.flatMap(([unit, rows]) => rows.map(([passage, question, answer, distractors, explanation]) =>
+    englishQuestion(
+      unit,
+      `${level === "standard" ? "英文を読んで答えなさい。" : level === "application" ? "英文の情報を読み取り、問いに答えなさい。" : "受験読解：英文全体と設問の条件を確認して答えなさい。"}\\n${passage}\\n${question}`,
+      answer,
+      distractors,
+      explanation,
+    )
+  ));
+}
+
+const completeMiddleThirdEnglishBanks = Object.fromEntries(
+  Object.entries(middleThirdEnglishBanks).map(([level, originalQuestions]) => [
+    level,
+    [
+      ...originalQuestions,
+      ...makeEnglishGrammarQuestions(level),
+      ...makeEnglishVocabularyQuestions(level),
+      ...makeEnglishConversationQuestions(level),
+      ...makeEnglishReadingQuestions(level),
+    ],
+  ]),
+);
 
 function generatedQuestion(unit, prompt, answer, distractors, explanation) {
   const options = [...new Set([String(answer), ...distractors.map(String)])].slice(0, 4);
@@ -1832,6 +2344,7 @@ function renderSubjects() {
   subjectSelect.value = subjects.some((subject) => subject.id === previous) ? previous : subjects[0].id;
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
   yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
+  middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
   renderUnits();
   subjectGrid.replaceChildren(...subjects.map((subject) => {
     const card = document.createElement("button");
@@ -1859,6 +2372,7 @@ function renderSubjects() {
       syncSubjectCards();
       sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
       yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
+      middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
       renderUnits();
     });
     return card;
@@ -1930,12 +2444,22 @@ function availableQuestionsForSelection() {
   const stage = stageForGrade(gradeSelect.value);
   const customBank = customQuestionBanks[gradeSelect.value]?.[subjectSelect.value];
   const gradeQuestionForSubject = gradeQuestions[gradeSelect.value][subjectSelect.value];
+  if (isMiddleThirdEnglish()) {
+    return completeMiddleThirdEnglishBanks[middleThirdEnglishLevelSelect.value].map((question) => ({
+      ...question,
+      prompt: question.prompt.replaceAll("\\n", "\n"),
+    }));
+  }
   if (gradeSelect.value === "小6" && subjectSelect.value === "math") {
     return Object.values(customBank || {}).flat();
   }
   return customBank
     ? Object.values(customBank).flat()
     : [gradeQuestionForSubject, ...questions[stage][subjectSelect.value]];
+}
+
+function isMiddleThirdEnglish() {
+  return gradeSelect.value === "中3" && subjectSelect.value === "english";
 }
 
 function updateQuestionCountLimit() {
@@ -1994,6 +2518,12 @@ function startQuiz() {
   const isSixthGradeMath = gradeSelect.value === "小6" && subjectSelect.value === "math";
   const isApplicationPractice = isSixthGradeMath && sixthGradeMathLevelSelect.value === "application";
   const isEntrancePractice = isSixthGradeMath && sixthGradeMathLevelSelect.value === "entrance";
+  const isMiddleEnglishPractice = isMiddleThirdEnglish();
+  const middleEnglishLevelName = {
+    standard: "標準",
+    application: "応用",
+    entrance: "受験",
+  }[middleThirdEnglishLevelSelect.value];
   if (isSixthGradeMath) {
     customQuestionBanks.小6.math = makeRandomSixthGradeMathQuestions(
       loadRecentSixthGradeQuestions(),
@@ -2014,6 +2544,8 @@ function startQuiz() {
     ? `受験対策：山口県：${selectedUnits.join("・")}`
     : isApplicationPractice
     ? `応用・適性検査対策：${selectedUnits.join("・")}`
+    : isMiddleEnglishPractice
+    ? `英語${middleEnglishLevelName}：${selectedUnits.join("・")}`
     : selectedUnits.join("・");
   activeQuestions = shuffled(availableQuestions).slice(0, requestedCount).map((question) => {
     if (question.writtenResponse) return { ...question };
@@ -2034,7 +2566,7 @@ function startQuiz() {
   correctAnswers = 0;
   activeHistoryEntry = null;
   quizNext.dataset.result = "false";
-  quizSubject.textContent = `${gradeLongName(gradeSelect.value)} · ${subject.name}${isEntrancePractice ? " · 受験対策" : isApplicationPractice ? " · 応用・適性検査対策" : ""}`;
+  quizSubject.textContent = `${gradeLongName(gradeSelect.value)} · ${subject.name}${isEntrancePractice ? " · 受験対策" : isApplicationPractice ? " · 応用・適性検査対策" : isMiddleEnglishPractice ? ` · ${middleEnglishLevelName}` : ""}`;
   renderQuestion();
   quizDialog.showModal();
 }
@@ -2386,6 +2918,7 @@ gradeSelect.addEventListener("change", () => {
 subjectSelect.addEventListener("change", () => {
   syncSubjectCards();
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
+  middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
   renderUnits();
 });
 function updateSixthGradeMathLevel() {
@@ -2411,6 +2944,15 @@ function updateSixthGradeMathLevel() {
 }
 sixthGradeMathLevelSelect.addEventListener("input", updateSixthGradeMathLevel);
 sixthGradeMathLevelSelect.addEventListener("change", updateSixthGradeMathLevel);
+middleThirdEnglishLevelSelect.addEventListener("change", () => {
+  const checkboxes = [...unitOptions.querySelectorAll("input[type='checkbox']")];
+  const allUnitsSelected = checkboxes.length > 0 && checkboxes.every((checkbox) => checkbox.checked);
+  renderUnits();
+  const updatedUnitCheckboxes = [...unitOptions.querySelectorAll("input[type='checkbox']")];
+  if (allUnitsSelected && updatedUnitCheckboxes.some((checkbox) => !checkbox.checked)) {
+    toggleAllUnits();
+  }
+});
 questionCountInput.addEventListener("change", updateQuestionCountLimit);
 unitSelectAllButton.addEventListener("click", toggleAllUnits);
 document.querySelector("#start-button").addEventListener("click", startQuiz);
