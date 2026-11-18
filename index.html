@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="high3-math.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -145,6 +146,27 @@
                 <option value="entrance">受験対策</option>
               </select>
             </label>
+            <label class="select-field" id="high-third-math-course-field" hidden>
+              <span>学習範囲</span>
+              <select id="high-third-math-course" aria-label="高校3年数学の学習範囲">
+                <option value="math1a">数学I・A</option>
+                <option value="math2bc">数学II・B・C</option>
+                <option value="math3c">数学III・C</option>
+              </select>
+            </label>
+            <label class="select-field" id="high-third-math-mode-field" hidden>
+              <span>演習方法</span>
+              <select id="high-third-math-mode" aria-label="高校3年数学の演習方法">
+                <option value="basic">基本</option>
+                <option value="application">応用</option>
+                <option value="common">共通テスト対策</option>
+                <option value="entrance">個別試験対策</option>
+              </select>
+            </label>
+            <label class="select-field high3-timer-field" id="high3-timer-field" hidden>
+              <span>模擬演習</span>
+              <span class="high3-timer-option"><input id="high3-timer" type="checkbox"> 時間を計る</span>
+            </label>
             <fieldset class="select-field unit-field">
               <legend id="unit-field-legend">単元（複数選択できます）</legend>
               <div class="unit-selection-controls">
@@ -257,6 +279,7 @@
         </div>
         <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
         <p class="quiz-count" id="quiz-count"></p>
+        <p class="quiz-timer" id="quiz-timer" role="timer" aria-live="off" hidden></p>
         <p class="quiz-unit" id="quiz-unit"></p>
         <h2 class="quiz-question" id="quiz-title"></h2>
         <section class="vocabulary-card" id="vocabulary-card" hidden>

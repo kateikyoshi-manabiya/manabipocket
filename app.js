@@ -6,6 +6,14 @@ let renderedSixthGradeMathLevel = sixthGradeMathLevelSelect.value;
 const yamaguchiPrepNote = document.querySelector("#yamaguchi-prep-note");
 const middleThirdEnglishLevelField = document.querySelector("#middle-third-english-level-field");
 const middleThirdEnglishLevelSelect = document.querySelector("#middle-third-english-level");
+const highThirdMathCourseField = document.querySelector("#high-third-math-course-field");
+const highThirdMathCourseSelect = document.querySelector("#high-third-math-course");
+const highThirdMathModeField = document.querySelector("#high-third-math-mode-field");
+const highThirdMathModeSelect = document.querySelector("#high-third-math-mode");
+const high3TimerField = document.querySelector("#high3-timer-field");
+const high3TimerCheckbox = document.querySelector("#high3-timer");
+const high3TimerLabel = document.querySelector("#quiz-timer");
+const setupControls = document.querySelector(".setup-controls");
 const vocabularyLaunch = document.querySelector("#vocabulary-launch");
 const vocabularyStartButton = document.querySelector("#vocabulary-start-button");
 const vocabularyProgressLabel = document.querySelector("#vocabulary-progress");
@@ -2902,6 +2910,9 @@ let activeHistoryEntry = null;
 let vocabularyStudyPhase = false;
 let vocabularySessionWords = [];
 let vocabularyCardIndex = 0;
+let quizTimerInterval = null;
+let quizDeadline = 0;
+let quizTimerExpired = false;
 const vocabularyStorageKey = "manabi-pocket-middle-english-vocabulary";
 let vocabularyProgress = { learned: [], review: [], order: [], nextIndex: 0 };
 
@@ -3112,6 +3123,7 @@ function renderSubjects() {
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
   yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
   middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+  updateHighThirdMathControls();
   vocabularyLaunch.hidden = !isMiddleThirdEnglish();
   updateVocabularyProgressLabel();
   renderUnits();
@@ -3142,7 +3154,9 @@ function renderSubjects() {
       sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
       yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
       middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+      updateHighThirdMathControls();
       vocabularyLaunch.hidden = !isMiddleThirdEnglish();
+      updateHighThirdMathControls();
       updateVocabularyProgressLabel();
       renderUnits();
       saveLastSelection();
@@ -3170,6 +3184,8 @@ function saveLastSelection() {
       subject: subjectSelect.value,
       sixthGradeMathLevel: sixthGradeMathLevelSelect.value,
       middleThirdEnglishLevel: middleThirdEnglishLevelSelect.value,
+      highThirdMathCourse: highThirdMathCourseSelect.value,
+      highThirdMathMode: highThirdMathModeSelect.value,
     }));
   } catch {
     showStorageNotice("学年・教科・問題レベルを保存できませんでした。");
@@ -3191,6 +3207,12 @@ function restoreLastSelection() {
   if (saved && hasSelectOption(middleThirdEnglishLevelSelect, saved.middleThirdEnglishLevel)) {
     middleThirdEnglishLevelSelect.value = saved.middleThirdEnglishLevel;
   }
+  if (saved && hasSelectOption(highThirdMathCourseSelect, saved.highThirdMathCourse)) {
+    highThirdMathCourseSelect.value = saved.highThirdMathCourse;
+  }
+  if (saved && hasSelectOption(highThirdMathModeSelect, saved.highThirdMathMode)) {
+    highThirdMathModeSelect.value = saved.highThirdMathMode;
+  }
 
   updateGradeLabels();
   renderSubjects();
@@ -3200,7 +3222,9 @@ function restoreLastSelection() {
     sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
     yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
     middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+    updateHighThirdMathControls();
     vocabularyLaunch.hidden = !isMiddleThirdEnglish();
+    updateHighThirdMathControls();
     updateVocabularyProgressLabel();
     renderUnits();
   }
@@ -3215,23 +3239,26 @@ function renderUnits() {
     .map((input) => input.value);
   const units = [...new Set(availableQuestionsForSelection().map(unitSelectionName))];
   const selectedUnits = previous.filter((unit) => units.includes(unit));
+  const high3Math = isHighThirdMath();
   const isEntrancePractice = gradeSelect.value === "小6" && subjectSelect.value === "math" &&
     sixthGradeMathLevelSelect.value === "entrance";
   const isMiddleEnglish = isMiddleThirdEnglish();
   const middleEnglishLevel = middleThirdEnglishLevelSelect.value;
   unitFieldLegend.textContent = isEntrancePractice
     ? "県・学校（複数選択できます）"
+    : high3Math
+      ? "分野（複数選択できます）"
     : isMiddleEnglish
       ? `${middleEnglishLevel === "basic" ? "分野" : "問題の種類"}（複数選択できます）`
       : "単元（複数選択できます）";
-  unitOptions.setAttribute("aria-label", isEntrancePractice ? "受験先" : isMiddleEnglish ? "問題の種類" : "単元");
+  unitOptions.setAttribute("aria-label", isEntrancePractice ? "受験先" : high3Math ? "分野" : isMiddleEnglish ? "問題の種類" : "単元");
   const unitLabels = units.map((unit) => {
     const label = document.createElement("label");
     label.className = "unit-option";
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.value = unit;
-    checkbox.checked = selectedUnits.includes(unit);
+    checkbox.checked = selectedUnits.includes(unit) || (high3Math && selectedUnits.length === 0);
     const name = document.createElement("span");
     name.textContent = unit;
     label.append(checkbox, name);
@@ -3284,6 +3311,9 @@ function availableQuestionsForSelection() {
       prompt: question.prompt.replaceAll("\\n", "\n"),
     }));
   }
+  if (isHighThirdMath()) {
+    return highThirdMathBanks[highThirdMathCourseSelect.value][highThirdMathModeSelect.value];
+  }
   if (gradeSelect.value === "小6" && subjectSelect.value === "math") {
     return Object.values(customBank || {}).flat();
   }
@@ -3298,6 +3328,18 @@ function unitSelectionName(question) {
 
 function isMiddleThirdEnglish() {
   return gradeSelect.value === "中3" && subjectSelect.value === "english";
+}
+
+function isHighThirdMath() {
+  return gradeSelect.value === "高3" && subjectSelect.value === "math";
+}
+
+function updateHighThirdMathControls() {
+  const active = isHighThirdMath();
+  highThirdMathCourseField.hidden = !active;
+  highThirdMathModeField.hidden = !active;
+  high3TimerField.hidden = !active || highThirdMathModeSelect.value !== "common";
+  setupControls.classList.toggle("high-third-math", active);
 }
 
 function updateQuestionCountLimit() {
@@ -3332,6 +3374,8 @@ function updateQuestionCountLimit() {
   startButton.disabled = availableCount === 0;
   limitMessage.textContent = availableCount === 0
     ? "単元を1つ以上選んでください。"
+    : isHighThirdMath() && highThirdMathModeSelect.value === "common"
+      ? `選んだ分野から${availableCount}問出題できます。時間計測の目安は60問で70分です。`
     : `選んだ単元から${availableCount}問出題できます。`;
 }
 
@@ -3348,6 +3392,36 @@ function updateGradeLabels() {
   document.querySelector("#welcome-grade").textContent = gradeLongName(gradeSelect.value);
 }
 
+function stopQuizTimer() {
+  if (quizTimerInterval !== null) {
+    clearInterval(quizTimerInterval);
+    quizTimerInterval = null;
+  }
+  high3TimerLabel.hidden = true;
+  high3TimerLabel.textContent = "";
+}
+
+function updateQuizTimer() {
+  const remaining = Math.max(0, Math.ceil((quizDeadline - Date.now()) / 1000));
+  const minutes = Math.floor(remaining / 60);
+  const seconds = String(remaining % 60).padStart(2, "0");
+  high3TimerLabel.textContent = `残り時間 ${minutes}:${seconds}`;
+  if (remaining === 0) {
+    quizTimerExpired = true;
+    stopQuizTimer();
+    showResult();
+  }
+}
+
+function startQuizTimer(questionCount) {
+  stopQuizTimer();
+  quizTimerExpired = false;
+  quizDeadline = Date.now() + Math.ceil(questionCount * 70 / 60) * 60 * 1000;
+  high3TimerLabel.hidden = false;
+  updateQuizTimer();
+  quizTimerInterval = window.setInterval(updateQuizTimer, 1000);
+}
+
 function startQuiz() {
   const stage = stageForGrade(gradeSelect.value);
   const subject = subjectsByStage[stage].find((item) => item.id === subjectSelect.value);
@@ -3357,6 +3431,20 @@ function startQuiz() {
   const isApplicationPractice = isSixthGradeMath && sixthGradeMathLevelSelect.value === "application";
   const isEntrancePractice = isSixthGradeMath && sixthGradeMathLevelSelect.value === "entrance";
   const isMiddleEnglishPractice = isMiddleThirdEnglish();
+  const isHigh3MathPractice = isHighThirdMath();
+  const high3CourseName = {
+    math1a: "数学I・A",
+    math2bc: "数学II・B・C",
+    math3c: "数学III・C",
+  }[highThirdMathCourseSelect.value];
+  const high3ModeName = highThirdMathModeSelect.value === "common" && highThirdMathCourseSelect.value === "math3c"
+    ? "数学C・共通テスト対策"
+    : {
+      basic: "基本",
+      application: "応用",
+      common: "共通テスト対策",
+      entrance: "個別試験対策",
+    }[highThirdMathModeSelect.value];
   const middleEnglishLevelName = {
     basic: "基本",
     application: "応用",
@@ -3403,6 +3491,8 @@ function startQuiz() {
     ? `応用・適性検査対策：${selectedUnits.join("・")}`
     : isMiddleEnglishPractice
     ? `英語${middleEnglishLevelName}：${selectedUnits.join("・")}`
+    : isHigh3MathPractice
+    ? `高3数学${high3CourseName}・${high3ModeName}：${selectedUnits.join("・")}`
     : selectedUnits.join("・");
   activeQuestions = selectedQuestions.map((question) => {
     if (question.writtenResponse) return { ...question };
@@ -3423,9 +3513,15 @@ function startQuiz() {
   correctAnswers = 0;
   activeHistoryEntry = null;
   quizNext.dataset.result = "false";
-  quizSubject.textContent = `${gradeLongName(gradeSelect.value)} · ${subject.name}${isEntrancePractice ? " · 受験対策" : isApplicationPractice ? " · 応用・適性検査対策" : isMiddleEnglishPractice ? ` · ${middleEnglishLevelName}` : ""}`;
+  quizTimerExpired = false;
+  quizSubject.textContent = `${gradeLongName(gradeSelect.value)} · ${subject.name}${isEntrancePractice ? " · 受験対策" : isApplicationPractice ? " · 応用・適性検査対策" : isMiddleEnglishPractice ? ` · ${middleEnglishLevelName}` : isHigh3MathPractice ? ` · ${high3CourseName} / ${high3ModeName}` : ""}`;
   renderQuestion();
   quizDialog.showModal();
+  if (isHigh3MathPractice && highThirdMathModeSelect.value === "common" && high3TimerCheckbox.checked) {
+    startQuizTimer(requestedCount);
+  } else {
+    stopQuizTimer();
+  }
 }
 
 function renderQuestion() {
@@ -3727,6 +3823,7 @@ function recordAnswer(isCorrect, mistake = null) {
 }
 
 function showResult() {
+  stopQuizTimer();
   const percent = Math.round((correctAnswers / activeQuestions.length) * 100);
   quizProgressFill.style.width = "100%";
   quizCount.textContent = "TODAY'S RESULT";
@@ -3746,9 +3843,13 @@ function showResult() {
   emoji.className = "quiz-result-emoji";
   emoji.textContent = percent === 100 ? "🏆" : percent >= 60 ? "🎉" : "🌱";
   const title = document.createElement("h2");
-  title.textContent = `${activeQuestions.length}問中 ${correctAnswers}問正解！`;
+  title.textContent = quizTimerExpired
+    ? `${activeHistoryEntry?.answered || 0}問回答・${activeQuestions.length}問中 ${correctAnswers}問正解`
+    : `${activeQuestions.length}問中 ${correctAnswers}問正解！`;
   const message = document.createElement("p");
-  message.textContent = activeQuestions.some((question) => question.writtenResponse)
+  message.textContent = quizTimerExpired
+    ? "時間になりました。解けた問題をふりかえり、続きは落ち着いて確認しましょう。"
+    : activeQuestions.some((question) => question.writtenResponse)
     ? "記述問題の正解数は、模範例と観点に基づく自己チェックです。自分の言葉で説明する練習を続けましょう。"
     : percent === 100 ? "すばらしい！ぜんぶ正解だよ。" : percent >= 60 ? "いい調子！この調子で続けよう。" : "チャレンジしたことがえらい！解説をふりかえってみよう。";
   result.append(emoji, title, message);
@@ -3796,6 +3897,7 @@ subjectSelect.addEventListener("change", () => {
   syncSubjectCards();
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
   middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+  updateHighThirdMathControls();
   vocabularyLaunch.hidden = !isMiddleThirdEnglish();
   updateVocabularyProgressLabel();
   renderUnits();
@@ -3828,6 +3930,16 @@ function updateSixthGradeMathLevel() {
 }
 sixthGradeMathLevelSelect.addEventListener("input", updateSixthGradeMathLevel);
 sixthGradeMathLevelSelect.addEventListener("change", updateSixthGradeMathLevel);
+highThirdMathCourseSelect.addEventListener("change", () => {
+  updateHighThirdMathControls();
+  renderUnits();
+  saveLastSelection();
+});
+highThirdMathModeSelect.addEventListener("change", () => {
+  updateHighThirdMathControls();
+  renderUnits();
+  saveLastSelection();
+});
 middleThirdEnglishLevelSelect.addEventListener("change", () => {
   const checkboxes = [...unitOptions.querySelectorAll("input[type='checkbox']")];
   const allUnitsSelected = checkboxes.length > 0 && checkboxes.every((checkbox) => checkbox.checked);
@@ -3856,6 +3968,7 @@ quizDialog.addEventListener("click", (event) => {
 quizDialog.addEventListener("close", () => {
   vocabularyStudyPhase = false;
   vocabularyCard.hidden = true;
+  stopQuizTimer();
 });
 vocabularyRevealButton.addEventListener("click", () => {
   vocabularyDetails.hidden = false;
