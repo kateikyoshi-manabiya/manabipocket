@@ -819,6 +819,116 @@ function makeEnglishEntranceReadingQuestions() {
   );
 }
 
+const middleEnglishPrefecturalEntranceGrammarRows = [
+  ["文法・時制", "空欄に入る語を選びなさい。\\nMy sister (　) dinner when I came home yesterday.", "was cooking", ["cooks", "has cooked", "will cook"], "帰宅した過去の時点で夕食を作っている最中だったため、過去進行形was cookingを使います。"],
+  ["文法・現在完了", "空欄に入る語を選びなさい。\\nI (　) in this town since I was five.", "have lived", ["live", "lived", "am living"], "since以下は過去に始まり現在まで続く期間を示すため、現在完了形have livedが適切です。"],
+  ["文法・不定詞", "「私は将来、外国で働くことを望んでいます」に合う英文を選びなさい。", "I hope to work in another country in the future.", ["I hope work in another country in the future.", "I hope working in another country in the future.", "I hope worked in another country in the future."], "hopeの後ろにはto不定詞を置きます。hope to workで「働くことを望む」という意味になります。"],
+  ["文法・動名詞", "空欄に入る語を選びなさい。\\nWe enjoyed (　) with the students from Canada.", "talking", ["talk", "to talk", "talked"], "enjoyは目的語に動名詞をとる動詞なので、talkingが適切です。"],
+  ["文法・受け身", "空欄に入る語を選びなさい。\\nThis picture (　) by a student in our class last year.", "was painted", ["painted", "has painting", "is paint"], "last yearの過去の文で、絵は「描かれた」という受け身です。主語は単数なのでwas paintedとなります。"],
+  ["文法・関係代名詞", "二文の内容を正しく表す英文を選びなさい。\\nI have a friend. He can speak three languages.", "I have a friend who can speak three languages.", ["I have a friend which can speak three languages.", "I have a friend where can speak three languages.", "I have a friend when can speak three languages."], "先行詞a friendは人で、後ろの節では主語の役割をするため、主格の関係代名詞whoでつなぎます。"],
+  ["文法・比較", "空欄に入る語を選びなさい。\\nThis year's festival was (　) than last year's.", "more colorful", ["colorful", "most colorful", "as colorful"], "thanを使って昨年と比べているため比較級が必要です。colorfulの比較級はmore colorfulです。"],
+  ["文法・接続詞", "文の流れに合う接続詞を選びなさい。\\nWe wanted to play outside, (　) it started to rain, so we stayed in the gym.", "but", ["because", "if", "before"], "外で遊びたい気持ちと雨が降ったことは対照的なので、逆接のbutが適切です。"],
+  ["文法・助動詞", "「ここで写真を撮ってもよいですか」に最も適切な英文を選びなさい。", "May I take a picture here?", ["Must I taking a picture here?", "Do I can take a picture here?", "Should I to take a picture here?"], "許可を丁寧に求める表現はMay I＋動詞の原形?です。"],
+  ["文法・間接疑問文", "空欄に入る語を選びなさい。\\nDo you know (　) the next bus leaves?", "when", ["when does", "what time does", "that time"], "knowの後ろは間接疑問文です。疑問詞の後ろは主語the next bus、動詞leavesの語順になります。"],
+  ["文法・語順", "「彼女は私にどこでその本を買ったか尋ねました」に合う英文を選びなさい。", "She asked me where I bought the book.", ["She asked me where did I buy the book.", "She asked me where I did bought the book.", "She asked me where bought I the book."], "間接疑問文では疑問詞の後ろを主語＋動詞の語順にします。過去のことなのでwhere I bought the bookです。"],
+  ["文法・条件", "空欄に入る語を選びなさい。\\nIf you (　) your homework now, you can watch the movie with us later.", "finish", ["will finish", "finished", "would finish"], "実現する可能性のある未来の条件を表すif節では、未来のことでも現在形を使います。"],
+];
+
+const middleEnglishPrefecturalEntranceReadingRows = [
+  ["長文・情報照合", "Dear students,\\nThe International Day will be held in the school hall on October 18. Please arrive by 1:00 p.m. The first presentation starts at 1:20. Students introducing a country should bring picture cards. After the presentations, visitors can try a quiz at each table. The event ends at 3:30. If you have questions, ask Ms. Green in Room 204 by October 15.", [
+    ["By what time should students arrive?", "1:00 p.m.", ["1:20 p.m.", "3:30 p.m.", "October 15."], "集合の締切はarrive byで示された午後1時です。発表開始時刻の1時20分と区別します。"],
+    ["What should students introducing a country bring?", "Picture cards.", ["A quiz table.", "A letter from Ms. Green.", "The school hall."], "国を紹介する生徒はpicture cardsを持参します。クイズは発表後に来場者が参加するものです。"],
+    ["When does the event end?", "At 3:30 p.m.", ["At 1:00 p.m.", "At 1:20 p.m.", "On October 15."], "event ends at 3:30と案内されています。10月15日は質問を受け付ける期限で、開催日は10月18日です。"],
+    ["What can visitors do after the presentations?", "Try a quiz at each table.", ["Introduce a country.", "Ask questions in Room 204.", "Arrive before 1:00."], "発表後は各テーブルでクイズに挑戦できます。Room 204での質問は開催前の問い合わせ先です。"],
+  ]],
+  ["長文・情報照合", "The Green Market is open every Saturday from 9:00 a.m. to 2:00 p.m. The cooking show begins at 10:30 and is free. Visitors can join a farm tour at 11:00 or 1:00. Each tour takes 40 minutes, and visitors must meet at the information desk ten minutes before it starts. A ticket is needed for the tour. Children under twelve can join only with an adult.", [
+    ["When should a visitor for the 11:00 tour meet the guide?", "At 10:50.", ["At 10:30.", "At 11:00.", "At 11:40."], "開始時刻の10分前に集合する条件なので、11時開始のツアーは10時50分集合です。"],
+    ["Which activity requires a ticket?", "The farm tour.", ["Entering the market.", "Watching the cooking show.", "Meeting at the information desk."], "料理の実演は無料ですが、農場ツアーにはチケットが必要とあります。"],
+    ["What must a ten-year-old child do to join the tour?", "Go with an adult.", ["Join only the 1:00 tour.", "Bring a cooking ticket.", "Leave before 11:00."], "12歳未満は大人と一緒の場合に限りツアーに参加できます。"],
+    ["How long before the market closes does the 1:00 tour finish?", "Twenty minutes.", ["Ten minutes.", "Forty minutes.", "One hour."], "1時開始で40分間なので終了は1時40分です。市場の閉店2時まで20分あります。"],
+  ]],
+  ["長文・会話の流れと意見", "A: We need a topic for our English presentation.\\nB: How about famous sports in Japan?\\nA: Our class has already heard about baseball.\\nB: Then we could introduce a less familiar sport, like kendo.\\nA: Good idea. We can show a short video and explain its rules.\\nB: Let's also ask the kendo club if someone can answer questions.", [
+    ["What topic do the students decide to present?", "Kendo.", ["Baseball.", "All sports in Japan.", "The English class."], "野球はすでに聞いたことがあるため、二人はよりなじみの薄い剣道を紹介する案に賛成しています。"],
+    ["Why does A think baseball may not be a good topic?", "The class has already heard about it.", ["Its rules are too difficult.", "The kendo club does not play it.", "They cannot find a video."], "Aは、クラスがすでに野球について聞いたことがあると言っています。題材に新しさがないことが理由です。"],
+    ["What will they use to explain the sport?", "A short video and an explanation of its rules.", ["A long book about baseball.", "A visit to another school.", "A list of athletes only."], "Aは短い動画を見せ、ルールを説明する案を出しています。"],
+    ["What does B suggest in addition to the presentation?", "Ask a kendo club member to answer questions.", ["Cancel the presentation.", "Ask the class to teach English.", "Replace the video with a baseball game."], "最後にBは、剣道部に質問へ答えてくれる人がいないか尋ねる提案をしています。"],
+  ]],
+  ["長文・理由・推論", "Riku joined the school newspaper and wanted to write about a new café near the station. His editor asked him to visit at different times and speak with the owner and customers. Riku learned that students studied at the large tables after school. The owner had placed books and board games on a shelf, hoping families would visit on weekends. Riku changed his article from a review of the drinks to a story about how the café served different people at different times.", [
+    ["Why did Riku change the focus of his article?", "He discovered that the café served different groups in different ways.", ["The café stopped selling drinks.", "The editor did not let him visit.", "Customers asked him to write about the station."], "取材で、放課後は生徒が勉強し、週末は家族の利用を想定していると分かりました。飲み物だけでなく店の使われ方を伝える内容に変更しました。"],
+    ["What did students mainly do at the café after school?", "Study at the large tables.", ["Play board games with families.", "Choose books for the newspaper.", "Talk about weekend plans."], "本文では、放課後に生徒が大きなテーブルを使って勉強していたと述べられています。"],
+    ["Why did the owner put books and games on a shelf?", "The owner hoped families would visit on weekends.", ["The owner wanted students to stop studying.", "The café was moving to another station.", "The newspaper asked for them."], "本やゲームは週末に家族が訪れることを期待して置かれました。放課後の生徒の勉強とは別の利用者を考えた工夫です。"],
+    ["What can be inferred about the editor's advice?", "It helped Riku find a more informative story.", ["It made Riku write without interviews.", "It required him to write only about drinks.", "It showed that the café was empty."], "異なる時間に訪問し複数の人に聞いたことで、店の役割の違いが見つかりました。助言が記事をより具体的にしています。"],
+  ]],
+  ["長文・情報照合", "A class is planning a trip. The museum opens at 9:30 and its science show starts at 11:00. Students must arrive at the show room ten minutes early. The bus leaves school at 8:40 and takes 35 minutes. In the afternoon, students can choose a garden walk at 1:00, which takes 50 minutes, or an art workshop at 1:20, which takes one hour. The bus back leaves at 2:45. Students must bring lunch; the museum provides water.", [
+    ["What time will the bus arrive at the museum?", "9:15.", ["9:05.", "9:30.", "11:00."], "出発時刻8時40分に所要時間35分を足すと、到着は9時15分です。"],
+    ["By what time must students be in the show room?", "10:50.", ["10:40.", "11:00.", "11:10."], "ショーは11時開始で、10分前までに会場へ行くので10時50分です。"],
+    ["Which afternoon activity finishes earlier?", "The garden walk.", ["The art workshop.", "They finish at the same time.", "The information is not given."], "庭の散策は1時開始で50分間のため1時50分終了です。美術は1時20分開始で1時間なので2時20分終了です。"],
+    ["What should students bring for lunch?", "Their own lunch.", ["Water only.", "A ticket for the show.", "Food for the museum staff."], "昼食は各自持参、水は博物館が用意するとあります。持参が必要なのは昼食です。"],
+  ]],
+  ["長文・理由・推論", "Mika heard that the bridge on her usual road to school would be closed for repairs the following week. She checked a town map and found a second route, but it was longer. She walked it on Saturday and noticed a bus stop. She decided to leave home ten minutes earlier and take the bus only when it rained. On the first rainy day, the bus was full, so she walked the longer route instead.", [
+    ["Why did Mika look for another route?", "The bridge on her usual road would be closed.", ["The bus stop was removed.", "Her school changed its start time.", "The map showed that her usual road was longer."], "いつもの道の橋が工事で閉鎖されると知ったため、代わりの通学路を探しました。"],
+    ["Why did Mika walk the second route on Saturday?", "She wanted to find out what the route was like.", ["The bridge was already closed.", "She wanted to miss the bus.", "She had to repair the road."], "地図で見つけた道を実際に歩き、途中のバス停などを確かめました。"],
+    ["What did Mika plan to do when it rained?", "Take the bus if it was available.", ["Walk across the closed bridge.", "Leave home ten minutes later.", "Stay home from school."], "雨の日はバスを使うつもりでしたが、満員だった日は歩いています。バスは必ず乗れるとは限らない選択肢です。"],
+    ["What does the last sentence show about Mika?", "She had a backup plan when the bus was full.", ["She decided not to go to school.", "She forgot the second route.", "She always preferred the bus."], "バスが満員のときに別ルートを歩いたことから、代替手段を用意していたと分かります。"],
+  ]],
+  ["長文・情報照合", "The school library lends tablets for a research project from Monday to Friday. Each student may borrow one for up to two hours and must return it to the front desk before 5:00. The library is closed on Wednesday afternoon for staff training. Students needing a computer for more than two hours should book one in the media room. The media room is open until 6:00, but it has only eight computers.", [
+    ["What is the longest time a student may borrow a tablet?", "Two hours.", ["One hour.", "Five hours.", "Until 6:00."], "タブレットは1人につき最長2時間借りられます。メディアルームの利用時間とは別の条件です。"],
+    ["Where should a student return a tablet?", "At the front desk.", ["In the media room.", "At the classroom door.", "In the computer room."], "返却場所はfront desk（受付）です。図書館が閉まる午後5時より前に返却します。"],
+    ["What should a student do if a computer is needed for more than two hours?", "Book one in the media room.", ["Borrow two tablets at once.", "Wait until Wednesday afternoon.", "Keep the tablet after closing."], "2時間を超える場合は、メディアルームのコンピューターを予約するよう案内されています。"],
+    ["When is the library closed in the afternoon?", "On Wednesday.", ["On Monday.", "On Thursday.", "On Friday."], "スタッフ研修のため水曜日の午後は閉館します。"],
+  ]],
+  ["長文・会話の流れと意見", "A: Our class wants to reduce plastic bottles.\\nB: We could put a water station near the gym.\\nC: Students need clean bottles to use it.\\nA: The school store could sell reusable bottles.\\nB: Some students may already have one at home.\\nC: Let's first ask students if they would use the station, then decide where to put it.", [
+    ["What problem does C point out about the first suggestion?", "Students need bottles they can refill.", ["The gym is too far from school.", "The station uses plastic bottles.", "The school store is always closed."], "水飲み場を設けても、補充に使える清潔なボトルが必要だとCが指摘しています。"],
+    ["Why does B mention reusable bottles at home?", "The school may not need to sell one to every student.", ["Students should stop drinking water.", "The store sells only plastic bottles.", "The gym needs to be moved."], "家にボトルを持つ生徒もいるため、全員が新しく購入しなくてもよい可能性を示しています。"],
+    ["What will the students do first?", "Ask whether students would use the water station.", ["Buy bottles for everyone.", "Build the station immediately.", "Stop using the school store."], "設置場所を決める前に、まず利用希望を調べるというのが会話の結論です。"],
+    ["Which statement best describes the group's plan?", "They will check students' interest before choosing a location.", ["They have chosen to sell bottles to everyone.", "They decided not to reduce plastic use.", "They will build the station without asking."], "利用希望を調べてから設置場所を決めます。販売方法や具体的な場所はまだ決定していません。"],
+  ]],
+  ["長文・要旨・意見", "Students made a website to introduce local places to visitors. At first, they wrote long descriptions of every building. A teacher suggested asking visitors what they needed before a trip. Visitors wanted bus times, opening hours, and places to rest. The students added a simple map and checked details with shop owners. They removed interesting facts that were not useful for planning a visit. More visitors began using the website on their phones.", [
+    ["What information did visitors want most?", "Practical information for planning a visit.", ["Long histories of every building.", "The students' school schedules.", "Other towns' websites."], "要望されたのはバスの時刻、営業時間、休憩場所で、訪問計画に直接役立つ実用情報です。"],
+    ["Why did students check details with shop owners?", "To make sure the information was correct.", ["To ask them to write the website.", "To remove the map.", "To learn which students used phones."], "営業時間などを店主に確認することで、訪問者に提供する情報の正確さを高められます。"],
+    ["What did students remove from the website?", "Details that did not help visitors plan.", ["All practical information.", "The map and opening hours.", "Every description of local places."], "興味深くても訪問計画に役立たない情報を削り、利用者の目的に合わせて内容を整理しました。"],
+    ["Why might more visitors have used the website on their phones?", "It became easier to find useful information quickly.", ["It stopped showing opening hours.", "Visitors had to interview students.", "The map was removed."], "地図や実用情報がまとまり、外出先でも必要な情報を見つけやすくなったためと考えられます。"],
+  ]],
+  ["長文・情報照合", "A youth center offers three activities. Art meets Monday from 4:00 to 5:00 and costs 500 yen. Music meets Tuesday from 4:30 to 6:00 and costs 700 yen. Cooking meets Thursday from 4:00 to 5:30 and costs 800 yen. Ken can spend up to 700 yen and must leave by 5:15. He has soccer practice on Monday but no other after-school plans. Students may leave an activity early if they tell the teacher first.", [
+    ["Which activity can Ken join if he tells the teacher he must leave early?", "Music.", ["Art.", "Cooking.", "He cannot join any activity."], "音楽は火曜日で予定がなく、費用も上限700円以内です。5時15分に早退する必要がありますが、事前に先生へ伝えれば可能です。"],
+    ["Why can Ken not choose art?", "He has soccer practice on Monday.", ["It costs more than 700 yen.", "It starts after 5:15.", "The center is closed on Monday."], "美術は月曜日で、Kenのサッカー練習と重なります。費用は予算内ですが、予定が合いません。"],
+    ["Why is cooking outside Ken's budget?", "It costs 800 yen, more than his 700-yen limit.", ["It meets on Monday.", "It lasts only thirty minutes.", "It requires soccer practice."], "料理は800円で、Kenの上限700円を超えています。"],
+    ["What should Ken do if he chooses music?", "Tell the teacher that he must leave early.", ["Arrive on Monday after soccer.", "Pay 800 yen.", "Ask the center to cancel cooking."], "音楽は6時までですが、Kenは5時15分に出る必要があります。早退を許可する条件として、あらかじめ先生へ伝えます。"],
+  ]],
+  ["長文・理由・推論", "Yuna found two websites with different dates for the opening of an old bridge. One had no author or references. The other was written by a local museum and included a photograph of a town record. Yuna checked a library book and found the same date as the museum page. She wrote down the date and where she had found it.", [
+    ["Which source did Yuna have the strongest reason to trust?", "The museum page.", ["The page with no author or references.", "A page that gave no date.", "A page chosen because it was shorter."], "博物館のページには資料写真があり、図書館の本とも日付が一致しました。根拠があり別資料とも照合できる情報がより信頼できます。"],
+    ["Why did Yuna check a library book?", "To compare the date with another source.", ["To replace her report with a book.", "To find a different bridge.", "To avoid recording sources."], "別の資料でも同じ日付か確かめ、情報が正しい可能性を高めるためです。"],
+    ["What did Yuna record besides the date?", "Where she found the information.", ["Every visitor's name.", "The price of the book.", "The website's color."], "日付だけでなく、情報をどこで得たかも記録しています。レポートで出典を示すために必要です。"],
+    ["What is the main idea of the passage?", "Comparing sources helps make a report reliable.", ["The oldest website is always correct.", "Photographs are never useful.", "Reports should include only one date."], "根拠を確認し、別資料と照合して出典も記録することで、信頼できるレポートにできるという内容です。"],
+  ]],
+  ["長文・理由・推論", "Aki wanted to improve her English listening. She watched a difficult movie without subtitles, understood very little, and stopped after a few days. Her teacher suggested short videos about topics she knew. Aki watched each video twice: first to understand the main idea, then to notice familiar words. She wrote down only a few new expressions each time. After a month, she could follow more videos and felt ready to try longer ones.", [
+    ["Why did Aki stop watching the movie?", "It was too difficult for her to understand much.", ["She had learned every expression.", "Her teacher told her not to study.", "The movie was too short."], "字幕なしの難しい映画では内容をほとんど理解できず、学習を続けられませんでした。"],
+    ["What did Aki do the first time she watched each short video?", "Tried to understand the main idea.", ["Wrote down every word.", "Translated the whole video.", "Watched it with a long word list."], "1回目は主な内容をつかみ、2回目は知っている語に注目しました。"],
+    ["Why did the teacher suggest familiar topics?", "Aki could use what she already knew to follow the video.", ["The videos had no English words.", "Aki wanted to stop studying.", "Familiar topics are always shorter."], "内容についての知識があると、聞き取れた語から話の流れを推測しやすくなります。"],
+    ["What change did Aki notice after a month?", "She could understand more and try longer videos.", ["She no longer needed English.", "She forgot familiar words.", "She returned to the difficult movie immediately."], "練習を続けて動画をより理解できるようになり、長い動画にも挑戦する自信がつきました。"],
+  ]],
+];
+
+function makeEnglishPrefecturalEntranceQuestions() {
+  const grammarQuestions = middleEnglishPrefecturalEntranceGrammarRows.map(([unit, prompt, answer, distractors, explanation]) =>
+    englishQuestion(unit, prompt, answer, distractors, explanation)
+  );
+  const readingQuestions = middleEnglishPrefecturalEntranceReadingRows.flatMap(([category, passage, rows], passageIndex) =>
+    rows.map(([question, answer, distractors, explanation], questionIndex) => ({
+      ...englishQuestion(
+        category,
+        `英文を読み、内容に合う答えを選びなさい。\\n${passage}\\n${question}`,
+        answer,
+        distractors,
+        explanation,
+      ),
+      passageId: `prefectural-entrance-${passageIndex}`,
+      questionId: questionIndex,
+    }))
+  );
+  return [...grammarQuestions, ...readingQuestions];
+}
+
 const middleEnglishBasicGroups = {
   "文の基本": ["基本文型・疑問文・否定文", "文型・間接疑問文・that節"],
   "時制": ["現在形・過去形", "進行形・未来表現", "現在完了・現在完了進行形"],
@@ -860,6 +970,7 @@ const completeMiddleThirdEnglishBanks = {
   entrance: [
     ...middleThirdEnglishBanks.entrance,
     ...makeEnglishEntranceReadingQuestions(),
+    ...makeEnglishPrefecturalEntranceQuestions(),
   ],
 };
 
@@ -869,7 +980,7 @@ Object.entries(completeMiddleThirdEnglishBanks).forEach(([level, bank]) => {
   });
 });
 
-const expectedMiddleThirdEnglishQuestionCounts = { basic: 240, application: 72, entrance: 60 };
+const expectedMiddleThirdEnglishQuestionCounts = { basic: 240, application: 72, entrance: 120 };
 Object.entries(expectedMiddleThirdEnglishQuestionCounts).forEach(([level, expectedCount]) => {
   if (completeMiddleThirdEnglishBanks[level].length !== expectedCount) {
     throw new Error(`中学3年英語の${level}問題数が想定と一致しません。`);
