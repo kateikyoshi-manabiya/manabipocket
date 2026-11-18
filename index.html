@@ -162,6 +162,16 @@
             <button class="start-button" id="start-button" type="button">
               学習をはじめる <span aria-hidden="true">→</span>
             </button>
+            <section class="vocabulary-launch" id="vocabulary-launch" aria-label="中学3年英語の英単語学習" hidden>
+              <div class="vocabulary-launch-copy">
+                <strong>頻出英単語300語</strong>
+                <p>10語ずつカードで確認し、意味や例文の問題に挑戦します。</p>
+                <p class="vocabulary-progress" id="vocabulary-progress" role="status"></p>
+              </div>
+              <button class="vocabulary-start-button" id="vocabulary-start-button" type="button">
+                英単語学習をはじめる <span aria-hidden="true">→</span>
+              </button>
+            </section>
           </div>
           <p class="setup-question-limit" id="setup-question-limit" role="status" aria-live="polite"></p>
         </section>
@@ -249,6 +259,15 @@
         <p class="quiz-count" id="quiz-count"></p>
         <p class="quiz-unit" id="quiz-unit"></p>
         <h2 class="quiz-question" id="quiz-title"></h2>
+        <section class="vocabulary-card" id="vocabulary-card" hidden>
+          <p class="vocabulary-part-of-speech" id="vocabulary-part-of-speech"></p>
+          <button class="vocabulary-reveal-button" id="vocabulary-reveal" type="button">意味と例文を見る</button>
+          <div class="vocabulary-details" id="vocabulary-details" hidden>
+            <p class="vocabulary-meaning" id="vocabulary-meaning"></p>
+            <p class="vocabulary-example" id="vocabulary-example"></p>
+            <p class="vocabulary-translation" id="vocabulary-translation"></p>
+          </div>
+        </section>
         <div class="written-response" id="written-response" hidden></div>
         <div class="quiz-options" id="quiz-options"></div>
         <div class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></div>

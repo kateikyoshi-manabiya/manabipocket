@@ -6,6 +6,9 @@ let renderedSixthGradeMathLevel = sixthGradeMathLevelSelect.value;
 const yamaguchiPrepNote = document.querySelector("#yamaguchi-prep-note");
 const middleThirdEnglishLevelField = document.querySelector("#middle-third-english-level-field");
 const middleThirdEnglishLevelSelect = document.querySelector("#middle-third-english-level");
+const vocabularyLaunch = document.querySelector("#vocabulary-launch");
+const vocabularyStartButton = document.querySelector("#vocabulary-start-button");
+const vocabularyProgressLabel = document.querySelector("#vocabulary-progress");
 const unitOptions = document.querySelector("#unit-options");
 const unitFieldLegend = document.querySelector("#unit-field-legend");
 const unitSelectAllButton = document.querySelector("#unit-select-all");
@@ -20,6 +23,13 @@ const quizFeedback = document.querySelector("#quiz-feedback");
 const quizNext = document.querySelector("#quiz-next");
 const quizProgressFill = document.querySelector("#quiz-progress-fill");
 const writtenResponse = document.querySelector("#written-response");
+const vocabularyCard = document.querySelector("#vocabulary-card");
+const vocabularyPartOfSpeech = document.querySelector("#vocabulary-part-of-speech");
+const vocabularyRevealButton = document.querySelector("#vocabulary-reveal");
+const vocabularyDetails = document.querySelector("#vocabulary-details");
+const vocabularyMeaning = document.querySelector("#vocabulary-meaning");
+const vocabularyExample = document.querySelector("#vocabulary-example");
+const vocabularyTranslation = document.querySelector("#vocabulary-translation");
 
 const subjectsByStage = {
   elementary: [
@@ -986,6 +996,517 @@ Object.entries(expectedMiddleThirdEnglishQuestionCounts).forEach(([level, expect
     throw new Error(`中学3年英語の${level}問題数が想定と一致しません。`);
   }
 });
+
+const middleThirdEnglishVocabularyLearningRows = [
+  ["be", "動詞", "〜である、いる", "I am happy to be here.", "ここにいられてうれしいです。"],
+  ["have", "動詞", "持っている、食べる", "I have two sisters.", "私には姉妹が二人います。"],
+  ["do", "動詞", "する", "I do my homework after dinner.", "私は夕食後に宿題をします。"],
+  ["go", "動詞", "行く", "We go to school by bus.", "私たちはバスで学校へ行きます。"],
+  ["make", "動詞", "作る", "I want to make dinner with my family.", "家族と一緒に夕食を作りたいです。"],
+  ["get", "動詞", "受け取る、手に入れる", "I get a letter every week.", "私は毎週手紙を受け取ります。"],
+  ["take", "動詞", "取る、（写真を）撮る", "I take a picture of the flower.", "私はその花の写真を撮ります。"],
+  ["come", "動詞", "来る", "My friend will come to my house.", "友達が私の家に来ます。"],
+  ["see", "動詞", "見る、会う", "I can see the sea from here.", "ここから海が見えます。"],
+  ["know", "動詞", "知っている", "I know the answer.", "私は答えを知っています。"],
+  ["think", "動詞", "考える、思う", "I think this idea is good.", "この考えはよいと思います。"],
+  ["say", "動詞", "言う", "I can say hello to my teacher.", "先生にこんにちはと言えます。"],
+  ["tell", "動詞", "伝える、話す", "Please tell me your idea.", "あなたの考えを私に教えてください。"],
+  ["ask", "動詞", "尋ねる、頼む", "I ask my teacher a question.", "私は先生に質問します。"],
+  ["give", "動詞", "与える、渡す", "We give food to the animals.", "私たちは動物に食べ物をあげます。"],
+  ["find", "動詞", "見つける", "I can find the station on this map.", "この地図で駅を見つけられます。"],
+  ["use", "動詞", "使う", "We use this room for art.", "私たちはこの部屋を美術に使います。"],
+  ["want", "動詞", "欲しい、〜したい", "I want to visit Kyoto.", "私は京都を訪れたいです。"],
+  ["need", "動詞", "必要とする", "We need more time.", "私たちにはもっと時間が必要です。"],
+  ["like", "動詞", "好む", "I like reading books.", "私は本を読むのが好きです。"],
+  ["help", "動詞", "助ける", "I help my mother on Sundays.", "私は日曜日に母を手伝います。"],
+  ["work", "動詞", "働く", "I work at a hospital with my father.", "私は父と病院で働いています。"],
+  ["play", "動詞", "遊ぶ、競技をする", "We play soccer after school.", "私たちは放課後にサッカーをします。"],
+  ["live", "動詞", "住む、生きる", "My grandparents live in Osaka.", "祖父母は大阪に住んでいます。"],
+  ["study", "動詞", "勉強する", "I study English every day.", "私は毎日英語を勉強します。"],
+  ["learn", "動詞", "学ぶ、覚える", "I learn new words at school.", "私は学校で新しい単語を学びます。"],
+  ["read", "動詞", "読む", "I read a story before bed.", "私は寝る前に物語を読みます。"],
+  ["write", "動詞", "書く", "I write a letter to my friend.", "私は友達に手紙を書きます。"],
+  ["speak", "動詞", "話す", "She can speak English well.", "彼女は英語を上手に話せます。"],
+  ["talk", "動詞", "話す", "We talk about the game.", "私たちはその試合について話します。"],
+  ["listen", "動詞", "聞く", "I listen to music on the bus.", "私はバスの中で音楽を聞きます。"],
+  ["hear", "動詞", "聞こえる、聞く", "I can hear birds in the morning.", "朝、鳥の声が聞こえます。"],
+  ["understand", "動詞", "理解する", "I understand the question.", "私はその質問を理解しています。"],
+  ["feel", "動詞", "感じる", "I feel happy today.", "今日は幸せな気分です。"],
+  ["become", "動詞", "〜になる", "She wants to become a doctor.", "彼女は医者になりたいと思っています。"],
+  ["start", "動詞", "始める", "We will start the meeting at nine.", "私たちは9時に会議を始めます。"],
+  ["begin", "動詞", "始まる、始める", "The movie will begin at six.", "映画は6時に始まります。"],
+  ["finish", "動詞", "終える", "I finish my homework before dinner.", "私は夕食前に宿題を終えます。"],
+  ["stop", "動詞", "止まる、やめる", "The bus will stop at the next station.", "バスは次の駅に止まります。"],
+  ["keep", "動詞", "保つ、続ける", "Please keep your room clean.", "部屋をきれいに保ってください。"],
+  ["leave", "動詞", "去る、出発する", "We leave home at eight.", "私たちは8時に家を出ます。"],
+  ["bring", "動詞", "持ってくる", "Please bring your notebook tomorrow.", "明日ノートを持ってきてください。"],
+  ["buy", "動詞", "買う", "I want to buy a new dictionary.", "新しい辞書を買いたいです。"],
+  ["pay", "動詞", "支払う", "I pay for lunch with my card.", "私はカードで昼食代を払います。"],
+  ["try", "動詞", "試す、努力する", "I will try the new sport.", "私はその新しいスポーツを試します。"],
+  ["choose", "動詞", "選ぶ", "You can choose one book.", "本を1冊選べます。"],
+  ["decide", "動詞", "決める", "I will decide after the meeting.", "会議の後で決めます。"],
+  ["plan", "動詞", "計画する", "We plan a trip for summer.", "私たちは夏の旅行を計画します。"],
+  ["hope", "動詞", "望む、願う", "I hope to see you again.", "また会えることを願っています。"],
+  ["wait", "動詞", "待つ", "We wait for the next bus.", "私たちは次のバスを待ちます。"],
+  ["meet", "動詞", "会う", "I will meet my friend after school.", "放課後、友達に会います。"],
+  ["visit", "動詞", "訪れる", "We visit our grandparents every month.", "私たちは毎月祖父母を訪ねます。"],
+  ["arrive", "動詞", "到着する", "The train will arrive at noon.", "電車は正午に到着します。"],
+  ["return", "動詞", "戻る、返す", "Please return the book tomorrow.", "明日その本を返してください。"],
+  ["reach", "動詞", "着く、届く", "I can reach the top shelf.", "私は一番上の棚に手が届きます。"],
+  ["follow", "動詞", "ついて行く、従う", "Follow this road to the station.", "この道を駅まで進んでください。"],
+  ["turn", "動詞", "曲がる、回す", "Turn left at the next corner.", "次の角を左に曲がってください。"],
+  ["walk", "動詞", "歩く", "I walk to school with my sister.", "私は姉と歩いて学校へ行きます。"],
+  ["carry", "動詞", "運ぶ、持ち運ぶ", "He can carry the heavy box.", "彼はその重い箱を運べます。"],
+  ["move", "動詞", "動く、引っ越す", "My family will move to a new town.", "私の家族は新しい町へ引っ越します。"],
+  ["change", "動詞", "変える、変わる", "We should change our plan.", "私たちは計画を変えるべきです。"],
+  ["open", "動詞", "開ける、開く", "Please open the window.", "窓を開けてください。"],
+  ["close", "動詞", "閉める、閉まる", "Please close the door.", "ドアを閉めてください。"],
+  ["show", "動詞", "見せる、示す", "Can you show me the way?", "道を教えてくれますか。"],
+  ["call", "動詞", "呼ぶ、電話する", "I will call my mother tonight.", "今夜、母に電話します。"],
+  ["put", "動詞", "置く、入れる", "Put your bag under the desk.", "かばんを机の下に置いてください。"],
+  ["hold", "動詞", "持つ、開催する", "Our school will hold a music festival.", "学校で音楽祭を開きます。"],
+  ["send", "動詞", "送る", "I send messages to my friends.", "私は友達にメッセージを送ります。"],
+  ["receive", "動詞", "受け取る", "I receive a letter every month.", "私は毎月手紙を受け取ります。"],
+  ["build", "動詞", "建てる、築く", "They will build a new library.", "彼らは新しい図書館を建てます。"],
+  ["create", "動詞", "創り出す", "The students create a small garden.", "生徒たちは小さな庭を作ります。"],
+  ["grow", "動詞", "育つ、育てる", "These flowers grow in spring.", "これらの花は春に育ちます。"],
+  ["happen", "動詞", "起こる", "What can happen in the future?", "将来、何が起こる可能性がありますか。"],
+  ["improve", "動詞", "改善する、上達する", "Practice can improve your English.", "練習で英語を上達させられます。"],
+  ["protect", "動詞", "守る", "We should protect the environment.", "私たちは環境を守るべきです。"],
+  ["save", "動詞", "救う、節約する", "Turning off lights can save energy.", "電気を消すとエネルギーを節約できます。"],
+  ["reduce", "動詞", "減らす", "We can reduce plastic waste.", "私たちはプラスチックごみを減らせます。"],
+  ["increase", "動詞", "増える、増やす", "The number of visitors may increase.", "訪問者の数が増えるかもしれません。"],
+  ["share", "動詞", "共有する、分け合う", "We share our ideas in class.", "私たちは授業で考えを共有します。"],
+  ["support", "動詞", "支援する、支持する", "Many people support the project.", "多くの人がその計画を支援します。"],
+  ["invite", "動詞", "招待する", "We will invite our neighbors to the event.", "近所の人をその行事に招待します。"],
+  ["join", "動詞", "参加する、加わる", "I want to join the science club.", "私は科学部に入りたいです。"],
+  ["practice", "動詞", "練習する", "They practice the song every day.", "彼らは毎日その歌を練習します。"],
+  ["explain", "動詞", "説明する", "Please explain your answer.", "答えを説明してください。"],
+  ["remember", "動詞", "覚えている、思い出す", "I remember my first day at school.", "学校での初日を覚えています。"],
+  ["forget", "動詞", "忘れる", "Do not forget your lunch.", "昼食を忘れないでください。"],
+  ["enjoy", "動詞", "楽しむ", "We enjoy playing tennis together.", "私たちは一緒にテニスをするのを楽しみます。"],
+  ["spend", "動詞", "費やす、過ごす", "I spend an hour reading every day.", "私は毎日1時間読書をします。"],
+  ["travel", "動詞", "旅行する", "We travel by train every summer.", "私たちは毎年夏に電車で旅行します。"],
+  ["cross", "動詞", "渡る、横切る", "We cross the street at the light.", "私たちは信号の所で道を渡ります。"],
+  ["drive", "動詞", "運転する", "I can drive a car.", "私は車を運転できます。"],
+  ["ride", "動詞", "乗る", "I ride my bike to the park.", "私は自転車に乗って公園へ行きます。"],
+  ["fly", "動詞", "飛ぶ、飛行機で行く", "Birds fly over the sea.", "鳥たちは海の上を飛びます。"],
+  ["teach", "動詞", "教える", "I want to teach English.", "私は英語を教えたいです。"],
+  ["answer", "動詞", "答える", "Please answer the question in English.", "英語で質問に答えてください。"],
+  ["agree", "動詞", "賛成する、同意する", "I agree with your idea.", "私はあなたの考えに賛成です。"],
+  ["win", "動詞", "勝つ", "Our team wants to win the game.", "私たちのチームは試合に勝ちたいです。"],
+  ["lose", "動詞", "負ける、失う", "We did not lose hope.", "私たちは希望を失いませんでした。"],
+  ["break", "動詞", "壊す、壊れる", "Be careful not to break the glass.", "グラスを壊さないよう気をつけてください。"],
+  ["catch", "動詞", "捕まえる、間に合う", "We ran to catch the bus.", "私たちはバスに間に合うよう走りました。"],
+  ["wear", "動詞", "身につけている", "I wear a uniform at school.", "私は学校で制服を着ています。"],
+  ["time", "名詞", "時間、時", "We have time to visit the museum.", "博物館を訪れる時間があります。"],
+  ["day", "名詞", "日", "It was a sunny day.", "晴れた日でした。"],
+  ["week", "名詞", "週", "I practice tennis twice a week.", "私は週に2回テニスを練習します。"],
+  ["month", "名詞", "月", "The festival is next month.", "その祭りは来月です。"],
+  ["year", "名詞", "年", "We moved here last year.", "私たちは去年ここに引っ越しました。"],
+  ["morning", "名詞", "朝", "I take a walk every morning.", "私は毎朝散歩をします。"],
+  ["evening", "名詞", "夕方、晩", "We have dinner together in the evening.", "私たちは夕方に一緒に夕食をとります。"],
+  ["night", "名詞", "夜", "The stars look beautiful at night.", "夜、星は美しく見えます。"],
+  ["people", "名詞", "人々", "Many people visit the park.", "多くの人々がその公園を訪れます。"],
+  ["person", "名詞", "人", "One person is waiting outside.", "一人の人が外で待っています。"],
+  ["family", "名詞", "家族", "My family eats breakfast together.", "私の家族は一緒に朝食を食べます。"],
+  ["friend", "名詞", "友達", "My friend lives near the station.", "私の友達は駅の近くに住んでいます。"],
+  ["child", "名詞", "子ども", "The child is reading a book.", "その子どもは本を読んでいます。"],
+  ["parent", "名詞", "親", "Every parent wants to help their child.", "どの親も子どもを助けたいと思っています。"],
+  ["student", "名詞", "生徒、学生", "Each student has a different idea.", "生徒はそれぞれ違う考えを持っています。"],
+  ["teacher", "名詞", "先生", "Our teacher gave us a new task.", "先生は私たちに新しい課題を出しました。"],
+  ["school", "名詞", "学校", "Our school has a large library.", "私たちの学校には大きな図書館があります。"],
+  ["class", "名詞", "授業、クラス", "Our class visited a science museum.", "私たちのクラスは科学博物館を訪れました。"],
+  ["lesson", "名詞", "授業、教訓", "The first lesson starts at nine.", "1時間目は9時に始まります。"],
+  ["subject", "名詞", "教科、話題", "English is my favorite subject.", "英語は私の好きな教科です。"],
+  ["question", "名詞", "質問、問題", "I have a question about this story.", "この物語について質問があります。"],
+  ["problem", "名詞", "問題", "We found a way to solve the problem.", "私たちはその問題を解決する方法を見つけました。"],
+  ["idea", "名詞", "考え、アイデア", "Her idea helped the whole team.", "彼女の考えはチーム全体の役に立ちました。"],
+  ["reason", "名詞", "理由", "What is the reason for your choice?", "あなたがそれを選んだ理由は何ですか。"],
+  ["example", "名詞", "例", "This is a good example of teamwork.", "これはチームワークのよい例です。"],
+  ["way", "名詞", "方法、道", "There is a way to solve this problem.", "この問題を解決する方法があります。"],
+  ["thing", "名詞", "もの、こと", "The best thing is to keep trying.", "最も大切なことは挑戦し続けることです。"],
+  ["place", "名詞", "場所", "This is a quiet place to study.", "ここは勉強するのに静かな場所です。"],
+  ["home", "名詞", "家、自宅", "I went home after practice.", "私は練習の後に家へ帰りました。"],
+  ["room", "名詞", "部屋", "My room has a big window.", "私の部屋には大きな窓があります。"],
+  ["house", "名詞", "家", "They live in a small house.", "彼らは小さな家に住んでいます。"],
+  ["city", "名詞", "市、都市", "This city is famous for its old castle.", "この市は古い城で有名です。"],
+  ["town", "名詞", "町", "Our town has a new sports center.", "私たちの町には新しいスポーツセンターがあります。"],
+  ["country", "名詞", "国、田舎", "I want to learn about your country.", "あなたの国について学びたいです。"],
+  ["world", "名詞", "世界", "People around the world enjoy music.", "世界中の人々が音楽を楽しみます。"],
+  ["life", "名詞", "生活、人生", "A book can change a life.", "本は人生を変えることがあります。"],
+  ["name", "名詞", "名前", "Please write your name here.", "ここに名前を書いてください。"],
+  ["story", "名詞", "物語、話", "My grandfather told me a story.", "祖父は私に物語を話してくれました。"],
+  ["book", "名詞", "本", "I borrowed a book from the library.", "私は図書館から本を借りました。"],
+  ["word", "名詞", "単語、言葉", "I learned a new word today.", "今日は新しい単語を覚えました。"],
+  ["language", "名詞", "言語", "Language helps people share ideas.", "言語は人々が考えを伝え合う助けになります。"],
+  ["English", "名詞", "英語", "We use English to talk with visitors.", "私たちは訪問者と話すために英語を使います。"],
+  ["history", "名詞", "歴史", "The museum teaches us about local history.", "その博物館は地域の歴史を教えてくれます。"],
+  ["culture", "名詞", "文化", "Food is an important part of culture.", "食べ物は文化の大切な一部です。"],
+  ["nature", "名詞", "自然", "We should enjoy and protect nature.", "自然を楽しみ、守るべきです。"],
+  ["environment", "名詞", "環境", "We can help the environment in many ways.", "さまざまな方法で環境を守ることができます。"],
+  ["animal", "名詞", "動物", "The animal needs clean water.", "その動物にはきれいな水が必要です。"],
+  ["plant", "名詞", "植物", "This plant grows near the window.", "この植物は窓の近くで育ちます。"],
+  ["water", "名詞", "水", "Please drink plenty of water.", "水をたくさん飲んでください。"],
+  ["food", "名詞", "食べ物", "Local food is popular with visitors.", "地元の食べ物は訪問者に人気です。"],
+  ["meal", "名詞", "食事", "We enjoyed a meal with our friends.", "私たちは友達と食事を楽しみました。"],
+  ["health", "名詞", "健康", "Exercise is good for your health.", "運動は健康によいです。"],
+  ["body", "名詞", "体", "A healthy body needs enough sleep.", "健康な体には十分な睡眠が必要です。"],
+  ["hand", "名詞", "手", "Please raise your hand if you know.", "分かったら手を挙げてください。"],
+  ["head", "名詞", "頭", "She nodded her head slowly.", "彼女はゆっくりとうなずきました。"],
+  ["eye", "名詞", "目", "My eye hurts today.", "今日は目が痛みます。"],
+  ["face", "名詞", "顔", "I saw a smile on her face.", "彼女の顔に笑顔が見えました。"],
+  ["voice", "名詞", "声", "I heard a familiar voice.", "聞き覚えのある声が聞こえました。"],
+  ["mind", "名詞", "心、考え", "Keep an open mind when you listen.", "話を聞くときは柔軟な心を持ちましょう。"],
+  ["heart", "名詞", "心、心臓", "Her kind words warmed my heart.", "彼女の優しい言葉に心が温まりました。"],
+  ["job", "名詞", "仕事、職", "My brother got a new job.", "兄は新しい仕事に就きました。"],
+  ["money", "名詞", "お金", "We saved money for the school trip.", "私たちは修学旅行のためにお金を貯めました。"],
+  ["price", "名詞", "値段", "The price of this book is low.", "この本の値段は安いです。"],
+  ["shop", "名詞", "店", "The shop sells fresh vegetables.", "その店は新鮮な野菜を売っています。"],
+  ["market", "名詞", "市場", "We bought fruit at the market.", "私たちは市場で果物を買いました。"],
+  ["station", "名詞", "駅", "The station is near the school.", "その駅は学校の近くにあります。"],
+  ["road", "名詞", "道路", "This road leads to the beach.", "この道は浜辺へ続いています。"],
+  ["street", "名詞", "通り", "There are many trees on this street.", "この通りには木がたくさんあります。"],
+  ["bus", "名詞", "バス", "We take the bus to the museum.", "私たちはバスで博物館へ行きます。"],
+  ["train", "名詞", "電車", "The train arrived on time.", "電車は時間どおりに到着しました。"],
+  ["trip", "名詞", "旅行、遠足", "Our class went on a trip to Nara.", "私たちのクラスは奈良へ旅行に行きました。"],
+  ["journey", "名詞", "旅、道のり", "The journey took three hours.", "その道のりには3時間かかりました。"],
+  ["map", "名詞", "地図", "We used a map to find the park.", "私たちは地図を使って公園を見つけました。"],
+  ["information", "名詞", "情報", "You can find information on the website.", "ウェブサイトで情報を見つけられます。"],
+  ["news", "名詞", "ニュース、知らせ", "I heard the news this morning.", "今朝その知らせを聞きました。"],
+  ["message", "名詞", "伝言、メッセージ", "I left a message for my father.", "父に伝言を残しました。"],
+  ["letter", "名詞", "手紙、文字", "She wrote a letter to her friend.", "彼女は友達に手紙を書きました。"],
+  ["picture", "名詞", "絵、写真", "This picture reminds me of summer.", "この写真を見ると夏を思い出します。"],
+  ["photo", "名詞", "写真", "We took a photo in front of the castle.", "私たちは城の前で写真を撮りました。"],
+  ["music", "名詞", "音楽", "Music makes me feel relaxed.", "音楽を聞くと落ち着きます。"],
+  ["art", "名詞", "美術、芸術", "She is interested in modern art.", "彼女は現代美術に興味があります。"],
+  ["song", "名詞", "歌", "Our class sang a song together.", "私たちのクラスは一緒に歌を歌いました。"],
+  ["game", "名詞", "試合、ゲーム", "The game starts after lunch.", "試合は昼食後に始まります。"],
+  ["sport", "名詞", "スポーツ", "Swimming is a popular sport.", "水泳は人気のあるスポーツです。"],
+  ["team", "名詞", "チーム", "Our team practiced after school.", "私たちのチームは放課後に練習しました。"],
+  ["event", "名詞", "行事、出来事", "The event begins at ten.", "その行事は10時に始まります。"],
+  ["festival", "名詞", "祭り、催し", "The summer festival attracts many people.", "夏祭りには多くの人が集まります。"],
+  ["tradition", "名詞", "伝統", "This tradition is important to the town.", "この伝統は町にとって大切です。"],
+  ["custom", "名詞", "習慣、慣習", "Taking off shoes is a common custom in Japan.", "靴を脱ぐのは日本で一般的な習慣です。"],
+  ["community", "名詞", "地域社会", "The project brought the community together.", "その計画は地域の人々を結びつけました。"],
+  ["society", "名詞", "社会", "Technology is changing our society.", "技術は私たちの社会を変えています。"],
+  ["future", "名詞", "未来、将来", "I want to help people in the future.", "将来、人々の役に立ちたいです。"],
+  ["past", "名詞", "過去", "We learned about the past at the museum.", "私たちは博物館で過去について学びました。"],
+  ["present", "名詞", "現在、贈り物", "She gave me a birthday present.", "彼女は私に誕生日プレゼントをくれました。"],
+  ["experience", "名詞", "経験", "The trip was a valuable experience.", "その旅行は貴重な経験でした。"],
+  ["volunteer", "名詞", "ボランティア", "A volunteer helped us at the event.", "行事でボランティアの人が手伝ってくれました。"],
+  ["project", "名詞", "計画、事業", "Our class started a recycling project.", "私たちのクラスはリサイクル計画を始めました。"],
+  ["chance", "名詞", "機会、可能性", "This is a chance to meet new people.", "これは新しい人々に会う機会です。"],
+  ["kind", "形容詞", "親切な", "Our new neighbor is very kind.", "新しい隣人はとても親切です。"],
+  ["important", "形容詞", "重要な", "This is an important rule.", "これは重要な規則です。"],
+  ["useful", "形容詞", "役に立つ", "This dictionary is useful for study.", "この辞書は勉強に役立ちます。"],
+  ["helpful", "形容詞", "助けになる", "Your advice was very helpful.", "あなたの助言はとても助けになりました。"],
+  ["different", "形容詞", "異なる", "We have different opinions.", "私たちは異なる意見を持っています。"],
+  ["same", "形容詞", "同じ", "We have the same teacher.", "私たちは同じ先生に習っています。"],
+  ["special", "形容詞", "特別な", "Today is a special day for me.", "今日は私にとって特別な日です。"],
+  ["popular", "形容詞", "人気のある", "Basketball is popular at our school.", "バスケットボールは私たちの学校で人気です。"],
+  ["famous", "形容詞", "有名な", "Kyoto is famous for its temples.", "京都は寺で有名です。"],
+  ["beautiful", "形容詞", "美しい", "The mountain looks beautiful in winter.", "その山は冬に美しく見えます。"],
+  ["interesting", "形容詞", "興味深い、おもしろい", "I read an interesting article.", "私は興味深い記事を読みました。"],
+  ["exciting", "形容詞", "わくわくする", "The final game was exciting.", "決勝戦はわくわくする試合でした。"],
+  ["difficult", "形容詞", "難しい", "This question is difficult for me.", "この問題は私には難しいです。"],
+  ["easy", "形容詞", "簡単な", "The directions are easy to follow.", "その指示は分かりやすいです。"],
+  ["possible", "形容詞", "可能な", "Is it possible to finish today?", "今日終えることは可能ですか。"],
+  ["impossible", "形容詞", "不可能な", "It is impossible to do everything at once.", "すべてを一度にするのは不可能です。"],
+  ["ready", "形容詞", "準備ができた", "We are ready for the trip.", "私たちは旅行の準備ができています。"],
+  ["busy", "形容詞", "忙しい", "My mother is busy this morning.", "母は今朝忙しいです。"],
+  ["free", "形容詞", "無料の、自由な", "The museum is free for children.", "その博物館は子どもは無料です。"],
+  ["sure", "形容詞", "確信して", "Are you sure about your answer?", "自分の答えに確信がありますか。"],
+  ["friendly", "形容詞", "親しみやすい", "The people in this town are friendly.", "この町の人々は親しみやすいです。"],
+  ["nice", "形容詞", "すてきな、親切な", "We had a nice time together.", "私たちは一緒に楽しい時間を過ごしました。"],
+  ["happy", "形容詞", "うれしい、幸せな", "I am happy to see you again.", "また会えてうれしいです。"],
+  ["sad", "形容詞", "悲しい", "She felt sad after the movie.", "彼女は映画の後、悲しい気持ちになりました。"],
+  ["afraid", "形容詞", "恐れて", "The child is afraid of dogs.", "その子どもは犬を怖がっています。"],
+  ["tired", "形容詞", "疲れた", "I was tired after the long walk.", "長く歩いた後、私は疲れていました。"],
+  ["sick", "形容詞", "病気の、気分が悪い", "He stayed home because he was sick.", "彼は病気だったので家にいました。"],
+  ["healthy", "形容詞", "健康な", "Fresh vegetables are healthy food.", "新鮮な野菜は健康によい食べ物です。"],
+  ["strong", "形容詞", "強い", "The strong wind moved the branches.", "強い風が枝を動かしました。"],
+  ["weak", "形容詞", "弱い", "The signal is weak in this room.", "この部屋では電波が弱いです。"],
+  ["careful", "形容詞", "注意深い", "Be careful when you cross the road.", "道路を渡るときは注意してください。"],
+  ["safe", "形容詞", "安全な", "This is a safe place to wait.", "ここは待つのに安全な場所です。"],
+  ["dangerous", "形容詞", "危険な", "It is dangerous to swim here.", "ここで泳ぐのは危険です。"],
+  ["clean", "形容詞", "清潔な、きれいな", "Please keep the classroom clean.", "教室をきれいに保ってください。"],
+  ["dirty", "形容詞", "汚れた", "My shoes are dirty after the game.", "試合の後、靴が汚れました。"],
+  ["fresh", "形容詞", "新鮮な", "We bought fresh fruit at the market.", "私たちは市場で新鮮な果物を買いました。"],
+  ["local", "形容詞", "地元の", "We tried local food in the town.", "私たちは町で地元の食べ物を試しました。"],
+  ["foreign", "形容詞", "外国の", "She is interested in foreign languages.", "彼女は外国語に興味があります。"],
+  ["international", "形容詞", "国際的な", "Our school has an international exchange program.", "私たちの学校には国際交流プログラムがあります。"],
+  ["natural", "形容詞", "自然の、自然な", "The park has many natural areas.", "その公園には自然の場所がたくさんあります。"],
+  ["modern", "形容詞", "現代の", "The city has a modern art museum.", "その市には現代美術館があります。"],
+  ["traditional", "形容詞", "伝統的な", "We watched a traditional dance.", "私たちは伝統的な踊りを見ました。"],
+  ["necessary", "形容詞", "必要な", "Water is necessary for all living things.", "水はすべての生き物に必要です。"],
+  ["available", "形容詞", "利用できる", "The room is available after lunch.", "その部屋は昼食後に利用できます。"],
+  ["clear", "形容詞", "明確な、澄んだ", "The instructions are clear and simple.", "説明は明確で簡単です。"],
+  ["simple", "形容詞", "簡単な、単純な", "Please use simple words in your speech.", "スピーチでは簡単な言葉を使ってください。"],
+  ["correct", "形容詞", "正しい", "Your answer is correct.", "あなたの答えは正しいです。"],
+  ["wrong", "形容詞", "間違った", "I chose the wrong bus.", "私は間違ったバスを選びました。"],
+  ["early", "副詞", "早く、早い時期に", "Please come early tomorrow.", "明日は早く来てください。"],
+  ["late", "副詞", "遅く、遅れて", "The bus arrived late because of the snow.", "雪のためバスは遅れて到着しました。"],
+  ["young", "形容詞", "若い", "The young musician plays the piano well.", "その若い音楽家はピアノを上手に弾きます。"],
+  ["old", "形容詞", "年をとった、古い", "My grandfather lives in an old house.", "祖父は古い家に住んでいます。"],
+  ["large", "形容詞", "大きい", "A large number of people joined the event.", "多くの人がその行事に参加しました。"],
+  ["small", "形容詞", "小さい、少ない", "We need a small amount of water.", "私たちには少量の水が必要です。"],
+  ["high", "形容詞", "高い", "The mountain is very high.", "その山はとても高いです。"],
+  ["low", "形容詞", "低い", "The table is too low for me.", "そのテーブルは私には低すぎます。"],
+  ["long", "形容詞", "長い", "We had a long discussion about the plan.", "私たちはその計画について長く話し合いました。"],
+  ["short", "形容詞", "短い", "He wrote a short message to his teacher.", "彼は先生に短いメッセージを書きました。"],
+  ["fast", "形容詞", "速い", "This train is fast.", "この電車は速いです。"],
+  ["slow", "形容詞", "遅い、ゆっくりした", "The slow bus stopped at every station.", "その遅いバスはすべての駅に止まりました。"],
+  ["quiet", "形容詞", "静かな", "The library is a quiet place to study.", "図書館は勉強するのに静かな場所です。"],
+  ["always", "副詞", "いつも", "She always helps her classmates.", "彼女はいつもクラスメートを助けます。"],
+  ["usually", "副詞", "ふつう、たいてい", "I usually walk to school.", "私はたいてい歩いて学校へ行きます。"],
+  ["often", "副詞", "よく、しばしば", "We often play basketball after school.", "私たちは放課後によくバスケットボールをします。"],
+  ["sometimes", "副詞", "ときどき", "Sometimes I read before breakfast.", "私はときどき朝食前に読書をします。"],
+  ["never", "副詞", "決して〜ない", "He never forgets his homework.", "彼は決して宿題を忘れません。"],
+  ["already", "副詞", "すでに", "I have already finished my report.", "私はすでにレポートを終えました。"],
+  ["still", "副詞", "まだ、今でも", "She is still waiting for the bus.", "彼女はまだバスを待っています。"],
+  ["yet", "副詞", "まだ、もう", "Have you finished your homework yet?", "もう宿題を終えましたか。"],
+  ["just", "副詞", "ちょうど、ただ〜だけ", "I have just arrived at the station.", "私はちょうど駅に着いたところです。"],
+  ["almost", "副詞", "ほとんど", "We almost missed the train.", "私たちは危うく電車に乗り遅れるところでした。"],
+  ["together", "副詞", "一緒に", "We cleaned the park together.", "私たちは一緒に公園を掃除しました。"],
+  ["quickly", "副詞", "すばやく", "She quickly found the answer.", "彼女はすばやく答えを見つけました。"],
+  ["slowly", "副詞", "ゆっくりと", "Please speak slowly and clearly.", "ゆっくり、はっきり話してください。"],
+  ["carefully", "副詞", "注意深く", "Read the directions carefully.", "指示を注意深く読んでください。"],
+  ["easily", "副詞", "簡単に", "You can find the library easily.", "図書館は簡単に見つけられます。"],
+  ["really", "副詞", "本当に、とても", "I really enjoyed the school trip.", "私は修学旅行を本当に楽しみました。"],
+  ["probably", "副詞", "おそらく", "It will probably rain this afternoon.", "今日の午後はおそらく雨が降るでしょう。"],
+  ["maybe", "副詞", "たぶん", "Maybe we can meet after school.", "たぶん放課後に会えるでしょう。"],
+  ["especially", "副詞", "特に", "I like fruit, especially apples.", "私は果物、特にりんごが好きです。"],
+  ["finally", "副詞", "ついに、最後に", "Finally, the team reached the top.", "ついにチームは頂上に着きました。"],
+  ["before", "前置詞", "〜の前に", "Wash your hands before dinner.", "夕食の前に手を洗いなさい。"],
+  ["after", "前置詞", "〜の後に", "We went for a walk after lunch.", "私たちは昼食後に散歩に行きました。"],
+  ["during", "前置詞", "〜の間に", "Please be quiet during the movie.", "映画の間は静かにしてください。"],
+  ["until", "前置詞", "〜まで", "The library is open until five.", "図書館は5時まで開いています。"],
+  ["since", "前置詞", "〜以来", "I have lived here since 2020.", "私は2020年からここに住んでいます。"],
+  ["between", "前置詞", "〜の間に", "The school is between the park and the station.", "学校は公園と駅の間にあります。"],
+  ["around", "前置詞", "〜の周りに", "We walked around the lake.", "私たちは湖の周りを歩きました。"],
+  ["through", "前置詞", "〜を通って", "We walked through the forest.", "私たちは森の中を歩きました。"],
+  ["across", "前置詞", "〜を横切って", "They ran across the field.", "彼らは野原を走って横切りました。"],
+  ["without", "前置詞", "〜なしで", "She left without her bag.", "彼女はかばんを持たずに出かけました。"],
+  ["with", "前置詞", "〜と一緒に、〜を使って", "I went to the museum with my sister.", "私は姉と博物館へ行きました。"],
+  ["for", "前置詞", "〜のために、〜の間", "This gift is for you.", "この贈り物はあなたのためのものです。"],
+  ["from", "前置詞", "〜から", "My friend is from Canada.", "私の友達はカナダ出身です。"],
+  ["about", "前置詞", "〜について", "We talked about the movie.", "私たちはその映画について話しました。"],
+  ["because", "接続詞", "なぜなら〜だから", "I stayed home because it rained.", "雨が降ったので家にいました。"],
+  ["although", "接続詞", "〜だけれども", "Although it was cold, we went outside.", "寒かったけれど、私たちは外へ出ました。"],
+  ["if", "接続詞", "もし〜なら", "Call me if you need help.", "助けが必要なら電話してください。"],
+  ["when", "接続詞", "〜するとき", "I was happy when I saw her.", "彼女に会ったとき、うれしかったです。"],
+  ["while", "接続詞", "〜する間", "I listened to music while I studied.", "勉強している間、音楽を聞きました。"],
+  ["so", "接続詞", "だから、そのため", "It was raining, so we stayed inside.", "雨が降っていたので、私たちは中にいました。"],
+];
+
+const middleThirdEnglishVocabularyWords = middleThirdEnglishVocabularyLearningRows.map(
+  ([word, partOfSpeech, meaning, example, translation], id) => ({ id, word, partOfSpeech, meaning, example, translation })
+);
+if (middleThirdEnglishVocabularyWords.length !== 300 ||
+    new Set(middleThirdEnglishVocabularyWords.map(({ word }) => word)).size !== 300) {
+  throw new Error("中学3年英語の英単語は重複のない300語で登録してください。");
+}
+
+function loadVocabularyProgress() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(vocabularyStorageKey) || "null");
+    if (!saved || typeof saved !== "object" || Array.isArray(saved)) {
+      return {
+        learned: [],
+        review: [],
+        order: shuffled(middleThirdEnglishVocabularyWords.map(({ id }) => id)),
+        nextIndex: 0,
+      };
+    }
+    const validIds = (value) => Array.isArray(value)
+      ? [...new Set(value.filter((id) => Number.isSafeInteger(id) && id >= 0 && id < middleThirdEnglishVocabularyWords.length))]
+      : [];
+    const savedOrder = Array.isArray(saved.order) &&
+      saved.order.length === middleThirdEnglishVocabularyWords.length &&
+      new Set(saved.order).size === middleThirdEnglishVocabularyWords.length &&
+      saved.order.every((id) => Number.isSafeInteger(id) && id >= 0 && id < middleThirdEnglishVocabularyWords.length)
+      ? saved.order
+      : shuffled(middleThirdEnglishVocabularyWords.map(({ id }) => id));
+    return {
+      learned: validIds(saved.learned),
+      review: validIds(saved.review),
+      order: savedOrder,
+      nextIndex: Number.isSafeInteger(saved.nextIndex) && saved.nextIndex >= 0
+        ? saved.nextIndex % middleThirdEnglishVocabularyWords.length
+        : 0,
+    };
+  } catch {
+    showStorageNotice("英単語の学習記録を読み込めませんでした。");
+    return {
+      learned: [],
+      review: [],
+      order: shuffled(middleThirdEnglishVocabularyWords.map(({ id }) => id)),
+      nextIndex: 0,
+    };
+  }
+}
+
+function saveVocabularyProgress() {
+  try {
+    localStorage.setItem(vocabularyStorageKey, JSON.stringify(vocabularyProgress));
+  } catch {
+    showStorageNotice("英単語の学習記録を保存できませんでした。");
+  }
+  updateVocabularyProgressLabel();
+}
+
+function updateVocabularyProgressLabel() {
+  if (!vocabularyProgressLabel) return;
+  vocabularyProgressLabel.textContent =
+    `10語ずつ学習 · 正解した単語 ${vocabularyProgress.learned.length}/300語 · 復習 ${vocabularyProgress.review.length}語`;
+}
+
+function selectVocabularySessionWords() {
+  const words = middleThirdEnglishVocabularyWords;
+  const selectedIds = [];
+  vocabularyProgress.review.forEach((id) => {
+    if (selectedIds.length < 10 && id >= 0 && id < words.length && !selectedIds.includes(id)) {
+      selectedIds.push(id);
+    }
+  });
+  let scanned = 0;
+  while (selectedIds.length < 10 && scanned < words.length) {
+    const id = vocabularyProgress.order[(vocabularyProgress.nextIndex + scanned) % words.length];
+    if (!selectedIds.includes(id) && !vocabularyProgress.learned.includes(id)) selectedIds.push(id);
+    scanned += 1;
+  }
+  const newWordScanCount = scanned;
+  scanned = 0;
+  while (selectedIds.length < 10 && scanned < words.length) {
+    const id = vocabularyProgress.order[(vocabularyProgress.nextIndex + newWordScanCount + scanned) % words.length];
+    if (!selectedIds.includes(id)) selectedIds.push(id);
+    scanned += 1;
+  }
+  vocabularyProgress.nextIndex = (vocabularyProgress.nextIndex + newWordScanCount + scanned) % words.length;
+  saveVocabularyProgress();
+  return selectedIds.map((id) => words[id]);
+}
+
+function vocabularyDistractors(entry, valueKey) {
+  const samePartOfSpeech = middleThirdEnglishVocabularyWords.filter((word) =>
+    word.id !== entry.id && word.partOfSpeech === entry.partOfSpeech && word[valueKey] !== entry[valueKey]
+  );
+  const allOtherWords = middleThirdEnglishVocabularyWords.filter((word) =>
+    word.id !== entry.id && word[valueKey] !== entry[valueKey]
+  );
+  const candidates = [...new Set([...shuffled(samePartOfSpeech), ...shuffled(allOtherWords)])];
+  return candidates.map((word) => word[valueKey]).filter((value, index, values) => values.indexOf(value) === index).slice(0, 3);
+}
+
+function makeVocabularyPracticeQuestion(entry, type) {
+  const meaningDistractors = vocabularyDistractors(entry, "meaning");
+  const wordDistractors = vocabularyDistractors(entry, "word");
+  if (meaningDistractors.length < 3 || wordDistractors.length < 3) {
+    throw new Error(`英単語「${entry.word}」の選択肢が不足しています。`);
+  }
+  if (type === 0) {
+    return {
+      ...englishQuestion(
+        "英単語・意味",
+        `英単語「${entry.word}」の意味として最も適切なものを選びなさい。`,
+        entry.meaning,
+        meaningDistractors,
+        `「${entry.word}」は「${entry.meaning}」という意味です。例文は「${entry.translation}」です。`,
+      ),
+      vocabularyId: entry.id,
+    };
+  }
+  if (type === 1) {
+    const blankedExample = entry.example.replace(new RegExp(`\\b${entry.word}\\b`, "i"), "（　）");
+    if (blankedExample === entry.example) throw new Error(`英単語「${entry.word}」が例文にありません。`);
+    return {
+      ...englishQuestion(
+        "英単語・文中の使い方",
+        `英文の空欄に入る語を選びなさい。\n${blankedExample}`,
+        entry.word,
+        wordDistractors,
+        `「${entry.word}」を入れると「${entry.translation}」という文になります。`,
+      ),
+      vocabularyId: entry.id,
+    };
+  }
+  return {
+    ...englishQuestion(
+      "英単語・日本語から英語",
+      `次の意味を表す英単語を選びなさい。\n${entry.meaning}`,
+      entry.word,
+      wordDistractors,
+      `「${entry.meaning}」を表す語は「${entry.word}」です。例文は「${entry.translation}」です。`,
+    ),
+    vocabularyId: entry.id,
+  };
+}
+
+function startVocabularySession() {
+  const stage = stageForGrade(gradeSelect.value);
+  const subject = subjectsByStage[stage].find((item) => item.id === "english");
+  if (!subject || !isMiddleThirdEnglish()) return;
+  activeSubject = subject;
+  activeUnit = "英単語学習";
+  vocabularySessionWords = selectVocabularySessionWords();
+  activeQuestions = vocabularySessionWords.map((entry, index) => {
+    const question = makeVocabularyPracticeQuestion(entry, index % 3);
+    const options = shuffled(question.options.map((option, optionIndex) => ({
+      option,
+      correct: optionIndex === question.answer,
+    })));
+    return {
+      ...question,
+      options: options.map(({ option }) => option),
+      answer: options.findIndex(({ correct }) => correct),
+    };
+  });
+  vocabularyCardIndex = 0;
+  questionIndex = 0;
+  correctAnswers = 0;
+  answered = false;
+  activeHistoryEntry = null;
+  vocabularyStudyPhase = true;
+  quizNext.dataset.result = "false";
+  quizSubject.textContent = `${gradeLongName(gradeSelect.value)} · 英語 · 英単語`;
+  renderVocabularyCard();
+  quizDialog.showModal();
+}
+
+function renderVocabularyCard() {
+  const entry = vocabularySessionWords[vocabularyCardIndex];
+  quizTitle.textContent = entry.word;
+  vocabularyPartOfSpeech.textContent = entry.partOfSpeech;
+  vocabularyMeaning.textContent = entry.meaning;
+  vocabularyExample.textContent = entry.example;
+  vocabularyTranslation.textContent = entry.translation;
+  vocabularyDetails.hidden = true;
+  vocabularyRevealButton.hidden = false;
+  vocabularyCard.hidden = false;
+  quizTitle.hidden = false;
+  quizTitle.classList.add("vocabulary-word-title");
+  quizOptions.hidden = true;
+  writtenResponse.hidden = true;
+  quizFeedback.textContent = "";
+  quizFeedback.className = "quiz-feedback";
+  quizCount.textContent = `単語カード ${vocabularyCardIndex + 1} / ${vocabularySessionWords.length}`;
+  document.querySelector("#quiz-unit").textContent = "意味と例文を確認しよう";
+  quizProgressFill.style.width = `${(vocabularyCardIndex / vocabularySessionWords.length) * 100}%`;
+  quizNext.disabled = true;
+  quizNext.textContent = "意味と例文を見てね";
+}
+
+function continueVocabularySession() {
+  if (vocabularyCardIndex < vocabularySessionWords.length - 1) {
+    vocabularyCardIndex += 1;
+    renderVocabularyCard();
+    return;
+  }
+  vocabularyStudyPhase = false;
+  questionIndex = 0;
+  renderQuestion();
+}
 
 function generatedQuestion(unit, prompt, answer, distractors, explanation) {
   const options = [...new Set([String(answer), ...distractors.map(String)])].slice(0, 4);
@@ -2378,6 +2899,11 @@ let answered = false;
 let activeSubject = null;
 let activeUnit = null;
 let activeHistoryEntry = null;
+let vocabularyStudyPhase = false;
+let vocabularySessionWords = [];
+let vocabularyCardIndex = 0;
+const vocabularyStorageKey = "manabi-pocket-middle-english-vocabulary";
+let vocabularyProgress = { learned: [], review: [], order: [], nextIndex: 0 };
 
 function showStorageNotice(message) {
   const notice = document.querySelector("#storage-notice");
@@ -2586,6 +3112,8 @@ function renderSubjects() {
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
   yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
   middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+  vocabularyLaunch.hidden = !isMiddleThirdEnglish();
+  updateVocabularyProgressLabel();
   renderUnits();
   subjectGrid.replaceChildren(...subjects.map((subject) => {
     const card = document.createElement("button");
@@ -2614,6 +3142,8 @@ function renderSubjects() {
       sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
       yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
       middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+      vocabularyLaunch.hidden = !isMiddleThirdEnglish();
+      updateVocabularyProgressLabel();
       renderUnits();
       saveLastSelection();
     });
@@ -2899,6 +3429,9 @@ function startQuiz() {
 function renderQuestion() {
   answered = false;
   const question = activeQuestions[questionIndex];
+  vocabularyCard.hidden = true;
+  quizTitle.hidden = false;
+  quizTitle.classList.remove("vocabulary-word-title");
   quizCount.textContent = `QUESTION ${questionIndex + 1} / ${activeQuestions.length}`;
   document.querySelector("#quiz-unit").textContent = question.unit;
   quizTitle.textContent = question.prompt;
@@ -3098,6 +3631,19 @@ function chooseAnswer(selectedIndex) {
   const question = activeQuestions[questionIndex];
   const isCorrect = selectedIndex === question.answer;
   if (isCorrect) correctAnswers += 1;
+  if (Number.isSafeInteger(question.vocabularyId)) {
+    const learned = new Set(vocabularyProgress.learned);
+    const review = new Set(vocabularyProgress.review);
+    if (isCorrect) {
+      learned.add(question.vocabularyId);
+      review.delete(question.vocabularyId);
+    } else {
+      review.add(question.vocabularyId);
+    }
+    vocabularyProgress.learned = [...learned];
+    vocabularyProgress.review = [...review];
+    saveVocabularyProgress();
+  }
   recordAnswer(isCorrect, isCorrect ? null : {
     question,
     selectedAnswer: question.options[selectedIndex],
@@ -3184,6 +3730,9 @@ function showResult() {
   quizCount.textContent = "TODAY'S RESULT";
   quizOptions.replaceChildren();
   quizOptions.hidden = false;
+  vocabularyCard.hidden = true;
+  quizTitle.hidden = false;
+  quizTitle.classList.remove("vocabulary-word-title");
   writtenResponse.replaceChildren();
   writtenResponse.hidden = true;
   quizFeedback.textContent = "";
@@ -3245,6 +3794,8 @@ subjectSelect.addEventListener("change", () => {
   syncSubjectCards();
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
   middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+  vocabularyLaunch.hidden = !isMiddleThirdEnglish();
+  updateVocabularyProgressLabel();
   renderUnits();
   saveLastSelection();
 });
@@ -3288,12 +3839,35 @@ middleThirdEnglishLevelSelect.addEventListener("change", () => {
 questionCountInput.addEventListener("change", updateQuestionCountLimit);
 unitSelectAllButton.addEventListener("click", toggleAllUnits);
 document.querySelector("#start-button").addEventListener("click", startQuiz);
+vocabularyStartButton.addEventListener("click", startVocabularySession);
 document.querySelector(".profile-button").addEventListener("click", () => gradeSelect.focus());
-document.querySelector("#close-quiz").addEventListener("click", () => quizDialog.close());
+document.querySelector("#close-quiz").addEventListener("click", () => {
+  vocabularyStudyPhase = false;
+  quizDialog.close();
+});
 quizDialog.addEventListener("click", (event) => {
-  if (event.target === quizDialog) quizDialog.close();
+  if (event.target === quizDialog) {
+    vocabularyStudyPhase = false;
+    quizDialog.close();
+  }
+});
+quizDialog.addEventListener("close", () => {
+  vocabularyStudyPhase = false;
+  vocabularyCard.hidden = true;
+});
+vocabularyRevealButton.addEventListener("click", () => {
+  vocabularyDetails.hidden = false;
+  vocabularyRevealButton.hidden = true;
+  quizNext.disabled = false;
+  quizNext.textContent = vocabularyCardIndex === vocabularySessionWords.length - 1
+    ? "練習を始める"
+    : "次の単語へ";
 });
 quizNext.addEventListener("click", () => {
+  if (vocabularyStudyPhase) {
+    continueVocabularySession();
+    return;
+  }
   if (quizNext.dataset.result === "true") {
     quizNext.dataset.result = "false";
     quizDialog.close();
@@ -3312,6 +3886,8 @@ quizNext.addEventListener("click", () => {
   }
 });
 
+vocabularyProgress = loadVocabularyProgress();
+updateVocabularyProgressLabel();
 restoreLastSelection();
 updateStats();
 renderPage(location.hash.slice(1));
