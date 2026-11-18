@@ -3200,6 +3200,8 @@ function restoreLastSelection() {
     sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
     yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
     middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+    vocabularyLaunch.hidden = !isMiddleThirdEnglish();
+    updateVocabularyProgressLabel();
     renderUnits();
   }
   if (saved && gradeSelect.value === "小6" && subjectSelect.value === "math") {
