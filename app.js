@@ -2504,9 +2504,66 @@ function renderSubjects() {
       yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
       middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
       renderUnits();
+      saveLastSelection();
     });
     return card;
   }));
+}
+
+const learningSelectionStorageKey = "manabi-pocket-selection";
+
+function loadLastSelection() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(learningSelectionStorageKey) || "null");
+    return saved && typeof saved === "object" && !Array.isArray(saved) ? saved : null;
+  } catch {
+    showStorageNotice("前回の学年・教科・問題レベルを読み込めませんでした。");
+    return null;
+  }
+}
+
+function saveLastSelection() {
+  try {
+    localStorage.setItem(learningSelectionStorageKey, JSON.stringify({
+      grade: gradeSelect.value,
+      subject: subjectSelect.value,
+      sixthGradeMathLevel: sixthGradeMathLevelSelect.value,
+      middleThirdEnglishLevel: middleThirdEnglishLevelSelect.value,
+    }));
+  } catch {
+    showStorageNotice("学年・教科・問題レベルを保存できませんでした。");
+  }
+}
+
+function hasSelectOption(select, value) {
+  return typeof value === "string" && [...select.options].some((option) => option.value === value);
+}
+
+function restoreLastSelection() {
+  const saved = loadLastSelection();
+  if (saved && Object.hasOwn(subjectsByGrade, saved.grade)) {
+    gradeSelect.value = saved.grade;
+  }
+  if (saved && hasSelectOption(sixthGradeMathLevelSelect, saved.sixthGradeMathLevel)) {
+    sixthGradeMathLevelSelect.value = saved.sixthGradeMathLevel;
+  }
+  if (saved && hasSelectOption(middleThirdEnglishLevelSelect, saved.middleThirdEnglishLevel)) {
+    middleThirdEnglishLevelSelect.value = saved.middleThirdEnglishLevel;
+  }
+
+  updateGradeLabels();
+  renderSubjects();
+  if (saved && subjectsByGrade[gradeSelect.value].includes(saved.subject)) {
+    subjectSelect.value = saved.subject;
+    syncSubjectCards();
+    sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
+    yamaguchiPrepNote.hidden = sixthGradeMathLevelField.hidden || sixthGradeMathLevelSelect.value !== "entrance";
+    middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
+    renderUnits();
+  }
+  if (saved && gradeSelect.value === "小6" && subjectSelect.value === "math") {
+    updateSixthGradeMathLevel();
+  }
 }
 
 function renderUnits() {
@@ -3071,15 +3128,20 @@ window.addEventListener("hashchange", () => renderPage(location.hash.slice(1)));
 gradeSelect.addEventListener("change", () => {
   updateGradeLabels();
   renderSubjects();
+  saveLastSelection();
 });
 subjectSelect.addEventListener("change", () => {
   syncSubjectCards();
   sixthGradeMathLevelField.hidden = gradeSelect.value !== "小6" || subjectSelect.value !== "math";
   middleThirdEnglishLevelField.hidden = !isMiddleThirdEnglish();
   renderUnits();
+  saveLastSelection();
 });
 function updateSixthGradeMathLevel() {
-  if (renderedSixthGradeMathLevel === sixthGradeMathLevelSelect.value) return;
+  if (renderedSixthGradeMathLevel === sixthGradeMathLevelSelect.value) {
+    saveLastSelection();
+    return;
+  }
   renderedSixthGradeMathLevel = sixthGradeMathLevelSelect.value;
   const unitCheckboxes = [...unitOptions.querySelectorAll("input[type='checkbox']")];
   const allUnitsSelected = unitCheckboxes.length > 0 && unitCheckboxes.every((checkbox) => checkbox.checked);
@@ -3098,6 +3160,7 @@ function updateSixthGradeMathLevel() {
       [...unitOptions.querySelectorAll("input[type='checkbox']")].some((checkbox) => !checkbox.checked)) {
     toggleAllUnits();
   }
+  saveLastSelection();
 }
 sixthGradeMathLevelSelect.addEventListener("input", updateSixthGradeMathLevel);
 sixthGradeMathLevelSelect.addEventListener("change", updateSixthGradeMathLevel);
@@ -3109,6 +3172,7 @@ middleThirdEnglishLevelSelect.addEventListener("change", () => {
   if (allUnitsSelected && updatedUnitCheckboxes.some((checkbox) => !checkbox.checked)) {
     toggleAllUnits();
   }
+  saveLastSelection();
 });
 questionCountInput.addEventListener("change", updateQuestionCountLimit);
 unitSelectAllButton.addEventListener("click", toggleAllUnits);
@@ -3137,7 +3201,6 @@ quizNext.addEventListener("click", () => {
   }
 });
 
-updateGradeLabels();
-renderSubjects();
+restoreLastSelection();
 updateStats();
 renderPage(location.hash.slice(1));
