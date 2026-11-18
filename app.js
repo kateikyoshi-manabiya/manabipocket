@@ -237,23 +237,6 @@ const gradeQuestions = {
 };
 
 const middleThirdEnglishBanks = {
-  standard: [
-    gradeQuestion("現在形・過去形", "My brother (　) soccer after school every day.", ["play", "plays", "played", "playing"], 1, "主語が三人称単数で、every dayがある現在の習慣なのでplaysを使うよ。"),
-    gradeQuestion("現在形・過去形", "We (　) our grandparents last Sunday.", ["visit", "visits", "visited", "visiting"], 2, "last Sundayは過去を表すので、visitの過去形visitedを使うよ。"),
-    gradeQuestion("進行形・未来表現", "Look! The children (　) a snowman in the park.", ["make", "makes", "are making", "made"], 2, "Look!から今していることを表す現在進行形are makingが適切だよ。"),
-    gradeQuestion("助動詞", "You (　) wear a helmet when you ride this bike. It is a rule.", ["must", "may", "would", "could"], 0, "規則として「〜しなければならない」を表すmustが適切だよ。"),
-    gradeQuestion("不定詞・動名詞", "Riku went to the library (　) a book about space.", ["borrow", "borrowing", "to borrow", "borrowed"], 2, "図書館へ行った目的を表すto不定詞to borrowを使うよ。"),
-    gradeQuestion("比較", "This is (　) picture of the three.", ["beautiful", "more beautiful", "the most beautiful", "most beautifully"], 2, "三つの中で最も美しいという最上級なのでthe most beautifulだよ。"),
-    gradeQuestion("受け身・分詞", "These cookies (　) by my mother yesterday.", ["made", "were made", "are making", "make"], 1, "クッキーは「作られた」ので受け身。yesterdayに合わせwere madeだよ。"),
-    gradeQuestion("関係代名詞", "The boy (　) is talking with Ms. Sato is my cousin.", ["which", "where", "who", "when"], 2, "先行詞が人で、後ろで主語の働きをする関係代名詞whoを使うよ。"),
-    gradeQuestion("現在完了", "I have known Emi (　) we were in elementary school.", ["for", "since", "during", "at"], 1, "we were in elementary schoolは始まった時点なのでsinceを使うよ。"),
-    gradeQuestion("接続詞・節", "I stayed home (　) it was raining heavily.", ["but", "because", "or", "if"], 1, "雨が激しかったことが家にいた理由なのでbecauseが適切だよ。"),
-    gradeQuestion("文型・間接疑問文", "Do you know (　) the post office is?", ["where", "where is", "what", "what is"], 0, "間接疑問文は疑問詞の後ろを主語＋動詞の語順にするのでwhere the post office isだよ。"),
-    gradeQuestion("語彙・表現", "A: I have a headache. B: You should (　) some rest.", ["take", "make", "do", "give"], 0, "take a restで「ひと休みする」という表現だよ。"),
-    gradeQuestion("語彙・表現", "The train leaves at 8:15. We should get to the (　) before then.", ["station", "kitchen", "library", "hospital"], 0, "電車に乗るため、出発時刻までにstation（駅）へ行く必要があるよ。"),
-    gradeQuestion("読解・情報検索", "次の案内を読んで答えなさい。\\nThe town library is open from 9:00 a.m. to 6:00 p.m. on weekdays. On Saturday, it closes at 4:00 p.m. It is closed every Sunday.\\n土曜日の閉館時刻は？", ["9:00 a.m.", "4:00 p.m.", "6:00 p.m.", "Sunday"], 1, "案内にOn Saturday, it closes at 4:00 p.m.とあるよ。"),
-    gradeQuestion("読解・要旨", "次の英文を読んで答えなさい。\\nMaki wanted to get to school earlier. She prepared her bag at night and checked the bus time before going to bed. In the morning, she did not have to look for her books. She arrived at school ten minutes earlier than before.\\nMakiが早く登校できるようになった理由は？", ["She moved to a new town.", "She prepared for the morning the night before.", "She took a different class.", "She stopped riding the bus."], 1, "前の晩にかばんとバスの時刻を準備したことが、朝の時間短縮につながったよ。"),
-  ],
   application: [
     gradeQuestion("時制・文脈", "次の会話の空欄に入る語を選びなさい。\\nA: Why are you carrying an umbrella?\\nB: The weather report says it (　) rain this afternoon.", ["will", "was", "has", "does"], 0, "天気予報が午後のことを伝えているので、未来を表すwillが適切だよ。"),
     gradeQuestion("現在完了", "Mina started learning French three years ago and still studies it. Which sentence is correct?", ["Mina studied French for three years.", "Mina has studied French for three years.", "Mina is studying French since three years.", "Mina studies French three years ago."], 1, "3年前に始まり今も続いているので、現在完了形has studiedを使うよ。"),
@@ -271,39 +254,38 @@ const middleThirdEnglishBanks = {
     gradeQuestion("読解・情報照合", "次の案内を読んで答えなさい。\\nThe science museum opens at 10:00. The planetarium show starts at 11:30 and lasts 40 minutes. Visitors must get a numbered ticket at the entrance before the show.\\n10時に入館した人が、上映を見るために先にしなければならないことは？", ["Buy lunch in the museum.", "Get a numbered ticket at the entrance.", "Leave the museum at 11:30.", "Wait until the show ends."], 1, "上映前に入口で整理券を受け取る必要があると書かれているよ。"),
   ],
   entrance: [
-    gradeQuestion("受験文法・時制", "文脈に合うよう、空欄に入る語を選びなさい。\\nWhen I arrived at the gym, the other students (　) for the tournament. They had started before I came.", ["prepare", "were preparing", "have prepared", "will prepare"], 1, "到着した時点で準備中だった過去の動作なのでwere preparingが適切だよ。"),
-    gradeQuestion("受験文法・現在完了", "次の会話の空欄に入る語を選びなさい。\\nA: Have you ever visited Nara?\\nB: Yes. I (　) there twice, and I want to go again.", ["went", "have been", "was going", "will be"], 1, "経験を表す現在完了形have beenが会話に合うよ。"),
-    gradeQuestion("受験文法・接続詞", "文の流れに合う接続詞を選びなさい。\\nThe first plan was inexpensive, (　) it did not meet the needs of older visitors. The group chose a more accessible plan.", ["so", "but", "because", "or"], 1, "安価である一方で課題があったという逆接なのでbutが適切だよ。"),
-    gradeQuestion("受験文法・関係代名詞", "次の英文の意味に合う語を選びなさい。\\nThe book (　) our teacher recommended helped me understand the problem.", ["who", "where", "which", "when"], 2, "先行詞が物のThe bookなので、目的格のwhichが適切だよ。"),
-    gradeQuestion("受験文法・仮定法", "空欄に入る語の組み合わせを選びなさい。\\nIf our town (　) a larger library, more students (　) there after school.", ["has / study", "had / would study", "will have / studied", "having / would studied"], 1, "現在の事実に反する仮定なのでIf＋過去形, would＋動詞の原形を使うよ。"),
-    gradeQuestion("受験語彙・表現", "次の会話で、相手の提案を受け入れる返答として最も自然なものは？\\nA: Why don't we ask local people before making the map?\\nB: (　)", ["That sounds like a good idea.", "I have never made a map yesterday.", "The map is under the table.", "No, I didn't ask you."], 0, "提案に賛成する自然な返答はThat sounds like a good idea.だよ。"),
-    gradeQuestion("受験読解・複数情報", "次の英文を読んで答えなさい。\\nA student group wanted to make the route to school safer. They asked students to mark places where they felt unsafe. Many marks were near a crossing hidden by parked cars. The group also watched the crossing for three mornings and saw that drivers often stopped after reaching the line. They proposed moving the parking space away from the corner and repainting the crossing lines.\\n提案の根拠として英文に示されている情報の組み合わせは？", ["Students' reports and the group's observations of drivers.", "A map from another town and a weather report.", "The number of buses and the cost of school lunches.", "Teachers' opinions only."], 0, "生徒の危険箇所の報告と、グループが実際に見た車の停止位置が根拠だよ。"),
-    gradeQuestion("受験読解・要旨", "次の英文を読んで、内容に最も合うものを選びなさい。\\nFor a long time, our class measured the temperature outside at noon. We thought the school garden was too hot for some plants. Then we measured the temperature near the ground in the morning and afternoon. We found that the ground was cooler in the morning, even on warm days. We changed the time of watering and learned that one measurement does not always show the whole situation.\\nこの英文の要点は？", ["A single measurement may not give enough information to understand a situation.", "Plants grow only when the temperature is high at noon.", "The class stopped taking care of the garden.", "Watering plants in the afternoon is always best."], 0, "測る時間や場所を変えて調べた結果、一度の測定だけでは全体を理解できないと学んだよ。"),
-    gradeQuestion("受験読解・会話", "次の会話を読んで答えなさい。\\nA: We need to choose a topic for our presentation about local culture.\\nB: The summer festival is popular, but many groups have already introduced it.\\nC: We could talk to people who make traditional paper. Their work is less familiar to students.\\nA: We should also explain how the paper is used today, not only how it was made in the past.\\nB: Then our presentation can connect the history with people's lives now.\\n発表の題材と説明の方針として最も適切なものは？", ["The summer festival, focusing only on its schedule.", "Traditional paper, connecting its history with its present use.", "Modern sports, without interviewing anyone.", "School rules, comparing different classes."], 1, "伝統紙を取り上げ、歴史と現在の暮らしでの使われ方を結びつけて説明するよ。"),
-    gradeQuestion("受験読解・情報検索", "次の案内を読んで答えなさい。\\nThe community center will hold a workshop on Sunday. Registration starts at 1:00 p.m. The first activity begins at 1:30. Participants should bring a notebook. The building is a five-minute walk from Midori Station.\\n1時20分に駅に着いた参加者が、活動に間に合うためにすることは？", ["Walk to the center and bring a notebook.", "Wait at the station until 1:30.", "Register after the workshop ends.", "Take a bus for five minutes from the center."], 0, "駅から徒歩5分で、活動前の受付に間に合うよう会場へ向かい、ノートを持参するよ。"),
-    gradeQuestion("受験読解・推論", "次の英文を読んで答えなさい。\\nA shop gave customers a small discount if they brought a reusable bag. The number of customers using reusable bags increased. However, the amount of plastic packaging did not change. The shop owner asked the staff to watch how products were packed and learned that many items were still placed in separate plastic bags.\\n次に見直すべきこととして最も適切なものは？", ["How staff package items and whether extra plastic bags are needed.", "Whether customers should stop bringing reusable bags.", "How to make the discount smaller.", "Whether the shop should sell fewer products."], 0, "マイバッグ利用は増えても包装プラスチックが減らないため、商品ごとの包装方法を見直す必要があるよ。"),
-    gradeQuestion("受験読解・理由", "次の英文を読んで答えなさい。\\nA school announced that students could borrow tablets for a project. Some students said they could not use them at home because their internet connections were slow. The teacher changed the plan: students could download the materials at school and work offline. More students completed the project on time.\\n計画を変更したことで提出できた生徒が増えた理由は？", ["Students could work with downloaded materials without relying on a fast home connection.", "The project was canceled for students without tablets.", "The teacher gave every student a new internet connection.", "Students no longer needed to finish the project."], 0, "学校で資料をダウンロードし、家庭の速い通信環境に頼らず作業できたからだよ。"),
-    gradeQuestion("受験文法・語法", "空欄に入る語を選びなさい。\\nThe guide showed us (　) to reach the old temple from the station.", ["what", "how", "whose", "which"], 1, "how to reachで「どのように寺へ行くか」を表すよ。"),
+    gradeQuestion("受験文法・時制", "文脈に合うよう、空欄に入る語を選びなさい。\\nWhen I arrived at the gym, the other students (　) for the tournament. They had started before I came.", ["prepare", "were preparing", "have prepared", "will prepare"], 1, "「私が体育館に着いたとき」という過去の時点で、ほかの生徒たちはすでに準備を始めていました。その時点で進行中だった動作なので、過去進行形were preparingが正解です。prepareは現在形、have preparedは現在までの完了、will prepareは未来を表すため、arrivedという過去の場面に合いません。"),
+    gradeQuestion("受験文法・現在完了", "次の会話の空欄に入る語を選びなさい。\\nA: Have you ever visited Nara?\\nB: Yes. I (　) there twice, and I want to go again.", ["went", "have been", "was going", "will be"], 1, "Have you ever visited ...?は「これまでに訪れた経験があるか」を聞いています。答えも、現在までの経験を表すhave been there（行ったことがある）が自然です。wentは過去の特定の時を示す表現と使う形、was goingは過去の進行中の動作、will beは未来なので、twiceという経験の回数を答える文には合いません。"),
+    gradeQuestion("受験文法・接続詞", "文の流れに合う接続詞を選びなさい。\\nThe first plan was inexpensive, (　) it did not meet the needs of older visitors. The group chose a more accessible plan.", ["so", "but", "because", "or"], 1, "前半は「最初の案は安価だった」、後半は「高齢の来訪者の必要を満たさなかった」です。安価という利点と、使いやすさに問題があったことを対比するため、逆接のbutが入ります。soなら前半が原因で後半が結果、becauseなら後半が理由という関係になりますが、文意とは異なります。"),
+    gradeQuestion("受験文法・関係代名詞", "次の英文の意味に合う語を選びなさい。\\nThe book (　) our teacher recommended helped me understand the problem.", ["who", "where", "which", "when"], 2, "空欄の前の先行詞は物のThe bookで、後ろのour teacher recommendedでは「先生がその本を薦めた」の目的語が欠けています。物を受け、目的語になる関係代名詞whichを使います。whoは人、whereは場所、whenは時を表すので、bookの説明には使えません。"),
+    gradeQuestion("受験文法・仮定法", "空欄に入る語の組み合わせを選びなさい。\\nIf our town (　) a larger library, more students (　) there after school.", ["has / study", "had / would study", "will have / studied", "having / would studied"], 1, "「町にもっと大きな図書館があれば、生徒がもっと通うのに」という、現在の事実とは異なる仮定です。if節は過去形had、主節はwould＋動詞の原形studyとなるため、had / would studyが正解です。未来の予定を表す文ではないので、if節にwillを置く選択肢は合いません。"),
+    gradeQuestion("受験語彙・表現", "次の会話で、相手の提案を受け入れる返答として最も自然なものは？\\nA: Why don't we ask local people before making the map?\\nB: (　)", ["That sounds like a good idea.", "I have never made a map yesterday.", "The map is under the table.", "No, I didn't ask you."], 0, "Why don't we ...?は「…しませんか」と提案する表現です。相手の案に賛成する返答としてThat sounds like a good idea.（いい考えですね）が自然です。ほかの選択肢は、過去の時を示すyesterdayと現在完了を一緒に使う誤りや、提案への返答になっていない文です。"),
+    gradeQuestion("受験文法・間接疑問文", "After comparing both routes, the students asked the guide (　) one would be safer for younger children.", ["which", "which would", "what", "where"], 0, "askedの後ろは質問を文の一部にした間接疑問文です。空欄の後ろに主語oneと助動詞wouldが続くため、疑問詞whichだけを入れます。which wouldを選ぶとwouldが重複し、whatやwhereでは「どちらの道か」という選択の意味になりません。"),
+    gradeQuestion("受験文法・分詞", "The posters (　) near the station last week have already helped visitors find the museum.", ["put", "putting", "were put", "were putting"], 0, "文の主語はThe posters、主節の動詞はhave already helpedです。空欄はpostersを説明する部分で、「先週駅の近くに置かれたポスター」という受け身の意味なので、過去分詞putを使います。were putを入れると主節の動詞が二つになり、文のつながりが崩れます。"),
+    gradeQuestion("受験文法・接続詞", "The first plan was less expensive, (　) it did not provide enough space for wheelchair users.", ["although", "because", "so", "unless"], 0, "前半は「最初の案はより安価だった」、後半は「車いす利用者に十分な広さを提供しなかった」です。安さにもかかわらず問題があった、という譲歩・対比を表すalthoughが適切です。becauseは理由、soは結果、unlessは「もし…でなければ」という条件を表すので、文の関係が合いません。"),
+    gradeQuestion("受験文法・比較", "After the library added books chosen by students, the number of readers became (　) than it had been the previous month.", ["larger", "largest", "as large", "the larger"], 0, "than it had been（前月より）と比べているので、形容詞largeの比較級largerを使います。largestは最上級で比較対象が必要な形に合わず、as largeにはas ... asが必要です。the largerも「二つのうちより大きい方」を表す形なので、この文では不要です。"),
+    gradeQuestion("受験文法・条件", "If the rain (　) before noon, the outdoor interview will take place in the garden as planned.", ["stops", "will stop", "stopped", "would stop"], 0, "実現する可能性のある未来の条件を表す文です。if節では未来のことでも現在形を使い、主節でwill take placeと未来を表すため、stopsが正解です。will stopはif節では使わず、stopped / would stopは現在の事実に反する仮定の形になります。"),
+    gradeQuestion("受験文法・間接疑問文", "The teacher asked the group (　) they had changed their original plan after reading the survey.", ["why", "why did", "what", "which"], 0, "askedの後ろでは「なぜ計画を変えたのか」という内容を説明しています。間接疑問文では疑問詞の後ろを主語＋動詞の語順にするため、why they had changedとなります。why didを選ぶと直接疑問文の語順が混ざり、助動詞didと過去完了hadも重なってしまいます。"),
   ],
 };
 
 const middleEnglishGrammarUnits = [
   ["基本文型・疑問文・否定文", 10],
   ["現在形・過去形", 10],
-  ["進行形・未来表現", 9],
-  ["現在完了・現在完了進行形", 12],
+  ["進行形・未来表現", 10],
+  ["現在完了・現在完了進行形", 10],
   ["助動詞", 10],
   ["不定詞", 10],
-  ["動名詞", 8],
-  ["比較", 8],
-  ["受け身", 8],
-  ["現在分詞・過去分詞", 8],
+  ["動名詞", 10],
+  ["比較", 10],
+  ["受け身", 10],
+  ["現在分詞・過去分詞", 10],
   ["関係代名詞", 10],
-  ["代名詞", 8],
-  ["前置詞", 8],
+  ["代名詞", 10],
+  ["前置詞", 10],
   ["接続詞・節", 10],
   ["文型・間接疑問文・that節", 10],
-  ["仮定法", 11],
+  ["仮定法", 10],
 ];
 
 function englishQuestion(unit, prompt, answer, distractors, explanation) {
@@ -383,6 +365,8 @@ function makeEnglishGrammarQuestions(level) {
     ["My father is good at (　) delicious bread.", "making", ["make", "to make", "made"], "前置詞atの後ろは動名詞makingだよ。"],
     ["Would you mind (　) the window? It is a little cold.", "closing", ["close", "to close", "closed"], "mindの後ろには動名詞を置くよ。"],
     ["(　) in a quiet place is helpful when I study.", "Working", ["Work", "To working", "Works"], "文の主語には動名詞Workingを使えるよ。"],
+    ["We are looking forward to (　) our cousins during the vacation.", "seeing", ["see", "to see", "saw"], "look forward toのtoは前置詞なので、後ろには動名詞seeingを置くよ。"],
+    ["My favorite weekend activity is (　) old maps.", "collecting", ["collect", "to collecting", "collected"], "活動を表す動名詞collectingをisの後ろに置くよ。"],
   ];
   const comparisonRows = [
     ["This road is (　) than the one near the station.", "wider", ["widest", "more wide", "wide"], "thanがあるので比較級widerを使うよ。"],
@@ -393,6 +377,8 @@ function makeEnglishGrammarQuestions(level) {
     ["Who speaks English (　) in your group?", "the most clearly", ["more clearly", "most clear", "the clearest"], "グループ内で最も明瞭に話す人をたずねる副詞の最上級だよ。"],
     ["This book is (　) interesting than that one.", "more", ["most", "much", "many"], "interestingの比較級はmore interestingだよ。"],
     ["My bag is twice as (　) as yours.", "heavy", ["heavier", "heaviest", "more heavy"], "twice as ... asの形では形容詞の原級を使うよ。"],
+    ["The second bus arrived (　) than the first one.", "earlier", ["earliest", "early", "more early"], "二つのバスの到着時刻を比べているので副詞earlyの比較級earlierを使うよ。"],
+    ["This is one of the (　) buildings in our town.", "oldest", ["older", "old", "most old"], "「最も古い建物の一つ」はone of the＋最上級＋複数名詞の形だよ。"],
   ];
   const passiveRows = [
     ["This bridge (　) in 1985.", "was built", ["built", "is building", "has build"], "橋は建てられた側なので受け身の過去形was builtだよ。"],
@@ -403,6 +389,8 @@ function makeEnglishGrammarQuestions(level) {
     ["This song is (　) by people around the world.", "loved", ["love", "loving", "loves"], "isの後ろに過去分詞lovedを置いて受け身を作るよ。"],
     ["The old building (　) carefully by the workers now.", "is being repaired", ["repairs", "repaired", "has repair"], "今修理されている最中なので現在進行形の受け身だよ。"],
     ["The letters (　) yesterday, so they will arrive soon.", "were sent", ["sent", "are sending", "was sent"], "lettersは複数で、昨日送られたのでwere sentだよ。"],
+    ["The school festival (　) next Saturday if the weather is good.", "will be held", ["will hold", "is holding", "held"], "学校祭は開催する側ではなく開催される側なので、未来の受け身will be heldを使うよ。"],
+    ["All visitors (　) to sign in at the front desk.", "are asked", ["ask", "are asking", "asked"], "訪問者は署名を求められる側なので、受け身are askedが適切だよ。"],
   ];
   const participleRows = [
     ["The girl (　) the guitar is my sister.", "playing", ["played", "plays", "to play"], "女の子がギターを弾いているので現在分詞playingで説明するよ。"],
@@ -413,6 +401,8 @@ function makeEnglishGrammarQuestions(level) {
     ["I found a wallet (　) on the train.", "left", ["leaving", "leaves", "to leave"], "電車に置き忘れられた財布なので過去分詞leftだよ。"],
     ["The students (　) in the library are preparing for a test.", "studying", ["studied", "study", "to study"], "図書館で勉強している生徒なので現在分詞studyingだよ。"],
     ["We visited a temple (　) more than 500 years ago.", "built", ["building", "builds", "to build"], "500年以上前に建てられた寺なので過去分詞builtだよ。"],
+    ["The woman (　) the blue suitcase is our new teacher.", "carrying", ["carried", "carries", "to carry"], "スーツケースを運んでいる人なので現在分詞carryingで説明するよ。"],
+    ["The photos (　) during the trip are on the website.", "taken", ["taking", "take", "to take"], "旅行中に撮られた写真なので過去分詞takenで説明するよ。"],
   ];
   const relativeRows = [
     ["The woman (　) teaches us science is from Canada.", "who", ["which", "where", "when"], "人を説明する主格の関係代名詞whoだよ。"],
@@ -435,6 +425,8 @@ function makeEnglishGrammarQuestions(level) {
     ["Only a (　) students knew the answer, so the teacher explained it again.", "few", ["little", "much", "every"], "studentsは数えられる複数名詞なのでfewを使うよ。"],
     ["This is not my umbrella. Is it (　)?", "yours", ["your", "you", "yourself"], "名詞を省略して「あなたのもの」と言うyoursだよ。"],
     ["I have two pens. You can use (　) of them.", "either", ["every", "much", "another"], "二つのうちどちらでも、という意味のeitherだよ。"],
+    ["The students finished the project by (　).", "themselves", ["them", "their", "theirs"], "主語のstudents自身で仕上げたことを表す再帰代名詞themselvesを使うよ。"],
+    ["There are two menus. You may choose (　).", "either", ["neither", "every", "much"], "二つのうちどちらを選んでもよいのでeitherが適切だよ。"],
   ];
   const prepositionRows = [
     ["Our English class starts (　) nine fifteen.", "at", ["in", "on", "to"], "具体的な時刻の前にはatを使うよ。"],
@@ -445,6 +437,8 @@ function makeEnglishGrammarQuestions(level) {
     ["The museum is (　) the bank and the post office.", "between", ["among", "during", "through"], "二つのものの間はbetweenで表すよ。"],
     ["Please walk (　) the bridge to reach the park.", "across", ["since", "during", "until"], "橋を渡って向こう側へ行くのでacrossだよ。"],
     ["The train arrived (　) the station just before noon.", "at", ["on", "in", "from"], "駅という地点への到着にはarrive atを使うよ。"],
+    ["My aunt has worked at this hospital (　) 2021.", "since", ["for", "during", "until"], "2021年という始まった時点を表すのでsinceを使うよ。"],
+    ["We walked (　) the tunnel and came out near the river.", "through", ["between", "under", "since"], "トンネルの中を通り抜けたのでthroughが適切だよ。"],
   ];
   const conjunctionRows = [
     ["I took a coat (　) it was cold outside.", "because", ["but", "or", "although"], "寒かったことがコートを着た理由なのでbecauseだよ。"],
@@ -544,7 +538,9 @@ function makeEnglishGrammarQuestions(level) {
         ? prompt
         : level === "application"
           ? `文脈に合うよう、空欄に入る語句を選びなさい。\\n${prompt}`
-          : `受験対策：英文の意味と文法に合うように、空欄に入る語句を選びなさい。\\n${prompt}`;
+          : level === "entrance"
+            ? `受験対策：英文の意味と文法に合うように、空欄に入る語句を選びなさい。\\n${prompt}`
+            : prompt;
       questions.push(englishQuestion(unit, levelPrompt, answer, distractors, explanation));
     }
   });
@@ -733,18 +729,152 @@ function makeEnglishReadingQuestions(level) {
   ));
 }
 
-const completeMiddleThirdEnglishBanks = Object.fromEntries(
-  Object.entries(middleThirdEnglishBanks).map(([level, originalQuestions]) => [
-    level,
-    [
-      ...originalQuestions,
-      ...makeEnglishGrammarQuestions(level),
-      ...makeEnglishVocabularyQuestions(level),
-      ...makeEnglishConversationQuestions(level),
-      ...makeEnglishReadingQuestions(level),
-    ],
-  ]),
-);
+const middleEnglishEntranceReadingRows = [
+  ["長文・情報照合", "A town library planned a weekend program for teenagers. The building opens at 9:00, but the computer room is not available until 10:30. A writing workshop begins at 11:00 and requires advance registration. Students who register must bring a draft of their story. Since the room has only twelve seats, the librarian will give priority to students who have not joined a workshop before. The program ends at 3:00, although the library remains open until 5:00.", [
+    ["A student who has never joined a workshop arrives at 10:00 without registering. What should the student do first to have the best chance of joining?", "Ask the librarian whether a seat is still available and register.", ["Go to the computer room and begin the workshop.", "Wait until 3:00 and bring a story draft then.", "Leave because registration had to happen before the library opened."], "この生徒には「初参加」という優先条件がありますが、事前登録も必要で、席は12人分だけです。まず空席があるか司書に確認して登録するのが適切です。いきなり参加したり、登録なしで席が確保されていると考えたりはできません。"],
+    ["Why might a student be unable to use the computer room at 9:30?", "It does not become available until 10:30.", ["The library opens at 10:30.", "The workshop uses every computer until 3:00.", "Only students with a story draft may enter it."], "図書館全体は9時に開きますが、コンピューター室の利用開始は10時30分です。9時30分は図書館に入れても、コンピューター室はまだ利用できません。施設全体の開館時刻と、部屋ごとの利用開始時刻を区別します。"],
+    ["Which student is most likely to receive priority if only one seat remains?", "A student who has never taken part in a workshop.", ["A student who has already joined several workshops.", "A student who arrives after the program ends.", "A student who wants to use a computer but has not registered."], "席が限られている場合、これまでワークショップに参加したことのない生徒が優先されます。したがって、初参加の生徒が最も条件に合います。コンピューター室を使いたいかどうかは、この優先順位の条件ではありません。"],
+    ["Which statement is supported by the passage?", "The library stays open for two hours after the program ends.", ["Every visitor can join the workshop without registering.", "The workshop starts when the library opens.", "The computer room is available throughout the program."], "プログラムは午後3時に終わり、図書館は午後5時まで開いているので、終了後も2時間利用できます。ワークショップには事前登録が必要で、開始は午前11時です。図書館の開館時間と各活動の時間を混同しないことがポイントです。"],
+  ]],
+  ["長文・情報照合", "For a school project, four students compared two ways of traveling to a museum. The train takes twenty-five minutes and costs 420 yen per person. The bus takes forty minutes and costs 260 yen. The museum tour starts at 10:00, and visitors must check in fifteen minutes earlier. The group has 1,200 yen for transportation per student. They also learned that the bus may be delayed when it rains, while the train usually arrives on time. The weather forecast predicts heavy rain that morning.", [
+    ["Which plan meets both the check-in time and the transportation budget most reliably?", "Take the train and arrive at the museum by 9:45.", ["Take the bus and leave home at 9:45.", "Take the bus because it costs less, even if it arrives after 10:00.", "Choose either one because the budget is only 420 yen for the whole group."], "見学は10時開始ですが、15分前の9時45分までに受付が必要です。電車は1人420円で予算1,200円以内、雨でも通常は定刻に着くため、条件を最も確実に満たします。バスは安いものの所要時間が長く、雨による遅れもあるので、この日の選択としては不確実です。"],
+    ["How much of each student's transportation budget remains after paying for the train?", "780 yen.", ["420 yen.", "680 yen.", "1,620 yen."], "1人分の予算1,200円から、電車代420円を引きます。1,200－420＝780なので、残額は780円です。420円は使った金額であり、1,620円は足し算をした値なので、どちらも残額ではありません。"],
+    ["Why is the bus a riskier choice on this particular morning?", "Rain may delay it, leaving little time before the required check-in.", ["It costs more than the train during bad weather.", "The museum does not allow bus passengers to join the tour.", "It takes less time than the train."], "バスは通常40分かかり、雨の日には遅れる可能性があります。受付の締切は見学開始の15分前なので、遅れれば参加できないおそれがあります。料金の問題ではなく、所要時間と天候による遅延がリスクです。"],
+    ["What additional information would be most useful before the group chooses the bus?", "The bus schedule and how much delay is likely during heavy rain.", ["The number of paintings in the museum.", "The students' favorite school subjects.", "The train's color."], "判断に必要なのは、バスが何時に着くか、また大雨でどの程度遅れそうかです。その情報を受付締切の9時45分と照らし合わせれば、バスでも間に合うか判断できます。美術館の展示内容などは、到着時刻の判断には関係しません。"],
+  ]],
+  ["長文・情報照合", "A community center offered three courses. Cooking meets on Tuesday from 4:00 to 5:30 and costs 1,000 yen. Photography meets on Wednesday from 4:30 to 6:00 and costs 800 yen. A science course meets on Tuesday from 5:00 to 6:30 and costs 600 yen. Mei can spend no more than 900 yen and must be home by 6:15. Her younger brother can walk with her on Tuesdays, but on Wednesdays she must take a bus that arrives at 4:40. The center accepts late arrivals only for photography.", [
+    ["Which course can Mei attend while meeting both her budget and time limits?", "Photography.", ["Cooking.", "Science.", "Both cooking and science."], "料理は1,000円で予算を超え、科学は6時30分終了で帰宅時刻に間に合いません。写真は800円で6時終了、バス到着後の遅刻参加も認められています。料金・終了時刻・移動条件の3点を合わせると写真が唯一の候補です。"],
+    ["Why can Mei not choose cooking even though she can walk to the center on Tuesday?", "It costs more than her 900-yen limit.", ["It ends after 6:15.", "It is held on Wednesday.", "The center does not accept students who walk."], "料理は火曜日で徒歩でも行けますが、参加費は1,000円です。Meiの上限900円を100円超えるため、移動条件を満たしていても選べません。曜日だけで判断せず、予算も確認します。"],
+    ["What is the main reason the science course is unsuitable?", "It ends after Mei must be home.", ["It costs more than 900 yen.", "It is held on Wednesday.", "Late arrivals are allowed only for science."], "科学は火曜日の5時から6時30分までで、Meiは6時15分までに帰宅する必要があります。費用600円は予算内ですが、終了時刻が帰宅期限より15分遅いため不適切です。"],
+    ["If the center changes the photography start time to 4:45, what should Mei check first?", "Whether late arrival is still allowed after the bus arrives.", ["Whether the cooking fee has changed.", "Whether her brother can walk on Wednesday.", "Whether the science course ends earlier."], "水曜日のバスは4時40分着なので、開始が4時45分に変わると到着から5分しかありません。写真コースだけ遅刻が認められるという条件はありますが、変更後も参加できるかをセンターに確認する必要があります。ほかの曜日のコース条件はこの変更に関係しません。"],
+  ]],
+  ["長文・情報照合", "The student council wanted to make the school entrance safer. In a survey, students said they felt unsafe when bicycles crossed the path near the gate. Teachers observed the area for five mornings and found that most bicycles passed between 8:05 and 8:15, while many students arrived on foot between 8:10 and 8:20. A nearby street is wider but has no crossing guard. The council proposed marking a bicycle lane inside the school grounds and asking a teacher to guide students during the ten busiest minutes.", [
+    ["Which evidence most directly supports the council's proposed ten-minute guidance period?", "The busiest bicycle and walking times overlap from 8:10 to 8:15.", ["The nearby street is wider than the school entrance.", "The survey included students' opinions.", "The school has a student council."], "自転車の多くは8時5分～15分、徒歩の生徒は8時10分～20分に通ります。両方の時間帯が重なるのは8時10分～15分で、ここが接触の危険が特に高い時間です。したがって、時間を調べた観察結果が見守り時間を決める直接の根拠になります。"],
+    ["Why did the council avoid simply directing bicycles to the nearby street?", "That street has no crossing guard, so moving the traffic may not improve safety.", ["The street is too narrow for bicycles.", "Students said they never use that street.", "The school entrance is closed after 8:05."], "近くの道路は幅が広い一方、横断を見守る人がいません。自転車をそちらへ移すだけでは、別の場所に危険を移す可能性があるため、学校内で通行場所を分ける案が検討されています。本文には「狭すぎる」「生徒が使わない」とは書かれていません。"],
+    ["Which change addresses both the location and timing of the problem?", "Mark a bicycle lane at school and guide students during the busiest period.", ["Ask all students to arrive after 8:20.", "Move the school gate to the nearby street.", "Ask cyclists to use the entrance only after classes."], "自転車レーンは自転車と徒歩の通る場所を分け、教員の誘導は両者が重なる時間帯を見守ります。つまり、提案は「場所」と「時間」の両方に対応しています。他の選択肢は、通学時間を変えるだけだったり、現実的でない移動を求めたりしています。"],
+    ["What further result would best show whether the proposal works?", "Fewer near-collisions at the gate during the morning rush.", ["More students completing the survey.", "A wider street nearby.", "A shorter school day."], "目的は登校時の衝突の危険を減らすことです。そのため、実施後に朝の門付近でヒヤリとする場面が減ったかを調べるのが、効果を直接確かめる方法です。アンケート回答数や道路の幅だけでは、安全性が改善したか分かりません。"],
+  ]],
+  ["長文・理由・推論", "A science club tested whether the color of a cover affected how quickly water warmed in sunlight. They used three identical jars with equal amounts of water and covered them with black, white, and clear material. The black-covered jar warmed fastest on the first day. On the second day, however, it was placed closer to the window than the others. The club decided not to use that day's result. They will repeat the test, keep all jars the same distance from the window, and measure the water every ten minutes.", [
+    ["Why did the club reject the second day's result?", "The jars were not placed under the same conditions.", ["The black cover was missing on the first day.", "The water was measured every ten minutes.", "The club used jars with different amounts of water."], "調べたいのは「カバーの色が温まり方に与える影響」です。しかし2日目は黒いカバーの瓶だけ窓に近く、受ける日光の量が異なる可能性があります。色以外の条件がそろっていないため、その結果から色の効果を公平に比べられません。"],
+    ["What is the most important improvement in the next test?", "Control the jars' distance from the window.", ["Use a different amount of water in every jar.", "Measure only the black-covered jar.", "Change the covers halfway through the test."], "2日目の問題は、瓶と窓の距離がそろっていなかったことです。次はすべての瓶を同じ距離に置けば、日光の条件をそろえ、カバーの色の違いに注目しやすくなります。水の量やカバーまで変えると、比較する条件がさらに増えてしまいます。"],
+    ["What can the club reasonably conclude from the first day only?", "The black-covered jar warmed fastest under the conditions of that test.", ["Black covers always warm water fastest in every situation.", "The clear cover prevents water from warming.", "The second day's result proves the white cover is best."], "1日目の実験では黒いカバーの瓶が最も速く温まりました。ただし、これはその日の条件で観察された結果であり、どの状況でも黒が最良だと一般化するには、条件をそろえた実験を繰り返す必要があります。"],
+    ["Why will the club measure the water every ten minutes?", "To compare how the temperature changes over time.", ["To make the jars receive different amounts of sunlight.", "To avoid recording the starting temperature.", "To keep the covers from touching the jars."], "一定の間隔で測れば、最後の温度だけでなく、時間とともにどのように温度が変化したかを比べられます。開始時の条件も記録したうえで各時点を比較することが、温まり方の違いを調べる助けになります。"],
+  ]],
+  ["長文・理由・推論", "A town introduced a discount for customers who brought reusable cups. After two months, the number of reusable cups increased, but the amount of trash near the station did not fall. The town then checked the bins and found that many disposable food containers were still being used. Shop owners said some customers bought drinks and snacks separately because the discount applied only to drinks. The town is considering a small reward for customers who use reusable containers for both.", [
+    ["Why did the first discount fail to reduce the total amount of trash?", "It changed cup use but did not affect the many disposable food containers.", ["Customers stopped buying drinks.", "The town removed all trash bins.", "Reusable cups could not be used near the station."], "割引の後、マイカップの利用者は増えましたが、ごみの量は減っていません。ごみ箱を調べると使い捨ての食品容器が多く残っており、飲み物だけを対象にした割引では、ごみ全体の大きな原因に届かなかったと分かります。"],
+    ["Which new policy most directly responds to the evidence?", "Offer a reward when customers use reusable containers for both food and drinks.", ["Increase the drink discount and ignore food packaging.", "Close the shops near the station.", "Ask customers to buy more disposable containers."], "残っている問題は、飲み物のカップではなく食品容器の使い捨てです。飲食物の両方に再利用容器を使った人を対象にすれば、最初の割引で変わらなかった部分にも働きかけられます。"],
+    ["What should the town measure after introducing the new reward?", "Changes in both reusable-container use and the amount of trash.", ["Only the number of shops that sell drinks.", "How many customers use the train.", "The color of the reusable cups."], "政策の目的はごみを減らすことなので、再利用容器の利用状況だけでなく、実際のごみ量も調べる必要があります。利用者が増えてもごみが減らない可能性があるため、両方を比較して効果を判断します。"],
+    ["Which statement best describes the town's approach?", "It uses results from one policy to identify what still needs to change.", ["It assumes the first policy solved every waste problem.", "It changes the policy without collecting any information.", "It focuses on cups even though the evidence is about containers."], "町は最初の割引の結果を確認し、カップ利用は増えたのにごみが減らないという差に注目しました。さらにごみ箱を調べて残る原因を見つけ、次の対策を考えています。結果をもとに問題を絞り直す進め方です。"],
+  ]],
+  ["長文・理由・推論", "A school garden produced fewer vegetables than expected. Students first thought the plants needed more water, so they watered them every day. Some leaves later turned yellow. A science teacher asked the students to compare the soil near healthy plants with the soil near the yellow leaves. The latter was still wet in the morning. The students reduced watering and added a simple record of rainfall and soil condition. New leaves looked healthier, but the harvest had not yet increased.", [
+    ["What is the best explanation for the yellow leaves?", "The plants may have received too much water because the soil stayed wet.", ["The students forgot to plant any vegetables.", "The garden received no rain at all.", "The teacher removed all healthy plants."], "黄色くなった葉の近くの土は、朝もぬれていました。毎日水をやっていたことと合わせると、水不足ではなく水のやりすぎが考えられます。水やりを減らした後に新しい葉がよくなったことも、この説明を支えています。"],
+    ["Why is it too early to say that the change increased the harvest?", "The new leaves improved, but the amount harvested has not increased yet.", ["The students did not keep any records.", "The garden was closed before the plants grew.", "The students changed the type of vegetables."], "本文では、葉の状態は改善した一方、収穫量はまだ増えていないと明記されています。葉の健康状態の改善と、最終的な収穫量の増加は別の結果なので、収穫への効果はまだ判断できません。"],
+    ["What purpose do the rainfall and soil records serve?", "They help the students decide when watering is actually needed.", ["They show which students prefer gardening.", "They replace the need to observe the plants.", "They make the soil dry immediately."], "雨量と土の状態を記録すれば、雨が降った後も毎日水をやるべきか、土が乾いてからにすべきかを判断できます。記録は観察の代わりではなく、観察した結果を比べて水やりを調整するための資料です。"],
+    ["Which conclusion is best supported by the passage?", "Changing one growing condition may improve plant health before it changes the final harvest.", ["More water always leads to more vegetables.", "Yellow leaves prove that a plant has no roots.", "A single observation can explain every garden problem."], "水やりを減らした後、新しい葉は健康になりましたが、収穫量はまだ変わっていません。したがって、栽培条件の変更がまず植物の状態を改善することは示されていますが、収穫への影響は今後の観察が必要です。"],
+  ]],
+  ["長文・理由・推論", "A local museum hoped to attract more teenagers. It added a digital quiz, but few students completed it. A visitor survey showed that many students did not know the quiz existed; those who tried it said the questions were interesting. The museum placed a sign near the entrance, yet the number of completed quizzes changed very little. Staff later noticed that the quiz required visitors to download an app, and the museum's wireless connection was weak in several rooms.", [
+    ["What is the strongest explanation for why the sign had little effect?", "The app and weak connection created a problem even after students learned about the quiz.", ["Students said the questions were boring.", "The museum removed the quiz from the entrance.", "The survey showed that no teenagers visited."], "看板を置いた後も完了数がほとんど変わらなかったため、存在を知らないことだけが原因ではありません。アプリのダウンロードが必要で、館内の通信も弱いという別の障害が残っています。設問は「看板が効かなかった理由」なので、認知度ではなく利用時の技術的な壁に注目します。"],
+    ["Which change is most likely to help students complete the quiz?", "Make the quiz work in a browser without requiring a download.", ["Add more signs while keeping the app requirement.", "Make the wireless connection weaker.", "Remove the questions students found interesting."], "来館者がクイズの存在を知っていても、アプリのダウンロードや弱い通信が利用を妨げています。ブラウザー上で使えるようにすれば、アプリ導入という障害を取り除けます。看板を増やすだけでは、利用開始後の問題は解決しません。"],
+    ["What did the survey help the museum distinguish?", "A lack of awareness from a lack of interest in the quiz.", ["Teenagers from adults by age.", "Museum visitors from museum staff.", "Digital quizzes from printed maps."], "調査では、クイズを知らなかった生徒が多い一方、実際に試した生徒は問題を面白いと答えています。つまり「存在を知らないこと」と「内容に興味がないこと」は別だと分かりました。この区別が、看板だけでは完了数が増えなかった理由を考える手掛かりです。"],
+    ["What should the museum compare after changing the quiz?", "Completion rates before and after the change, especially in rooms with weak connections.", ["The number of signs and the museum's opening hours.", "The colors of the app icon.", "How many adults download unrelated apps."], "変更の効果を確かめるには、導入前後でクイズ完了率を比べるのが直接的です。通信が弱い部屋で改善が大きいかも確認すれば、技術的な障害を取り除いたことが参加につながったか、より適切に判断できます。"],
+  ]],
+  ["長文・要旨・意見", "For years, students at Midori Junior High School collected books for a children’s center. This year, the center asked for books that younger readers could finish on their own. Students initially planned to donate the largest number possible, but a librarian explained that books with very small print and difficult vocabulary were rarely chosen. The class sorted its collection by reading level and condition. It donated fewer books than before, yet the center reported that children borrowed them more often.", [
+    ["What is the main point of the passage?", "Choosing books that fit readers' needs can matter more than donating the largest number.", ["The center stopped accepting books from schools.", "Students should donate only books with small print.", "The librarian asked the class to collect more books."], "クラスは寄付冊数を増やす当初の計画から、子どもが読み切れる本を選ぶ方針に変えました。冊数は減っても借りられる回数は増えたため、量より受け手に合う内容を選ぶことが大切だというのが本文の要点です。"],
+    ["Why did the class sort books by reading level and condition?", "To select books that younger children could read and use.", ["To make the donation look larger.", "To avoid asking the librarian for advice.", "To find books with the most difficult vocabulary."], "受け入れ先は、年少の子どもが自分で読み切れる本を求めていました。文字が小さすぎたり語彙が難しすぎたりする本は選ばれにくいので、読書レベルと状態を確かめて、実際に使いやすい本を選ぶために分類しました。"],
+    ["Which evidence best supports the class's decision?", "Children borrowed the smaller, better-matched donation more often.", ["The class collected books for several years.", "The class sorted books into groups.", "The center has a librarian."], "方針の効果を示す根拠は、寄付した本の冊数ではなく、子どもたちが実際に借りた頻度です。冊数を減らした後に借りられる回数が増えたという結果が、本の選び方を変えた判断を最も直接的に支えます。"],
+    ["What would be a reasonable goal for the next donation?", "Ask the center which reading levels and topics children currently need.", ["Donate every book without checking its condition.", "Focus only on increasing the total number.", "Choose books based on print size alone."], "今回うまくいったのは、寄付先の子どもに合う本を選んだからです。次回も同じ効果を得るには、必要な読書レベルやテーマを先に確認するのが合理的です。冊数だけを増やしたり、状態を確認せずに集めたりすると、今回の学びを生かせません。"],
+  ]],
+  ["長文・要旨・意見", "A group of students wanted to record local stories before older residents forgot them. They first planned to publish every interview online. Some residents were comfortable speaking but did not want their names or voices shared publicly. The students changed the plan: interviewees could choose whether to use their name, have their voice recorded, or allow only a written summary. More residents agreed to take part. The group learned that protecting a speaker's choice was necessary for collecting a wider range of stories.", [
+    ["Which idea best summarizes the passage?", "Respecting interviewees' choices helped the students collect more stories.", ["Online publication is the only way to preserve local history.", "Residents refused to speak with students.", "The group stopped recording local stories."], "生徒たちは、名前を出すか、声を録音するか、文章だけにするかを話し手が選べるようにしました。その結果、参加者が増えています。個人の希望に配慮することが、より多くの地域の話を集めることにつながった、というのが全体の要旨です。"],
+    ["Why did the students change their original plan?", "Some residents wanted to share stories without making their identities public.", ["The students could not find any older residents.", "The interviews were too short to publish.", "The school asked them to stop the project."], "住民の中には話をすることには前向きでも、氏名や声を公にしたくない人がいました。全員を同じ方法で公開する当初案では参加しにくい人がいたため、公開方法を選べる形に変更しました。"],
+    ["What can be inferred about the new choices?", "They made participation possible for people with different privacy concerns.", ["They required every interview to be anonymous.", "They allowed students to publish material without asking.", "They reduced the number of ways to share a story."], "氏名付き、録音、文章の要約のみという選択肢があるため、公開範囲に対する考えが異なる人も自分に合う方法で参加できます。すべて匿名にしたわけでも、許可なしに公開できるようにしたわけでもありません。"],
+    ["Which action should the group take before sharing a written summary?", "Confirm that the interviewee agrees to the summary being shared.", ["Add the interviewee's full name automatically.", "Publish the recording even if it was refused.", "Remove the story from the project."], "本文では、話し手が公開方法を選べることが参加につながったとあります。文章の要約だけを許可した人についても、その要約を共有することに同意しているか確認する必要があります。録音や氏名を本人の希望に反して公開するのは、計画の方針に反します。"],
+  ]],
+  ["長文・要旨・意見", "A school was deciding how to use an empty room. One group proposed a quiet study space because the library was crowded after school. Another wanted a place for students to practice music, since the current music room was often booked. The school measured noise in nearby classrooms and asked students when they needed each activity. It found that study demand was highest on weekdays, while music groups mainly needed the room on Friday. The school decided to reserve the room for study most days and for music on Friday.", [
+    ["Why did the school choose different uses on different days?", "The students' needs for study and music were strongest at different times.", ["The room was too small for either activity.", "The library was closed every Friday.", "Music groups refused to use the current music room."], "調査では、平日は自習の希望が多く、音楽の練習は主に金曜日に必要だと分かりました。利用希望のピークが曜日によって異なるため、同じ部屋を曜日ごとに使い分ける計画にしています。部屋が使えないからではなく、需要の時間差を生かした判断です。"],
+    ["Which information helped the school make its decision?", "Noise measurements and students' schedules for the two activities.", ["The price of musical instruments.", "The number of books in the library.", "A vote by students who only wanted music."], "学校は、近くの教室への影響を調べるため騒音を測り、さらに生徒へ活動を希望する曜日を尋ねています。部屋の使い方を決めるには、周囲への影響と利用希望の両方が関係するため、この二つの情報が判断材料になります。"],
+    ["What is the most likely benefit of reserving Friday for music?", "It meets the music groups' main need while preserving study space on other days.", ["It makes the room unavailable to every student.", "It moves all study demand to the library.", "It guarantees that nearby classrooms will be silent."], "音楽グループが主に必要としている金曜日に部屋を確保し、それ以外の日は自習に使えます。これにより、異なる利用希望を両立できます。ただし、騒音が完全になくなるとまでは本文から言えません。"],
+    ["Which general lesson is best supported?", "A shared space can serve different groups when its schedule reflects their needs.", ["One group should always control a shared room.", "Noise measurements are never useful.", "Students' schedules should not affect school decisions."], "学校は利用希望の曜日と騒音の情報を集め、曜日によって部屋の用途を変えました。この例から、共有スペースは利用者の必要な時間に合わせて予定を組めば、複数のグループで活用できると分かります。"],
+  ]],
+  ["長文・要旨・意見", "A student newspaper planned an article about reducing food waste. The writers first wanted to argue that students should take smaller portions. After observing lunch for a week, they found that some students left food because they disliked particular vegetables, while others took extra food because they were unsure whether seconds would be available. The writers interviewed kitchen staff and learned that portion sizes could be adjusted and seconds could be offered after everyone had received a first serving. They revised the article to include both ideas.", [
+    ["How did the observations change the writers' view of the problem?", "They found more than one reason for leftover food, so one solution was not enough.", ["They proved that students never wanted vegetables.", "They showed that the kitchen staff caused all food waste.", "They convinced the writers to stop the article."], "観察から、野菜が苦手で残す生徒と、おかわりができるか分からず多く取る生徒という、異なる原因が見つかりました。そのため「全員が少なく取る」だけでは問題を解決できず、原因ごとに対策を考える必要があると分かります。"],
+    ["Why might offering seconds after everyone receives a first serving help?", "It could reduce the need to take extra food before knowing whether more will be available.", ["It would prevent students from choosing any food.", "It would make every portion larger.", "It would remove the need to ask students about vegetables."], "一部の生徒は、おかわりできるか分からないために最初から多く取っていました。全員に一度配った後でおかわりを案内すれば、足りなくなる不安から多く取る行動を減らせる可能性があります。野菜の好みへの対策とは別に考える必要があります。"],
+    ["Which statement best describes the revised article?", "It presents several causes and suggests changes that respond to them.", ["It blames one group without evidence.", "It argues that every student should eat the same amount.", "It focuses only on how to prepare newspapers."], "記事は、食べ残しの原因を一つに決めつけず、野菜の量を調整することと、おかわりの方法を明確にすることの両方を提案しています。原因の違いに対応する複数の対策を示している点が、改訂後の記事の特徴です。"],
+    ["What additional evidence would best help evaluate the suggestions?", "Compare the amount of uneaten food before and after the changes.", ["Count how many articles the newspaper publishes.", "Ask whether students like the newspaper's title.", "Measure the size of the lunchroom."], "提案の目的は食べ残しを減らすことなので、変更前と変更後の残食量を比較するのが最も直接的です。記事数やタイトルの評価では、給食の食べ残しが減ったかどうかを測れません。"],
+  ]],
+];
+function makeEnglishEntranceReadingQuestions() {
+  return middleEnglishEntranceReadingRows.flatMap(([category, passage, rows], passageIndex) =>
+    rows.map(([question, answer, distractors, explanation], questionIndex) => ({
+      ...englishQuestion(
+        category,
+        `英文全体と設問の条件を確認して答えなさい。\\n${passage}\\n${question}`,
+        answer,
+        distractors,
+        explanation,
+      ),
+      passageId: `entrance-${passageIndex}`,
+      questionId: questionIndex,
+    }))
+  );
+}
+
+const middleEnglishBasicGroups = {
+  "文の基本": ["基本文型・疑問文・否定文", "文型・間接疑問文・that節"],
+  "時制": ["現在形・過去形", "進行形・未来表現", "現在完了・現在完了進行形"],
+  "動詞の形": ["助動詞", "不定詞", "動名詞", "受け身", "現在分詞・過去分詞"],
+  "文をつなぐ・詳しくする": ["関係代名詞", "接続詞・節"],
+  "語句の使い分け": ["比較", "代名詞", "前置詞"],
+  "発展文法": ["仮定法"],
+};
+
+function middleEnglishSelectionGroup(question, level) {
+  if (level === "basic") {
+    return Object.entries(middleEnglishBasicGroups)
+      .find(([, units]) => units.includes(question.unit))?.[0] || "語彙・表現";
+  }
+  if (level === "application") {
+    if (question.unit.includes("読解")) return "読解（情報・理由・要点）";
+    if (question.unit.startsWith("会話表現") || question.unit.includes("会話")) return "会話表現";
+    return "文法・語彙を文脈で使う";
+  }
+  if (question.unit.includes("情報") || question.unit.includes("複数情報")) return "長文・情報照合";
+  if (question.unit.includes("要旨") || question.unit.includes("会話") ||
+      question.unit === "長文・要旨・意見") return "長文・要旨・意見";
+  if (question.unit.startsWith("長文・") || question.unit.startsWith("受験読解")) {
+    return "長文・理由・推論";
+  }
+  return "文法・語法";
+}
+
+const completeMiddleThirdEnglishBanks = {
+  basic: [
+    ...makeEnglishGrammarQuestions("basic"),
+    ...makeEnglishVocabularyQuestions("standard"),
+  ],
+  application: [
+    ...middleThirdEnglishBanks.application,
+    ...makeEnglishConversationQuestions("application"),
+    ...makeEnglishReadingQuestions("application"),
+  ],
+  entrance: [
+    ...middleThirdEnglishBanks.entrance,
+    ...makeEnglishEntranceReadingQuestions(),
+  ],
+};
+
+Object.entries(completeMiddleThirdEnglishBanks).forEach(([level, bank]) => {
+  bank.forEach((question) => {
+    question.selectionGroup = middleEnglishSelectionGroup(question, level);
+  });
+});
+
+const expectedMiddleThirdEnglishQuestionCounts = { basic: 240, application: 72, entrance: 60 };
+Object.entries(expectedMiddleThirdEnglishQuestionCounts).forEach(([level, expectedCount]) => {
+  if (completeMiddleThirdEnglishBanks[level].length !== expectedCount) {
+    throw new Error(`中学3年英語の${level}問題数が想定と一致しません。`);
+  }
+});
 
 function generatedQuestion(unit, prompt, answer, distractors, explanation) {
   const options = [...new Set([String(answer), ...distractors.map(String)])].slice(0, 4);
@@ -2383,14 +2513,18 @@ function renderUnits() {
   const previous = [...unitOptions.querySelectorAll("input:checked")]
     .filter((input) => input.dataset.region !== "true")
     .map((input) => input.value);
-  const units = [...new Set(availableQuestionsForSelection().map((question) => question.unit))];
+  const units = [...new Set(availableQuestionsForSelection().map(unitSelectionName))];
   const selectedUnits = previous.filter((unit) => units.includes(unit));
   const isEntrancePractice = gradeSelect.value === "小6" && subjectSelect.value === "math" &&
     sixthGradeMathLevelSelect.value === "entrance";
+  const isMiddleEnglish = isMiddleThirdEnglish();
+  const middleEnglishLevel = middleThirdEnglishLevelSelect.value;
   unitFieldLegend.textContent = isEntrancePractice
     ? "県・学校（複数選択できます）"
-    : "単元（複数選択できます）";
-  unitOptions.setAttribute("aria-label", isEntrancePractice ? "受験先" : "単元");
+    : isMiddleEnglish
+      ? `${middleEnglishLevel === "basic" ? "分野" : "問題の種類"}（複数選択できます）`
+      : "単元（複数選択できます）";
+  unitOptions.setAttribute("aria-label", isEntrancePractice ? "受験先" : isMiddleEnglish ? "問題の種類" : "単元");
   const unitLabels = units.map((unit) => {
     const label = document.createElement("label");
     label.className = "unit-option";
@@ -2458,6 +2592,10 @@ function availableQuestionsForSelection() {
     : [gradeQuestionForSubject, ...questions[stage][subjectSelect.value]];
 }
 
+function unitSelectionName(question) {
+  return question.selectionGroup || question.unit;
+}
+
 function isMiddleThirdEnglish() {
   return gradeSelect.value === "中3" && subjectSelect.value === "english";
 }
@@ -2473,7 +2611,7 @@ function updateQuestionCountLimit() {
   }
   const selectedUnits = schoolCheckboxes.filter((input) => input.checked).map((input) => input.value);
   const availableCount = availableQuestionsForSelection()
-    .filter((question) => selectedUnits.includes(question.unit)).length;
+    .filter((question) => selectedUnits.includes(unitSelectionName(question))).length;
   const startButton = document.querySelector("#start-button");
   const limitMessage = document.querySelector("#setup-question-limit");
   const unitCheckboxes = checkboxes;
@@ -2520,9 +2658,9 @@ function startQuiz() {
   const isEntrancePractice = isSixthGradeMath && sixthGradeMathLevelSelect.value === "entrance";
   const isMiddleEnglishPractice = isMiddleThirdEnglish();
   const middleEnglishLevelName = {
-    standard: "標準",
+    basic: "基本",
     application: "応用",
-    entrance: "受験",
+    entrance: "受験対策",
   }[middleThirdEnglishLevelSelect.value];
   if (isSixthGradeMath) {
     customQuestionBanks.小6.math = makeRandomSixthGradeMathQuestions(
@@ -2534,11 +2672,30 @@ function startQuiz() {
     .filter((input) => input.dataset.region !== "true")
     .map((input) => input.value);
   const availableQuestions = availableQuestionsForSelection()
-    .filter((question) => selectedUnits.includes(question.unit));
+    .filter((question) => selectedUnits.includes(unitSelectionName(question)));
   const requestedCount = questionCountInput.valueAsNumber;
   if (availableQuestions.length === 0 || !Number.isSafeInteger(requestedCount) ||
       requestedCount < 1 || requestedCount > availableQuestions.length) {
     return;
+  }
+  const shuffledAvailableQuestions = shuffled(availableQuestions);
+  let selectedQuestions = shuffledAvailableQuestions.slice(0, requestedCount);
+  if (isMiddleEnglishPractice && middleThirdEnglishLevelSelect.value === "entrance") {
+    const seenPassages = new Set();
+    selectedQuestions = [];
+    shuffledAvailableQuestions.forEach((question) => {
+      if (selectedQuestions.length >= requestedCount) return;
+      if (question.passageId && seenPassages.has(question.passageId)) return;
+      if (question.passageId) seenPassages.add(question.passageId);
+      selectedQuestions.push(question);
+    });
+    if (selectedQuestions.length < requestedCount) {
+      shuffledAvailableQuestions.forEach((question) => {
+        if (selectedQuestions.length < requestedCount && !selectedQuestions.includes(question)) {
+          selectedQuestions.push(question);
+        }
+      });
+    }
   }
   activeUnit = isEntrancePractice
     ? `受験対策：山口県：${selectedUnits.join("・")}`
@@ -2547,7 +2704,7 @@ function startQuiz() {
     : isMiddleEnglishPractice
     ? `英語${middleEnglishLevelName}：${selectedUnits.join("・")}`
     : selectedUnits.join("・");
-  activeQuestions = shuffled(availableQuestions).slice(0, requestedCount).map((question) => {
+  activeQuestions = selectedQuestions.map((question) => {
     if (question.writtenResponse) return { ...question };
     const options = shuffled(question.options.map((option, index) => ({
       option,
@@ -2783,7 +2940,7 @@ function chooseAnswer(selectedIndex) {
     if (index === question.answer) button.classList.add("correct");
     else if (index === selectedIndex) button.classList.add("incorrect");
   });
-  quizFeedback.textContent = `${isCorrect ? "せいかい！" : "おしい！"} ${question.explanation}`;
+  quizFeedback.textContent = `${isCorrect ? "せいかい！" : "おしい！"} 解説：${question.explanation}`;
   quizFeedback.classList.add(isCorrect ? "good" : "bad");
   quizNext.disabled = false;
   quizNext.textContent = questionIndex === activeQuestions.length - 1 ? "結果をみる" : "次の問題へ";
